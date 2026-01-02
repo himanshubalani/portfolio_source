@@ -190,7 +190,15 @@ class _projectsState extends State<projects> {
   }
 
   Widget mobileProjectsPage() {
-    return SingleChildScrollView(
+    return Stack(
+            children: [
+              AnimatedPillsBackground(
+                rows: 10,
+                columns: 24,
+                color: AppColors().lightPeach,
+                duration: const Duration(seconds: 4),
+              ),
+              SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Center(
         child: Column(
@@ -245,6 +253,8 @@ class _projectsState extends State<projects> {
               .toList(),
         ),
       ),
-    );
+    )
+            ],
+          );
   }
 }

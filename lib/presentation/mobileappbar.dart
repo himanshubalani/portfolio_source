@@ -11,28 +11,55 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Determine Theme
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 2. Define Colors
+    final Color bgColor = isDark ? Colors.black : Colors.white;
+    final Color fgColor = isDark ? Colors.white : Colors.black;
+
     return SafeArea(
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: null,
         scrolledUnderElevation: 10,
-        backgroundColor: Colors.white,
-        title: const AutoSizeText(
+        backgroundColor: bgColor, // Dynamic Background
+        elevation: 0,
+        title: AutoSizeText(
           'himanshubalani',
           style: TextStyle(
-            color: Colors.black,
+            color: fgColor, // Dynamic Text
             fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        shape: const RoundedRectangleBorder(
-          side: BorderSide(style: BorderStyle.solid, color: Colors.black, width: 2),
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+              style: BorderStyle.solid,
+              color: fgColor, // Dynamic Border
+              width: 2),
         ),
         actions: <Widget>[
           _appBarButton(
-            onPressed: () => launchUrlString('https://flowcv.com/resume/ndw4bwkh38'),
+            onPressed: () =>
+                launchUrlString('https://flowcv.com/resume/ndw4bwkh38'),
             label: 'resume',
+            textColor: fgColor,
           ),
-          _menuIconButton(context),
+          // Dark Mode Toggle
+          IconButton(
+            onPressed: () {
+              Get.changeThemeMode(
+                isDark ? ThemeMode.light : ThemeMode.dark,
+              );
+            },
+            icon: Icon(
+              isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+              color: fgColor,
+              size: 20,
+            ),
+          ),
+          _menuIconButton(context, fgColor, bgColor),
         ],
       ),
     );
@@ -41,64 +68,69 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget _appBarButton({
     required VoidCallback onPressed,
     required String label,
+    required Color textColor,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: TextButton(
-        onPressed: onPressed,
-        child: const Text(
-          'resume',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 15,
-          ),
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        label,
+        style: TextStyle(
+          color: textColor,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
   }
 
-  Widget _menuIconButton(BuildContext context) {
+  Widget _menuIconButton(BuildContext context, Color fgColor, Color bgColor) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20.0),
+      padding: const EdgeInsets.only(right: 12.0),
       child: GestureDetector(
         onTap: () {},
         child: IconButton(
-          color: Colors.black,
+          color: fgColor,
           icon: const Icon(Icons.menu, size: 26.0),
           onPressed: () {
-            _showPopupMenu(context);
+            _showPopupMenu(context, fgColor, bgColor);
           },
         ),
       ),
     );
   }
 
-  void _showPopupMenu(BuildContext context) {
+  void _showPopupMenu(BuildContext context, Color fgColor, Color bgColor) {
     showMenu(
-      color: Colors.white,
+      color: bgColor, // Dynamic Menu Background
       elevation: 0.0,
       context: context,
       position: const RelativeRect.fromLTRB(1000.0, 70.0, 0.0, 0.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: const BorderSide(width: 2)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+        side: BorderSide(width: 2, color: fgColor), // Dynamic Menu Border
+      ),
       items: [
-        _popupMenuItem('home', () => Get.toNamed('/home')),
-        _popupMenuItem('about', () => Get.toNamed('/about')),
-        _popupMenuItem('blog', () => launchUrlString('https://himanshubalani.hashnode.dev/')),
-        _popupMenuItem('projects', () => Get.toNamed('/projects')),
-        _popupMenuItem('socials', () => Get.toNamed('/socials')),
+        _popupMenuItem('home', () => Get.toNamed('/home'), fgColor),
+        _popupMenuItem('about', () => Get.toNamed('/about'), fgColor),
+        _popupMenuItem('blog',
+            () => launchUrlString('https://himanshubalani.hashnode.dev/'), fgColor),
+        _popupMenuItem('projects', () => Get.toNamed('/projects'), fgColor),
+        _popupMenuItem('socials', () => Get.toNamed('/socials'), fgColor),
       ],
     );
   }
 
-  PopupMenuItem<String> _popupMenuItem(String value, VoidCallback onTap) {
+  PopupMenuItem<String> _popupMenuItem(
+      String value, VoidCallback onTap, Color textColor) {
     return PopupMenuItem(
       onTap: onTap,
       value: value,
       child: Text(
         value,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: textColor, // Dynamic Item Text
           fontSize: 15,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
