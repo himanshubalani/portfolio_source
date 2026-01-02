@@ -180,7 +180,15 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   Widget mobileAboutpage() {
-    return SingleChildScrollView(
+    return Stack(
+            children: [
+              AnimatedPillsBackground(
+                rows: 10,
+                columns: 24,
+                color: AppColors().skyBlue,
+                duration: const Duration(seconds: 4),
+              ),
+              SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Column(
@@ -239,7 +247,9 @@ class _AboutPageState extends State<AboutPage> {
                     child: e))
                 .toList(),
           ),
-        ));
+        ))
+            ],
+          );
   }
 
   Widget _aboutDesc() {
@@ -267,7 +277,9 @@ class _AboutPageState extends State<AboutPage> {
                     fontSize: Get.width <= 900 ? 12.sp : 4.sp,
                     fontWeight: FontWeight.normal,
                     fontFamily: GoogleFonts.rubik().fontFamily,
-                    color: Colors.black,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     height: 1.8,
                   ),
                 );

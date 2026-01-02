@@ -176,7 +176,9 @@ AnimatedPillsBackground(
                           width: 100.w,
                             height: 25.w,
                             fontsize: 10.sp,
-                            color: AppColors().white,
+                            color: Theme.of(context).brightness == Brightness.light
+                                ? AppColors().white
+                                : AppColors().primaryPurple,
                           ),
                       ],
                     ),
@@ -200,7 +202,12 @@ AnimatedPillsBackground(
   Widget mobileHomepage() {
     return Stack(
       children: [
-        // const CustomSnackbarContainer(),
+              AnimatedPillsBackground(
+                rows: 10,
+                columns: 24,
+                color: AppColors().discord,
+                duration: const Duration(seconds: 4),
+              ),
         Flex(
           direction: Axis.horizontal,
           children: [
@@ -226,8 +233,10 @@ AnimatedPillsBackground(
                         width: 300.w,
                         height: 75.w,
                         fontsize: 30.w,
-                        color: AppColors().white,
-                      ),
+                        color: Theme.of(context).brightness == Brightness.light
+                                ? AppColors().white
+                                : AppColors().primaryPurple,
+                          ),
                     SizedBox(
                       height: 25.h,
                     ),

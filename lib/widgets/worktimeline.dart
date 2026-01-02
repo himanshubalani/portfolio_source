@@ -15,26 +15,35 @@ class WorkExpContainer extends StatelessWidget {
       required this.color,
       required this.role,
       required this.duration,
-      /*required this.description, */ required this.techstack});
+      required this.techstack});
 
   final String companyname;
   final String role;
   final String duration;
   final String techstack;
-  // final String description;
-  final width;
-  final onTap;
+  final double? width; // Fixed type to double?
+  final VoidCallback? onTap; // Fixed type to VoidCallback?
   final Color color;
 
   @override
   Widget build(BuildContext context) {
-//    double descfontsize = MediaQuery.of(context).size.width <= 900 ? 12.w : 5.w;
+    // 1. Determine Theme State
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 2. Define Dynamic Colors
+    // Light Mode: Color BG, Black Border, Black Text
+    // Dark Mode: Black BG, Color Border, Color Text
+    final Color bgColor = isDark ? AppColors().black : color;
+    final Color borderColor = isDark ? color : Colors.black;
+    final Color textColor = isDark ? color : Colors.black;
+
     double rolefontsize = MediaQuery.of(context).size.width <= 900 ? 14.w : 6.w;
     double companyfontsize =
         MediaQuery.of(context).size.width <= 900 ? 12.w : 5.w;
     double durationfontsize =
         MediaQuery.of(context).size.width <= 900 ? 10.w : 4.w;
     var fontFamily = GoogleFonts.outfit().fontFamily;
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: InkWell(
@@ -45,12 +54,16 @@ class WorkExpContainer extends StatelessWidget {
             maxWidth: 900,
           ),
           decoration: BoxDecoration(
-            color: color,
+            color: bgColor, // Dynamic Background
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: Colors.black, // Border color
-              width: 3.0, // Border width
+              color: borderColor, // Dynamic Border
+              width: 3.0,
             ),
+             // Optional: Add shadow matching the border for extra pop in dark mode
+             boxShadow: isDark
+                ? [BoxShadow(color: borderColor.withOpacity(0.3), blurRadius: 0, offset: const Offset(4, 4))]
+                : null,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -64,6 +77,7 @@ class WorkExpContainer extends StatelessWidget {
                   style: TextStyle(
                       fontSize: rolefontsize,
                       fontFamily: fontFamily,
+                      color: textColor, // Dynamic Text Color
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -71,31 +85,24 @@ class WorkExpContainer extends StatelessWidget {
                   style: TextStyle(
                       fontSize: companyfontsize,
                       fontFamily: fontFamily,
+                      color: textColor, // Dynamic Text Color
                       fontWeight: FontWeight.w600),
-                      
                 ),
                 Text(
                   duration,
                   style: TextStyle(
                       fontSize: durationfontsize,
                       fontFamily: fontFamily,
+                      color: textColor, // Dynamic Text Color
                       fontWeight: FontWeight.w400),
                 ),
                 Text(techstack,
                     style: TextStyle(
                       fontSize: durationfontsize,
                       fontFamily: fontFamily,
+                      color: textColor, // Dynamic Text Color
                       fontWeight: FontWeight.w600,
                     )),
-                /* Text(
-                  description,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: descfontsize,
-                      fontFamily: fontFamily,
-                      fontWeight: FontWeight.w100
-                  ),
-                ) */
               ]
                   .map((e) =>
                       Padding(padding: const EdgeInsets.all(2.0), child: e))
@@ -115,30 +122,40 @@ class WorkTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Note: timeline_list handles the central line. 
+    // The "color" passed here is used for the dot background. 
+    // In dark mode, having colorful dots on a dark timeline looks good, 
+    // so we keep AppColors() as is.
+    
     List<TimelineModel> items = [
       TimelineModel(workExpFour(),
           position: TimelineItemPosition.random,
           iconBackground: AppColors().toolJetBlue,
-          icon: const Icon(Icons.edit_note_rounded)),
+          icon: const Icon(Icons.edit_note_rounded, color: Colors.white)),
       TimelineModel(workExpThree(),
           position: TimelineItemPosition.random,
           iconBackground: AppColors().darkPurple,
-          icon: const Icon(Icons.flutter_dash)),
+          icon: const Icon(Icons.flutter_dash, color: Colors.white)),
       TimelineModel(workExpTwo(),
           position: TimelineItemPosition.random,
           iconBackground: AppColors().rustyOrange,
-          icon: const Icon(Icons.api)),
+          icon: const Icon(Icons.api, color: Colors.white)),
       TimelineModel(workExpOne(),
           position: TimelineItemPosition.random,
           iconBackground: AppColors().darkRed,
-          icon: const Icon(Icons.flutter_dash)),
+          icon: const Icon(Icons.flutter_dash, color: Colors.white)),
     ];
     return Timeline(
       children: items,
       position: TimelinePosition.Left,
+      // Optional: You might want to customize the lineColor if the library supports it
+      lineColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
     );
   }
 }
+
+// Helper functions remain the same, they just pass the data
+// The coloring logic is now handled inside WorkExpContainer's build method
 
 Widget workExpOne() {
   return WorkExpContainer(
@@ -146,10 +163,7 @@ Widget workExpOne() {
       role: 'Flutter Developer Intern',
       duration: 'Nov 2021 - Feb 2022',
       techstack: 'Tech Stack: Flutter, Dart',
-      // description: '• Designed and created a quiz game targeted toward 3-5 year olds using the Flutter framework.'
-      //     '\n• Researched and improved the engagement to better suit the UI/UX of the app by 60%.'
-      //     '\n• Included over 10 audio and visual cues to achieve 80% user-engagement.',
-      width: 600,
+      width: 600.0,
       color: AppColors().lightPeach,
       onTap: () => launchUrlString(
           'https://www.linkedin.com/company/first-impression-technologies/about/'));
@@ -162,9 +176,6 @@ Widget workExpTwo() {
     duration: 'Jan 2023 - Mar 2023',
     techstack:
         'Tech Stack: Nodejs, Expressjs, MongoDB, REST APIs, Git, Postman',
-    // description:'• Acquired knowledge on APIs and their various applications.'
-    //     '\n• Developed a functional web application using Nodejs, Expressjs, and MongoDB.'
-    //     '\n• Authored 3 insightful technical blog posts documenting the entire fellowship experience.',
     color: AppColors().paleYellow,
     onTap: () => launchUrlString(
         'https://himanshubalani.hashnode.dev/my-experience-with-keploy-api-fellowship'),
@@ -178,10 +189,6 @@ Widget workExpThree() {
     duration: 'Sep 2023 - Nov 2023',
     techstack:
         'Tech Stack: Flutter, Dart, Figma, REST APIs, Git, Getx State Management',
-    // description: '•Converting Figma design into Flutter UI prototypes, ensuring accurate visual representation.'
-    //     '\n• Enhanced application efficiency by 20% through the implementation of Getx State Management.'
-    //     '\n• Optimized data retrieval with REST APIs.'
-    //     '\n• Contributed to three high-quality projects, showcasing teamwork and project management skills.',
     color: AppColors().lightLavender,
   );
 }
@@ -192,9 +199,6 @@ Widget workExpFour() {
     role: 'Technical Contert Writer Intern  ↗',
     duration: 'Oct 2024 - Jan 2025',
     techstack: 'Google Docs, Markdown, Research, SEO, Content Writing, User Experience',
-    // description: '• Wrote 10+ Articles on various topics like low-code, tools, and using ToolJet'
-    //     '\n• Conducted in-depth research on leadaing competitors to create high-quality content.'
-    //     '\n• Optimized articles and revamped them for SEO to increase organic traffic by 20%.',
     color: AppColors().royalBlue,
     onTap: () => launchUrlString(
         'https://himanshubalani.notion.site/My-Work-ToolJet-15022caf97e080d6850dd24468de50f7?pvs=4'),

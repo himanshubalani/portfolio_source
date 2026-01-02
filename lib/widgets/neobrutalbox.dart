@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/consts/style.dart';
 import 'package:portfolio/presentation/onhover.dart';
 
 class NeoBrutalBox extends StatelessWidget {
@@ -17,48 +18,60 @@ class NeoBrutalBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Check Theme
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 2. Define Colors based on Theme
+    final Color mainBgColor = isDark ? Colors.black : Colors.white;
+    final Color borderColor = isDark ? headerColor : Colors.black;
+    final Color shadowColor = isDark ? headerColor : Colors.black;
+    final Color boxCircleColor = isDark ? headerColor : Colors.white;
+
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: mainBgColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           width: 2,
+          color: borderColor, // Dynamic Border
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            color: shadowColor, // Dynamic Shadow
             spreadRadius: 2.0,
-            offset: Offset(4, 6),
+            offset: const Offset(4, 6),
           ),
         ],
       ),
       child: Column(
         children: [
+          // Header Section
           Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(18),
                 topRight: Radius.circular(18),
               ),
-              border: const Border(
+              border: Border(
                 bottom: BorderSide(
-                  color: Colors.black,
+                  color: borderColor, // Match the main border
                   width: 2,
                 ),
                 top: BorderSide(
-                  color: Colors.black,
+                  color: borderColor, 
                   width: 0,
                 ),
                 left: BorderSide(
-                  color: Colors.black,
+                  color: borderColor,
                   width: 0,
                 ),
                 right: BorderSide(
-                  color: Colors.black,
+                  color: borderColor,
                   width: 0,
                 ),
               ),
-              color: headerColor,
+              color: isDark ? AppColors().black : headerColor,
             ),
             width: double.infinity,
             child: Padding(
@@ -72,16 +85,19 @@ class NeoBrutalBox extends StatelessWidget {
                       fontSize:
                           MediaQuery.of(context).size.width <= 900 ? 20 : 5.w,
                       fontWeight: FontWeight.bold,
+                      //Text changes color, based on theme
+                      color: isDark ? headerColor : Colors.black,
                     ),
                   ),
                   const Spacer(),
-                  const BoxCircles(hoverEnabled: true,),
-                  const BoxCircles(hoverEnabled: true,),
-                  const BoxCircles(hoverEnabled: true,),
+                  BoxCircles(hoverEnabled: true, color: boxCircleColor,),
+                  BoxCircles(hoverEnabled: true,color: boxCircleColor,),
+                  BoxCircles(hoverEnabled: true,color: boxCircleColor,),
                 ],
               ),
             ),
           ),
+          // Body Section
           Container(
             padding: const EdgeInsets.all(12.0),
             child: containerChild,
@@ -94,12 +110,12 @@ class NeoBrutalBox extends StatelessWidget {
 
 class BoxCircles extends StatelessWidget {
   final bool hoverEnabled;
-  final Color? color; // optional color
+  final Color? color; // optional color override
 
   const BoxCircles({
     super.key,
     this.hoverEnabled = true,
-    this.color, // default: null → fallback to white
+    this.color, 
   });
 
   @override
@@ -107,16 +123,21 @@ class BoxCircles extends StatelessWidget {
     if (hoverEnabled) {
       return OnHover(
         builder: (bool isHovered) {
-          return _circle();
+          return _circle(context);
         },
       );
     } else {
-      return _circle();
+      return _circle(context);
     }
   }
 
-  Widget _circle() {
-    final baseColor = color ?? Colors.white;
+  Widget _circle(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    // Logic: 
+    // If color is provided manually, use it.
+    // Otherwise: Light Mode = White, Dark Mode = Black
+    final Color baseColor = color ?? (isDark ? Colors.black : Colors.white);
 
     return Container(
       width: 20,
@@ -124,10 +145,10 @@ class BoxCircles extends StatelessWidget {
       margin: const EdgeInsets.only(left: 2.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: baseColor.withOpacity(0.75), // opacity stays the same
+        color: baseColor.withOpacity(0.75),
         border: Border.all(
           width: 2,
-          color: Colors.black
+          color: Colors.black, 
         ),
       ),
     );

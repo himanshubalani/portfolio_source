@@ -15,34 +15,47 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: ScreenUtil.defaultSize,
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, Widget? child) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: GetMaterialApp(
-              routes: {
-                '/home': (context) => const HomePage(),
-                '/projects': (context) => const projects(),
-                '/about': (context) => const AboutPage(),
-                '/socials': (context) => const social(),
-              },
-              debugShowCheckedModeBanner: false,
-              title: 'Himanshu Balani Portfolio',
-              theme: ThemeData(
-                brightness: Brightness.dark,
-                useMaterial3: true,
-                fontFamily:
-                    GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily,
-              ),
-              home: const HomePage(),
+      designSize: ScreenUtil.defaultSize,
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, _) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Himanshu Balani Portfolio',
+
+            // 🔑 important
+            themeMode: ThemeMode.system,
+
+            theme: ThemeData(
+              brightness: Brightness.light,
+              useMaterial3: true,
+              fontFamily:
+                  GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily,
             ),
-          );
-        });
+
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              useMaterial3: true,
+              fontFamily:
+                  GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily,
+            ),
+
+            routes: {
+              '/home': (_) => const HomePage(),
+              '/projects': (_) => const projects(),
+              '/about': (_) => const AboutPage(),
+              '/socials': (_) => const social(),
+            },
+
+            home: const HomePage(),
+          ),
+        );
+      },
+    );
   }
 }

@@ -6,53 +6,68 @@ import '../presentation/onhover.dart';
 
 class NeoBrutalContainer extends StatelessWidget {
   final String text;
-  final fontsize;
-  final width;
-  final height;
-  final path;
-  final color;
+  final dynamic fontsize;
+  final dynamic width;
+  final dynamic height;
+  final String? path;
+  final Color color;
 
-  const NeoBrutalContainer(
-      {super.key,
-      required this.text,
-      required this.width,
-      required this.height,
-      required this.fontsize,
-      this.path,
-      this.color,
-      });
+  const NeoBrutalContainer({
+    super.key,
+    required this.text,
+    required this.width,
+    required this.height,
+    required this.fontsize,
+    this.path,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // 1. Check Theme
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 2. Define Colors
+    // Light Mode: Color BG, Black Elements
+    // Dark Mode: Black BG, Color Elements (Neon look)
+    final Color bgColor = isDark ? Colors.black : color;
+    final Color accentColor = isDark ? color : Colors.black;
+
     return OnHover(builder: (bool isHovered) {
       return InkWell(
-        onTap: () => Get.toNamed(path),
+        onTap: () {
+          if (path != null) {
+            Get.toNamed(path!);
+          }
+        },
         child: Container(
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: color,
+            color: bgColor, // Dynamic Background
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: AppColors().black,
+                color: accentColor, // Dynamic Shadow
                 spreadRadius: 2.0,
-                offset: const Offset(3, 3), // Shadow position, top left
+                offset: const Offset(3, 3), 
               ),
             ],
             border: Border.all(
-              color: AppColors().black, // Border color
-              width: 3.0, // Border width
+              color: accentColor, // Dynamic Border
+              width: 3.0, 
             ),
           ),
           child: Center(
             child: Text(
               text,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                // fontFamily: GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily,
-                color: AppColors().black,
+                // Dynamic Text Color (Matches border in dark mode)
+                color: accentColor,
                 fontSize: fontsize,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
