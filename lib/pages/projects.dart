@@ -21,14 +21,13 @@ class projects extends StatefulWidget {
 
 class _projectsState extends State<projects> {
   bool get isDark {
-    final isLight = Theme.of(context).brightness == Brightness.light;
-    return isLight;
+    return Theme.of(context).brightness == Brightness.dark;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDark ? AppColors().lightPeach : AppColors().black, // Use the lightPeach color
+      backgroundColor: isDark ? AppColors().black : AppColors().lightPeach, // Use the lightPeach color
       appBar: const Appbar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -155,7 +154,7 @@ class _projectsState extends State<projects> {
                                     fontWeight: FontWeight.bold)
                                 .fontFamily,
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.black : Colors.white,
+                            color: isDark ? AppColors().lightPeach : AppColors().black,
                           ),
                         ),
                         SizedBox(height: 10.w),
@@ -177,7 +176,7 @@ class _projectsState extends State<projects> {
                               .fontFamily,
                       fontSize: 25.w,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.black : AppColors().lightPeach,
+                      color: isDark ? AppColors().lightPeach : AppColors().black,
                     ),
                   ),
                 ),
@@ -211,8 +210,9 @@ class _projectsState extends State<projects> {
                 fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                     .fontFamily,
                 fontWeight: FontWeight.bold,
-                color: isDark ? Colors.black : AppColors().lightPeach),
+                color: isDark ? AppColors().lightPeach : AppColors().black,
               ),
+            ),
             Column(
               children: projectCards
                   .map((e) => Padding(
@@ -244,7 +244,7 @@ class _projectsState extends State<projects> {
                 fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                     .fontFamily,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: isDark ? AppColors().lightPeach : AppColors().black,
               ),
             ),
           ]

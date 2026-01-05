@@ -11,8 +11,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../consts/style.dart';
 
-class socialBox extends StatelessWidget {
-  const socialBox({super.key});
+class SocialBox extends StatelessWidget {
+  const SocialBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class socialBox extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          sociallinkbutton(
+          SocialLinkButton(
             link: pageWidth <= 900
                 ? 'mailto:hello@himanshubalani.com'
                 : 'https://mail.google.com/mail/u/0/?to=hello@himanshubalani.com&fs=1&tf=cm',
@@ -34,7 +34,7 @@ class socialBox extends StatelessWidget {
             pfcolor: AppColors().email,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link:
                 'https://github.com/himanshubalani/?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.github,
@@ -42,7 +42,7 @@ class socialBox extends StatelessWidget {
             pfcolor: AppColors().github,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link:
                 'http://peerlist.io/himanshubalani?ref=portfolio&utm_medium=website',
             icon: 'assets/images/peerlist_icon2.png',
@@ -50,14 +50,14 @@ class socialBox extends StatelessWidget {
             pfcolor: AppColors().peerlist,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link: 'https://www.linkedin.com/in/himanshubalani/',
             icon: FontAwesomeIcons.linkedin,
             pfname: 'linkedin.com/in/himanshubalani',
             pfcolor: AppColors().linkedin,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link:
                 'https://twitter.com/himanshubalani5?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.xTwitter,
@@ -65,14 +65,14 @@ class socialBox extends StatelessWidget {
             pfcolor: AppColors().xtwitter,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link: 'https://discord.com/users/759807486831099928',
             icon: SimpleIcons.discord,
             pfname: 'discord.com/users/himanshubalani',
             pfcolor: AppColors().discord,
             vmainaxissize: MainAxisSize.max,
           ),
-          sociallinkbutton(
+          SocialLinkButton(
             link:
                 'http://instagram.com/himanshubalani?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.instagram,
@@ -91,14 +91,14 @@ class socialBox extends StatelessWidget {
   }
 }
 
-class sociallinkbutton extends StatelessWidget {
+class SocialLinkButton extends StatelessWidget {
   final String link;
   final dynamic icon;
   final String pfname;
   final Color pfcolor;
   final MainAxisSize vmainaxissize;
 
-  const sociallinkbutton({
+  const SocialLinkButton({
     super.key,
     required this.link,
     required this.icon,
@@ -113,7 +113,7 @@ class sociallinkbutton extends StatelessWidget {
   Widget build(BuildContext context) {
     // ADDED: This ensures it checks the theme every time the UI rebuilds
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     // ADDED: Get width directly here instead of relying on static variable
     final double pageWidth = MediaQuery.of(context).size.width;
 
@@ -145,8 +145,7 @@ class sociallinkbutton extends StatelessWidget {
                     pfname,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize:
-                          (pageWidth <= 900 ? 12.sp : 5.sp).clamp(10, 18),
+                      fontSize: (pageWidth <= 900 ? 12.sp : 5.sp).clamp(10, 18),
                       fontFamily:
                           GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                               .fontFamily,
@@ -176,8 +175,7 @@ class sociallinkbutton extends StatelessWidget {
   }
 
   Widget _buildIcon(double pageWidth) {
-    final double iconSize =
-        (pageWidth <= 900 ? 20.w : 5.w).clamp(12, 24);
+    final double iconSize = (pageWidth <= 900 ? 20.w : 5.w).clamp(12, 24);
 
     if (icon is IconData) {
       return Icon(

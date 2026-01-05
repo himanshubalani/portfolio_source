@@ -17,8 +17,8 @@ class social extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? AppColors().lightPink
-              : AppColors().black,
+          ? AppColors().lightPink
+          : AppColors().black,
       appBar: const Appbar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -37,11 +37,9 @@ class social extends StatelessWidget {
 class DesktopSocialPage extends StatelessWidget {
   const DesktopSocialPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    final bool isDark =
-    Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Flex(
       direction: Axis.horizontal,
@@ -64,7 +62,7 @@ class DesktopSocialPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const socialBox(),
+                        const SocialBox(),
                       ]
                           .map((e) => Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -90,7 +88,6 @@ class DesktopSocialPage extends StatelessWidget {
                       fontSize: 25.w,
                       fontWeight: FontWeight.bold,
                       color: isDark ? AppColors().lightPink : Colors.black,
-
                     ),
                   ),
                 ),
@@ -108,19 +105,16 @@ class MobileSocialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark =
-    Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Stack(
-      children: [
-        Positioned(
+    return Stack(children: [
+      Positioned(
           child: AnimatedPillsBackground(
-            rows: 10,
-          columns: 14,
-          color: AppColors().lavenderPink,
-        )
-        ),
-SingleChildScrollView(
+        rows: 10,
+        columns: 14,
+        color: AppColors().lavenderPink,
+      )),
+      SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Column(
@@ -139,7 +133,7 @@ SingleChildScrollView(
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const socialBox(),
+                  const SocialBox(),
                 ]
                     .map((e) => Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -159,7 +153,6 @@ SingleChildScrollView(
           ),
         ),
       ),
-      ]
-    );
+    ]);
   }
 }

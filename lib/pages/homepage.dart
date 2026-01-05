@@ -25,14 +25,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late FocusNode _focusNode;
+
+  bool get isDark {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      autofocus: true,
-      focusNode: FocusNode(),
-      onKey: (event) {
-        if (event is RawKeyDownEvent) {
+    return KeyboardListener(
+      autofocus: true, // Keep autofocus true to ensure it listens to keyboard events
+      focusNode: _focusNode, // Use the instance variable
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent) {
           // Ensuring it fires only once per press
           if (event.logicalKey == LogicalKeyboardKey.keyD) {
             launchUrlString(
@@ -47,9 +58,7 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
-          backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? AppColors().primaryPurple
-              : AppColors().black,
+          backgroundColor: isDark ? AppColors().black : AppColors().primaryPurple,
           appBar: const Appbar(),
           body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -64,6 +73,12 @@ class _HomePageState extends State<HomePage> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat),
     );
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose(); // Dispose the FocusNode when the widget is removed
+    super.dispose();
   }
 
 //  @override
@@ -158,9 +173,7 @@ AnimatedPillsBackground(
                           mainText: 'Hello there, ',
                           smallText: 'General Kenobi',
                           textColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? AppColors().black
-                                  : AppColors().white,
+                              isDark ? AppColors().primaryPurple : AppColors().black,
                         ),
                         Text(
                           'I am ',
@@ -168,6 +181,9 @@ AnimatedPillsBackground(
                             fontFamily: kfontfamily,
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? AppColors().primaryPurple
+                                : AppColors().black,
                           ),
                         ),
                         NeoBrutalContainer(
@@ -176,10 +192,10 @@ AnimatedPillsBackground(
                           width: 100.w,
                             height: 25.w,
                             fontsize: 10.sp,
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? AppColors().white
-                                : AppColors().primaryPurple,
-                          ),
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? AppColors().primaryPurple
+                                : AppColors().white,
+                          )
                       ],
                     ),
                     SizedBox(
@@ -306,7 +322,7 @@ AnimatedPillsBackground(
                         size: 15.w.clamp(18, 24),
                       ),
                       onPressed: () =>
-                          launchUrlString(social['url']! as String),
+                      launchUrlString(social['url']! as String),
                     );
                   },
                 ),

@@ -28,8 +28,8 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? AppColors().skyBlue
-              : AppColors().black,
+          ? AppColors().skyBlue
+          : AppColors().black,
       appBar: const Appbar(),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -181,75 +181,80 @@ class _AboutPageState extends State<AboutPage> {
 
   Widget mobileAboutpage() {
     return Stack(
-            children: [
-              AnimatedPillsBackground(
-                rows: 10,
-                columns: 24,
-                color: AppColors().skyBlue,
-                duration: const Duration(seconds: 4),
-              ),
-              SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'about',
-                style: TextStyle(
-                    fontFamily:
-                        GoogleFonts.quicksand(fontWeight: FontWeight.bold)
-                            .fontFamily,
-                    fontSize: 50.spMin,
-                    color: Colors.black),
-              ),
-              ProfileImage(),
-              NeoBrutalContainer(
-                  text: "let's chat",
-                  width: 150.w,
-                  height: 50.w,
-                  fontsize: 20.sp,
-                  path: '/socials',
-                  color: AppColors().lightPink),
-              _aboutDesc(),
-              RepaintBoundary(child: SkillsBento()),
-              SizedBox(height: 10.w),
-              const OtherLinks(),
-              SizedBox(height: 10.w),
-              Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width <= 900
-                      ? 300.w
-                      : MediaQuery.of(context).size.width / 2.8,
-                ),
-                child: NeoBrutalBox(
-                    headerText: 'work experience',
-                    headerColor: Colors.blueAccent,
-                    containerChild: Container(
-                        color: Colors.white,
-                        constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height / 1.6,
+      children: [
+        AnimatedPillsBackground(
+          rows: 10,
+          columns: 24,
+          color: AppColors().skyBlue,
+          duration: const Duration(seconds: 4),
+        ),
+        SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'about',
+                    style: TextStyle(
+                        fontFamily:
+                            GoogleFonts.quicksand(fontWeight: FontWeight.bold)
+                                .fontFamily,
+                        fontSize: 50.spMin,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors().skyBlue
+                            : AppColors().black,
                         ),
-                        child: const RepaintBoundary(child: WorkTimeline()))),
+                  ),
+                  ProfileImage(),
+                  NeoBrutalContainer(
+                      text: "let's chat",
+                      width: 150.w,
+                      height: 50.w,
+                      fontsize: 20.sp,
+                      path: '/socials',
+                      color: AppColors().lightPink),
+                  _aboutDesc(),
+                  RepaintBoundary(child: SkillsBento()),
+                  SizedBox(height: 10.w),
+                  const OtherLinks(),
+                  SizedBox(height: 10.w),
+                  Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width <= 900
+                          ? 300.w
+                          : MediaQuery.of(context).size.width / 2.8,
+                    ),
+                    child: NeoBrutalBox(
+                        headerText: 'work experience',
+                        headerColor: Colors.blueAccent,
+                        containerChild: Container(
+                            color: Colors.white,
+                            constraints: BoxConstraints(
+                              maxHeight:
+                                  MediaQuery.of(context).size.height / 1.6,
+                            ),
+                            child:
+                                const RepaintBoundary(child: WorkTimeline()))),
+                  ),
+                  SizedBox(height: 10.w),
+                  NeoBrutalContainer(
+                      text: "see projects next",
+                      width: 250.w,
+                      height: 50.w,
+                      fontsize: 20.sp,
+                      path: '/projects',
+                      color: AppColors().lightPeach),
+                  SizedBox(height: 10.w),
+                ]
+                    .map((e) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: e))
+                    .toList(),
               ),
-              SizedBox(height: 10.w),
-              NeoBrutalContainer(
-                  text: "see projects next",
-                  width: 250.w,
-                  height: 50.w,
-                  fontsize: 20.sp,
-                  path: '/projects',
-                  color: AppColors().lightPeach),
-              SizedBox(height: 10.w),
-            ]
-                .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: e))
-                .toList(),
-          ),
-        ))
-            ],
-          );
+            ))
+      ],
+    );
   }
 
   Widget _aboutDesc() {
@@ -327,13 +332,18 @@ class OtherLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       spacing: Get.width <= 900 ? 4 : 12,
-      runSpacing:  Get.width <= 900 ? 4 : 15,
+      runSpacing: Get.width <= 900 ? 4 : 15,
       runAlignment: WrapAlignment.end,
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.end,
       children: [
-                sociallinkbutton(link: "https://album.himanshubalani.com?utm_source=portfolio", icon: FontAwesomeIcons.recordVinyl, pfname: "photo album", pfcolor: AppColors().darkPurple, vmainaxissize: MainAxisSize.min),
-        sociallinkbutton(
+        SocialLinkButton(
+            link: "https://album.himanshubalani.com?utm_source=portfolio",
+            icon: FontAwesomeIcons.recordVinyl,
+            pfname: "photo album",
+            pfcolor: AppColors().darkPurple,
+            vmainaxissize: MainAxisSize.min),
+        SocialLinkButton(
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
           icon: SimpleIcons.notion,
@@ -341,7 +351,7 @@ class OtherLinks extends StatelessWidget {
           pfcolor: AppColors().black,
           vmainaxissize: MainAxisSize.min,
         ),
-        sociallinkbutton(
+        SocialLinkButton(
           link:
               'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website',
           icon: SimpleIcons.sessionize,
@@ -349,14 +359,14 @@ class OtherLinks extends StatelessWidget {
           pfcolor: AppColors().sessionize,
           vmainaxissize: MainAxisSize.min,
         ),
-        sociallinkbutton(
-          link: "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
+        SocialLinkButton(
+          link:
+              "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
           icon: SimpleIcons.orcid,
           pfname: 'published thesis on LLMs',
           pfcolor: AppColors().orchid,
           vmainaxissize: MainAxisSize.min,
         ),
-
       ],
     );
   }

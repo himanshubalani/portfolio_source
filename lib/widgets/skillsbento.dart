@@ -28,7 +28,7 @@ class SkillsBento extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final Color mainColor =
-        isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000);
+        isDark ? AppColors().mangoYellow : const Color(0xFF000000);
     final Color boxCircleColor = isDark ? mainColor : Colors.white;
 
     return Column(
@@ -40,20 +40,14 @@ class SkillsBento extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: isDark ? AppColors().black : const Color(0xFFFFFF00),
-              border: Border.all(
-                  color: isDark
-                      ? const Color(0xFFFBFF2F)
-                      : const Color(0xFF000000),
-                  width: 2.0),
+              border: Border.all(color: mainColor, width: 2.0),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(18.0),
                 topRight: Radius.circular(18.0),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: isDark
-                      ? const Color(0xFFFBFF2F)
-                      : const Color(0xFF000000),
+                  color: mainColor,
                   spreadRadius: 0.0,
                   offset: const Offset(6, 6),
                 ),
@@ -87,12 +81,12 @@ class SkillsBento extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color:
-                    isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000),
+                    isDark ? AppColors().mangoYellow : const Color(0xFF000000),
                 spreadRadius: 0.0,
                 offset: const Offset(6, 6),
               ),
             ],
-            color: isDark ? AppColors().black : const Color(0xFFFBFF2F),
+            color: isDark ? AppColors().black : AppColors().mangoYellow,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(18.0),
               bottomLeft: Radius.circular(18.0),
@@ -138,7 +132,7 @@ class SkillsBento extends StatelessWidget {
         borderRadius: borderradius,
         color: isDark ? AppColors().black : AppColors().white,
         border: Border.all(
-            color: isDark ? const Color(0xFFFBFF2F) : AppColors().black,
+            color: isDark ? AppColors().mangoYellow : AppColors().black,
             width: 2.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 9.0),
@@ -148,7 +142,7 @@ class SkillsBento extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: isDark ? const Color(0xFFFBFF2F) : AppColors().black,
+              color: isDark ? AppColors().mangoYellow : AppColors().black,
               fontSize: pageWidth <= 900 ? 12.w : 5.w.clamp(10, 24),
               fontFamily: GoogleFonts.outfit().fontFamily,
             ),

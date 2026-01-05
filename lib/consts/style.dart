@@ -114,6 +114,7 @@ class AppColors {
   Color lightBlue = const Color(0xFFB4D6F8);
   Color mediumTeal = const Color(0xFFA7DBD8);
   Color lightLimeGreen = const Color(0xFFBAFCA2);
+  Color mangoYellow = const Color(0xFFFBFF2F);
   Color brightOrange = const Color(0xFFFFDB58);
   Color coralRed = const Color(0xFFFFA07A);
   Color softPink = const Color(0xFFFFC0CB);

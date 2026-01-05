@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/consts/style.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class ProfileImage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double frameWidth = (screenWidth * 0.15).clamp(200.0, 280.0);
     double frameHeight = frameWidth * 1.2;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
       child: Transform.rotate(
@@ -17,9 +19,34 @@ class ProfileImage extends StatelessWidget {
           width: frameWidth,
           height: frameHeight,
           decoration: BoxDecoration(
-            color: const Color(0xFFFBFBFB), 
-            border: Border.all(color: Colors.black, width: 3),
-            borderRadius: BorderRadius.circular(5.r),
+  color: isDark ? AppColors().black : AppColors().offwhite,
+  borderRadius: BorderRadius.circular(5.r),
+  border: Border.all(
+    color: isDark
+        ? AppColors().lightSeafoamGreen
+        : AppColors().black,
+    width: 3,
+  ),
+  boxShadow: isDark
+    ? [
+        BoxShadow(
+          color: AppColors().lightSeafoamGreen.withOpacity(0.9),
+          blurRadius: 12,
+          spreadRadius: 1,
+        ),
+        BoxShadow(
+          color: AppColors().lightSeafoamGreen.withOpacity(0.5),
+          blurRadius: 30,
+          spreadRadius: 6,
+        ),
+        BoxShadow(
+          color: AppColors().lightSeafoamGreen.withOpacity(0.25),
+          blurRadius: 60,
+          spreadRadius: 12,
+        ),
+      ]
+    : [],
+
           ),
           padding: EdgeInsets.only(
             top: 5.h,
@@ -31,16 +58,15 @@ class ProfileImage extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             borderRadius: BorderRadius.all(Radius.circular(2.r)),
             child: Container(
-              decoration: BoxDecoration(border: Border.all(width: 2)),
-      
-            child: Image.asset(
-              'assets/images/profileimage2.webp',
-              fit: BoxFit.cover,
-              width: double.infinity,
+              decoration: BoxDecoration(border: Border.all(color: isDark ? AppColors().lightSeafoamGreen : AppColors().black, width: 2)),
+              child: Image.asset(
+                'assets/images/profileimage2.webp',
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
           ),
         ),
-          ),
       ),
     );
   }
