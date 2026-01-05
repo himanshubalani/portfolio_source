@@ -32,11 +32,17 @@ class DarkModeToggle extends StatelessWidget {
                   ),
                 );
               },
-              child: Icon(
-                isDark ? Icons.light_mode : Icons.lightbulb_outline_rounded,
-                key: ValueKey(isDark),
-                size: 28,
-                color: isDark ? AppColors().brightOrange : AppColors().black,
+              child: Tooltip(
+                message: isDark ? 'En-lighten' : 'Break the bulb',
+                decoration: TooltipStyles.decoration(isDark: isDark),
+                textStyle: TooltipStyles.textStyle(isDark: isDark),
+                child: Icon(
+                  isDark ? Icons.light_mode : Icons.lightbulb_outline_rounded,
+                  key: ValueKey(isDark),
+                  size: 28,
+                  color: isDark ? AppColors().brightOrange : AppColors().black,
+                  semanticLabel: isDark ? 'Light Mode' : 'Dark Mode',
+                ),
               ),
             ),
           ),

@@ -186,16 +186,29 @@ AnimatedPillsBackground(
                                 : AppColors().black,
                           ),
                         ),
-                        NeoBrutalContainer(
-                          text: '   Himanshu Balani ↵',
-                          path: '/about',
-                          width: 100.w,
-                            height: 25.w,
-                            fontsize: 10.sp,
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? AppColors().primaryPurple
-                                : AppColors().white,
-                          )
+                        Tooltip(
+                          message: "Click me!",
+                          decoration: TooltipStyles.decoration(isDark: isDark).copyWith(
+                            border: Border.all(
+                              color: isDark ? AppColors().primaryPurple : AppColors().black,
+                              width: 3,
+                            ),
+                          ),
+                          textStyle: TooltipStyles.textStyle(isDark: isDark).copyWith(
+                            color: isDark ? AppColors().primaryPurple : AppColors().black,
+                          ),
+                          verticalOffset: -20.sp,
+                          child: NeoBrutalContainer(
+                            text: '   Himanshu Balani ↵',
+                            path: '/about',
+                            width: 100.w,
+                              height: 25.w,
+                              fontsize: 10.sp,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? AppColors().primaryPurple
+                                  : AppColors().white,
+                            ),
+                        )
                       ],
                     ),
                     SizedBox(

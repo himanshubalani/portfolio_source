@@ -65,25 +65,35 @@ class AppStyles {
       ),
     );
   }
+}
 
-  BoxDecoration tooltipDecoration() {
+class TooltipStyles {
+  static BoxDecoration decoration({required bool isDark}) {
     return BoxDecoration(
-      color: AppColors().offwhite,
-      borderRadius: BorderRadius.circular(10),
-      shape: BoxShape.rectangle,
+      color: isDark ? AppColors().black : Colors.white,
       border: Border.all(
-        color: Colors.black,
+        color: isDark ? AppColors().brightOrange : AppColors().black,
         width: 2,
       ),
-      boxShadow: const [
-        BoxShadow(
-          color: Colors.black,
-          spreadRadius: 1.0,
-          offset: Offset(1, 2),
-        ),
-      ],
+      borderRadius: BorderRadius.circular(8),
     );
   }
+
+  static TextStyle textStyle({required bool isDark}) {
+    return TextStyle(
+      color: isDark ? AppColors().brightOrange : AppColors().black,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.8,
+    );
+  }
+
+  static const EdgeInsets padding =
+      EdgeInsets.symmetric(horizontal: 8, vertical: 6);
+
+  static const EdgeInsets margin = EdgeInsets.only(top: 8);
+
+  static const double verticalOffset = 12;
 }
 
 class AppColors {

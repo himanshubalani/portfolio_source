@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/widgets/dark_mode_toggle.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -75,7 +76,7 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _menuIconButton(BuildContext context, Color fgColor, Color bgColor) {
     return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
+      padding: const EdgeInsets.only(right: 8),
       child: IconButton(
         color: fgColor,
         icon: const Icon(Icons.menu, size: 26.0),
