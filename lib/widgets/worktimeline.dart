@@ -34,8 +34,8 @@ class WorkExpContainer extends StatelessWidget {
     // Light Mode: Color BG, Black Border, Black Text
     // Dark Mode: Black BG, Color Border, Color Text
     final Color bgColor = isDark ? AppColors().black : color;
-    final Color borderColor = isDark ? color : Colors.black;
-    final Color textColor = isDark ? color : Colors.black;
+    final Color borderColor = isDark ? color : AppColors().black;
+    final Color textColor = isDark ? color : AppColors().black;
 
     double rolefontsize = MediaQuery.of(context).size.width <= 900 ? 14.w : 6.w;
     double companyfontsize =
@@ -196,7 +196,7 @@ Widget workExpThree() {
 Widget workExpFour() {
   return WorkExpContainer(
     companyname: 'ToolJet',
-    role: 'Technical Contert Writer Intern  ↗',
+    role: 'Technical Content Writer Intern  ↗',
     duration: 'Oct 2024 - Jan 2025',
     techstack: 'Google Docs, Markdown, Research, SEO, Content Writing, User Experience',
     color: AppColors().royalBlue,

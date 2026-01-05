@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/widgets/dark_mode_toggle.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -47,18 +48,7 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
             textColor: fgColor,
           ),
           // Dark Mode Toggle
-          IconButton(
-            onPressed: () {
-              Get.changeThemeMode(
-                isDark ? ThemeMode.light : ThemeMode.dark,
-              );
-            },
-            icon: Icon(
-              isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-              color: fgColor,
-              size: 20,
-            ),
-          ),
+          const DarkModeToggle(),
           _menuIconButton(context, fgColor, bgColor),
         ],
       ),
@@ -86,15 +76,12 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget _menuIconButton(BuildContext context, Color fgColor, Color bgColor) {
     return Padding(
       padding: const EdgeInsets.only(right: 12.0),
-      child: GestureDetector(
-        onTap: () {},
-        child: IconButton(
-          color: fgColor,
-          icon: const Icon(Icons.menu, size: 26.0),
-          onPressed: () {
-            _showPopupMenu(context, fgColor, bgColor);
-          },
-        ),
+      child: IconButton(
+        color: fgColor,
+        icon: const Icon(Icons.menu, size: 26.0),
+        onPressed: () {
+          _showPopupMenu(context, fgColor, bgColor);
+        },
       ),
     );
   }

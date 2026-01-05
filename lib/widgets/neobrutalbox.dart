@@ -86,7 +86,7 @@ class NeoBrutalBox extends StatelessWidget {
                           MediaQuery.of(context).size.width <= 900 ? 20 : 5.w,
                       fontWeight: FontWeight.bold,
                       //Text changes color, based on theme
-                      color: isDark ? headerColor : Colors.black,
+                      color: isDark ? headerColor : AppColors().black,
                     ),
                   ),
                   const Spacer(),
@@ -137,7 +137,10 @@ class BoxCircles extends StatelessWidget {
     // Logic: 
     // If color is provided manually, use it.
     // Otherwise: Light Mode = White, Dark Mode = Black
-    final Color baseColor = color ?? (isDark ? Colors.black : Colors.white);
+    final Color baseColor = color ?? (isDark ? AppColors().black : AppColors().white);
+    final Color borderColor = isDark ? baseColor : AppColors().black;
+    final double opacity = isDark ? 0.25 : 0.65;
+
 
     return Container(
       width: 20,
@@ -145,10 +148,10 @@ class BoxCircles extends StatelessWidget {
       margin: const EdgeInsets.only(left: 2.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: baseColor.withOpacity(0.75),
+        color: baseColor.withOpacity(opacity),
         border: Border.all(
           width: 2,
-          color: Colors.black, 
+          color: borderColor, 
         ),
       ),
     );

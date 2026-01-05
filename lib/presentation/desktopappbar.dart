@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/consts/style.dart';
+import 'package:portfolio/widgets/dark_mode_toggle.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'hertz_animation.dart'; 
 
@@ -89,18 +91,7 @@ class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
           // Dark mode toggle
           Padding(
             padding: const EdgeInsets.only(right: 12),
-            child: IconButton(
-              // The icon will now update immediately because build() is called again
-              icon: Icon(
-                isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-                color: fgColor,
-              ),
-              onPressed: () {
-                Get.changeThemeMode(
-                  isDark ? ThemeMode.light : ThemeMode.dark,
-                );
-              },
-            ),
+            child: DarkModeToggle(),
           ),
         ],
       ),

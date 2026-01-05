@@ -45,6 +45,7 @@ class ProjectCard extends StatelessWidget {
           width: 3.0,
         ),
         boxShadow: [
+          
           BoxShadow(
             color: isDark ? AppColors().lightPeach : Colors.black,
             spreadRadius: 2.0,

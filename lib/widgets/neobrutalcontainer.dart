@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/consts/style.dart';
 
 import '../presentation/onhover.dart';
 
 class NeoBrutalContainer extends StatelessWidget {
   final String text;
-  final dynamic fontsize;
-  final dynamic width;
-  final dynamic height;
+  final double fontsize;
+  final double width;
+  final double height;
   final String? path;
   final Color color;
 
