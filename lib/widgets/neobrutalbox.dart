@@ -27,7 +27,6 @@ class NeoBrutalBox extends StatelessWidget {
     final Color shadowColor = isDark ? headerColor : Colors.black;
     final Color boxCircleColor = isDark ? headerColor : Colors.white;
 
-
     return Container(
       decoration: BoxDecoration(
         color: mainBgColor,
@@ -59,7 +58,7 @@ class NeoBrutalBox extends StatelessWidget {
                   width: 2,
                 ),
                 top: BorderSide(
-                  color: borderColor, 
+                  color: borderColor,
                   width: 0,
                 ),
                 left: BorderSide(
@@ -71,7 +70,7 @@ class NeoBrutalBox extends StatelessWidget {
                   width: 0,
                 ),
               ),
-              color: isDark ? AppColors().black : headerColor,
+              color: isDark ? AppColors.black : headerColor,
             ),
             width: double.infinity,
             child: Padding(
@@ -86,13 +85,22 @@ class NeoBrutalBox extends StatelessWidget {
                           MediaQuery.of(context).size.width <= 900 ? 20 : 5.w,
                       fontWeight: FontWeight.bold,
                       //Text changes color, based on theme
-                      color: isDark ? headerColor : AppColors().black,
+                      color: isDark ? headerColor : AppColors.black,
                     ),
                   ),
                   const Spacer(),
-                  BoxCircles(hoverEnabled: true, color: boxCircleColor,),
-                  BoxCircles(hoverEnabled: true,color: boxCircleColor,),
-                  BoxCircles(hoverEnabled: true,color: boxCircleColor,),
+                  BoxCircles(
+                    hoverEnabled: true,
+                    color: boxCircleColor,
+                  ),
+                  BoxCircles(
+                    hoverEnabled: true,
+                    color: boxCircleColor,
+                  ),
+                  BoxCircles(
+                    hoverEnabled: true,
+                    color: boxCircleColor,
+                  ),
                 ],
               ),
             ),
@@ -115,7 +123,7 @@ class BoxCircles extends StatelessWidget {
   const BoxCircles({
     super.key,
     this.hoverEnabled = true,
-    this.color, 
+    this.color,
   });
 
   @override
@@ -133,14 +141,14 @@ class BoxCircles extends StatelessWidget {
 
   Widget _circle(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    
-    // Logic: 
+
+    // Logic:
     // If color is provided manually, use it.
     // Otherwise: Light Mode = White, Dark Mode = Black
-    final Color baseColor = color ?? (isDark ? AppColors().black : AppColors().white);
-    final Color borderColor = isDark ? baseColor : AppColors().black;
+    final Color baseColor =
+        color ?? (isDark ? AppColors.black : AppColors.white);
+    final Color borderColor = isDark ? baseColor : AppColors.black;
     final double opacity = isDark ? 0.25 : 0.65;
-
 
     return Container(
       width: 20,
@@ -151,7 +159,7 @@ class BoxCircles extends StatelessWidget {
         color: baseColor.withOpacity(opacity),
         border: Border.all(
           width: 2,
-          color: borderColor, 
+          color: borderColor,
         ),
       ),
     );

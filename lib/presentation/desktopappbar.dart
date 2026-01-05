@@ -18,8 +18,8 @@ class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
     // This ensures the widget rebuilds immediately when the theme changes.
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final bgColor = isDark ? Colors.black : Colors.white;
-    final fgColor = isDark ? Colors.white : Colors.black;
+    final bgColor = isDark ? AppColors.black : AppColors.white;
+    final fgColor = isDark ? AppColors.white : AppColors.black;
 
     return RepaintBoundary(
       child: AppBar(

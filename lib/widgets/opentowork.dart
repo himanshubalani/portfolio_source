@@ -94,10 +94,10 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: AppColors().black, width: 3),
+              border: Border.all(color: AppColors.black, width: 3),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors().black,
+                  color: AppColors.black,
                   offset: const Offset(5, 5),
                   blurRadius: 0,
                 ),
@@ -109,14 +109,14 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                         children: [
                           Icon(
                             Icons.campaign_rounded,
-                            color: AppColors().black,
+                            color: AppColors.black,
                             size: Get.width <= 900 ? 20.sp : 10.sp,
                           ),  
                           Text(
                             "I'M OPEN TO WORK",
                             style: TextStyle(
                               fontFamily: GoogleFonts.rubik().fontFamily,
-                              color: AppColors().black,
+                              color: AppColors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: Get.width <= 900 ? 14.sp : 5.sp,
                             ),
@@ -129,7 +129,7 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                           "I'm looking for full-time roles as a developer. Reach out by clicking the button below or head to socials page",
                           style: TextStyle(
                             fontFamily: GoogleFonts.rubik().fontFamily,
-                            color: AppColors().black,
+                            color: AppColors.black,
                             fontSize: Get.width <= 900 ? 12.sp : 5.sp,
                           ),
                         ),
@@ -139,12 +139,12 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                       launchUrlString('mailto:hire@himanshubalani.com'),
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    backgroundColor: AppColors().mustardYellow,
+                    backgroundColor: AppColors.mustardYellow,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: AppColors().black, width: 3),
+                      side: BorderSide(color: AppColors.black, width: 3),
                     ),
-                    shadowColor: AppColors().black,
+                    shadowColor: AppColors.black,
                     elevation: 0,
                   ).copyWith(
                     overlayColor:
@@ -154,7 +154,7 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                     'Email me at hire@himanshubalani.com',
                     style: TextStyle(
                       fontFamily: GoogleFonts.rubik().fontFamily,
-                      color: AppColors().black,
+                      color: AppColors.black,
                       fontSize: Get.width <= 900 ? 12.sp : 5.sp,
                       fontWeight: FontWeight.bold,
                     ),

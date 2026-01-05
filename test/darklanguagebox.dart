@@ -13,7 +13,7 @@ class darkLanguageBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       decoration: BoxDecoration(
-        color: AppColors().black,
+        color: AppColors.black,
         borderRadius: BorderRadius.circular(16.0),
         border: Border.all(color: getColorForItem(text), width: 3.0),
       ),

@@ -19,34 +19,31 @@ class ProfileImage extends StatelessWidget {
           width: frameWidth,
           height: frameHeight,
           decoration: BoxDecoration(
-  color: isDark ? AppColors().black : AppColors().offwhite,
-  borderRadius: BorderRadius.circular(5.r),
-  border: Border.all(
-    color: isDark
-        ? AppColors().lightSeafoamGreen
-        : AppColors().black,
-    width: 3,
-  ),
-  boxShadow: isDark
-    ? [
-        BoxShadow(
-          color: AppColors().lightSeafoamGreen.withOpacity(0.9),
-          blurRadius: 12,
-          spreadRadius: 1,
-        ),
-        BoxShadow(
-          color: AppColors().lightSeafoamGreen.withOpacity(0.5),
-          blurRadius: 30,
-          spreadRadius: 6,
-        ),
-        BoxShadow(
-          color: AppColors().lightSeafoamGreen.withOpacity(0.25),
-          blurRadius: 60,
-          spreadRadius: 12,
-        ),
-      ]
-    : [],
-
+            color: isDark ? AppColors.black : AppColors.offwhite,
+            borderRadius: BorderRadius.circular(5.r),
+            border: Border.all(
+              color: isDark ? AppColors.lightSeafoamGreen : AppColors.black,
+              width: 3,
+            ),
+            boxShadow: isDark
+                ? [
+                    BoxShadow(
+                      color: AppColors.lightSeafoamGreen.withOpacity(0.9),
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: AppColors.lightSeafoamGreen.withOpacity(0.5),
+                      blurRadius: 30,
+                      spreadRadius: 6,
+                    ),
+                    BoxShadow(
+                      color: AppColors.lightSeafoamGreen.withOpacity(0.25),
+                      blurRadius: 60,
+                      spreadRadius: 12,
+                    ),
+                  ]
+                : [],
           ),
           padding: EdgeInsets.only(
             top: 5.h,
@@ -58,7 +55,12 @@ class ProfileImage extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             borderRadius: BorderRadius.all(Radius.circular(2.r)),
             child: Container(
-              decoration: BoxDecoration(border: Border.all(color: isDark ? AppColors().lightSeafoamGreen : AppColors().black, width: 2)),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: isDark
+                          ? AppColors.lightSeafoamGreen
+                          : AppColors.black,
+                      width: 2)),
               child: Image.asset(
                 'assets/images/profileimage2.webp',
                 fit: BoxFit.cover,

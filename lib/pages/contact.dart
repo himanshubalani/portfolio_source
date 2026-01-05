@@ -17,8 +17,8 @@ class social extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-          ? AppColors().lightPink
-          : AppColors().black,
+          ? AppColors.lightPink
+          : AppColors.black,
       appBar: const Appbar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -51,7 +51,7 @@ class DesktopSocialPage extends StatelessWidget {
               AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
-                color: AppColors().lavenderPink,
+                color: AppColors.lavenderPink,
                 duration: const Duration(seconds: 4),
               ),
               SingleChildScrollView(
@@ -87,7 +87,7 @@ class DesktopSocialPage extends StatelessWidget {
                               .fontFamily,
                       fontSize: 25.w,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors().lightPink : Colors.black,
+                      color: isDark ? AppColors.lightPink : Colors.black,
                     ),
                   ),
                 ),
@@ -112,7 +112,7 @@ class MobileSocialPage extends StatelessWidget {
           child: AnimatedPillsBackground(
         rows: 10,
         columns: 14,
-        color: AppColors().lavenderPink,
+        color: AppColors.lavenderPink,
       )),
       SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -127,7 +127,7 @@ class MobileSocialPage extends StatelessWidget {
                   fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                       .fontFamily,
                   fontWeight: FontWeight.bold,
-                  color: isDark ? AppColors().lightPink : Colors.black,
+                  color: isDark ? AppColors.lightPink : Colors.black,
                 ),
               ),
               Row(

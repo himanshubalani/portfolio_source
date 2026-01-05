@@ -21,7 +21,7 @@ class SocialBox extends StatelessWidget {
 
     return Container(
       width: pageWidth <= 900 ? 300.w : pageWidth / 2.6,
-      color: AppColors().transparent,
+      color: AppColors.transparent,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,7 +31,7 @@ class SocialBox extends StatelessWidget {
                 : 'https://mail.google.com/mail/u/0/?to=hello@himanshubalani.com&fs=1&tf=cm',
             icon: FontAwesomeIcons.envelope,
             pfname: 'hello@himanshubalani.com',
-            pfcolor: AppColors().email,
+            pfcolor: AppColors.email,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
@@ -39,7 +39,7 @@ class SocialBox extends StatelessWidget {
                 'https://github.com/himanshubalani/?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.github,
             pfname: 'github.com/himanshubalani',
-            pfcolor: AppColors().github,
+            pfcolor: AppColors.github,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
@@ -47,14 +47,14 @@ class SocialBox extends StatelessWidget {
                 'http://peerlist.io/himanshubalani?ref=portfolio&utm_medium=website',
             icon: 'assets/images/peerlist_icon2.png',
             pfname: 'peerlist.io/himanshubalani',
-            pfcolor: AppColors().peerlist,
+            pfcolor: AppColors.peerlist,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
             link: 'https://www.linkedin.com/in/himanshubalani/',
             icon: FontAwesomeIcons.linkedin,
             pfname: 'linkedin.com/in/himanshubalani',
-            pfcolor: AppColors().linkedin,
+            pfcolor: AppColors.linkedin,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
@@ -62,14 +62,14 @@ class SocialBox extends StatelessWidget {
                 'https://twitter.com/himanshubalani5?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.xTwitter,
             pfname: 'x.com/himanshubalani5',
-            pfcolor: AppColors().xtwitter,
+            pfcolor: AppColors.xtwitter,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
             link: 'https://discord.com/users/759807486831099928',
             icon: SimpleIcons.discord,
             pfname: 'discord.com/users/himanshubalani',
-            pfcolor: AppColors().discord,
+            pfcolor: AppColors.discord,
             vmainaxissize: MainAxisSize.max,
           ),
           SocialLinkButton(
@@ -77,7 +77,7 @@ class SocialBox extends StatelessWidget {
                 'http://instagram.com/himanshubalani?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.instagram,
             pfname: 'instagram.com/himanshubalani',
-            pfcolor: AppColors().instagram,
+            pfcolor: AppColors.instagram,
             vmainaxissize: MainAxisSize.max,
           ),
         ]
@@ -125,7 +125,7 @@ class SocialLinkButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 9.0),
           decoration: BoxDecoration(
-            color: isDark ? AppColors().black : pfcolor,
+            color: isDark ? AppColors.black : pfcolor,
             borderRadius: BorderRadius.circular(
                 (pageWidth <= 900 ? 12.sp : 5.sp).clamp(12, 18)),
             border:
@@ -149,7 +149,7 @@ class SocialLinkButton extends StatelessWidget {
                       fontFamily:
                           GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                               .fontFamily,
-                      color: AppColors().white,
+                      color: AppColors.white,
                       overflow: TextOverflow.ellipsis,
                     ),
                   )
@@ -164,7 +164,7 @@ class SocialLinkButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: BoxCircles(
                   hoverEnabled: false,
-                  color: isDark ? pfcolor : AppColors().white,
+                  color: isDark ? pfcolor : AppColors.white,
                 ),
               ),
             ],
@@ -181,7 +181,7 @@ class SocialLinkButton extends StatelessWidget {
       return Icon(
         icon as IconData,
         size: iconSize,
-        color: AppColors().white,
+        color: AppColors.white,
       );
     } else if (icon is String) {
       return Image.asset(

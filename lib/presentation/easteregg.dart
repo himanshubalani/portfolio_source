@@ -60,7 +60,7 @@ class _HoverTextWidgetState extends State<HoverTextWidget> {
               style: TextStyle(
                   fontFamily: GoogleFonts.outfit().fontFamily,
                   fontSize: 5.sp,
-                  color: AppColors().white,
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold),
             ),
         ],

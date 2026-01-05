@@ -28,8 +28,8 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-          ? AppColors().skyBlue
-          : AppColors().black,
+          ? AppColors.skyBlue
+          : AppColors.black,
       appBar: const Appbar(),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -54,7 +54,7 @@ class _AboutPageState extends State<AboutPage> {
               AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
-                color: AppColors().toolJetBlue.withOpacity(0.2),
+                color: AppColors.toolJetBlue.withOpacity(0.2),
                 duration: const Duration(seconds: 4),
               ),
               SingleChildScrollView(
@@ -88,7 +88,7 @@ class _AboutPageState extends State<AboutPage> {
                                 width: 60.w,
                                 height: 15.w,
                                 fontsize: 8.w,
-                                color: AppColors().lightPink,
+                                color: AppColors.lightPink,
                                 path: '/socials',
                               ),
                             ),
@@ -185,7 +185,7 @@ class _AboutPageState extends State<AboutPage> {
         AnimatedPillsBackground(
           rows: 10,
           columns: 24,
-          color: AppColors().skyBlue,
+          color: AppColors.skyBlue,
           duration: const Duration(seconds: 4),
         ),
         SingleChildScrollView(
@@ -202,8 +202,8 @@ class _AboutPageState extends State<AboutPage> {
                                 .fontFamily,
                         fontSize: 50.spMin,
                         color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors().skyBlue
-                            : AppColors().black,
+                            ? AppColors.skyBlue
+                            : AppColors.black,
                         ),
                   ),
                   ProfileImage(),
@@ -213,7 +213,7 @@ class _AboutPageState extends State<AboutPage> {
                       height: 50.w,
                       fontsize: 20.sp,
                       path: '/socials',
-                      color: AppColors().lightPink),
+                      color: AppColors.lightPink),
                   _aboutDesc(),
                   RepaintBoundary(child: SkillsBento()),
                   SizedBox(height: 10.w),
@@ -244,7 +244,7 @@ class _AboutPageState extends State<AboutPage> {
                       height: 50.w,
                       fontsize: 20.sp,
                       path: '/projects',
-                      color: AppColors().lightPeach),
+                      color: AppColors.lightPeach),
                   SizedBox(height: 10.w),
                 ]
                     .map((e) => Padding(
@@ -341,14 +341,14 @@ class OtherLinks extends StatelessWidget {
             link: "https://album.himanshubalani.com?utm_source=portfolio",
             icon: FontAwesomeIcons.recordVinyl,
             pfname: "photo album",
-            pfcolor: AppColors().darkPurple,
+            pfcolor: AppColors.darkPurple,
             vmainaxissize: MainAxisSize.min),
         SocialLinkButton(
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
           icon: SimpleIcons.notion,
           pfname: 'list of events   ',
-          pfcolor: AppColors().black,
+          pfcolor: AppColors.black,
           vmainaxissize: MainAxisSize.min,
         ),
         SocialLinkButton(
@@ -356,7 +356,7 @@ class OtherLinks extends StatelessWidget {
               'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website',
           icon: SimpleIcons.sessionize,
           pfname: 'talks ',
-          pfcolor: AppColors().sessionize,
+          pfcolor: AppColors.sessionize,
           vmainaxissize: MainAxisSize.min,
         ),
         SocialLinkButton(
@@ -364,7 +364,7 @@ class OtherLinks extends StatelessWidget {
               "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
           icon: SimpleIcons.orcid,
           pfname: 'published thesis on LLMs',
-          pfcolor: AppColors().orchid,
+          pfcolor: AppColors.orchid,
           vmainaxissize: MainAxisSize.min,
         ),
       ],
