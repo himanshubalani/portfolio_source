@@ -38,15 +38,15 @@ class ProjectCard extends StatelessWidget {
           ? 300.w
           : MediaQuery.of(context).size.width / 3.5,
       decoration: BoxDecoration(
-        color: isDark ? AppColors().black : AppColors().white,
+        color: isDark ? AppColors.black : AppColors.white,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: isDark ? AppColors().lightPeach : Colors.black,
+          color: isDark ? AppColors.lightPeach : Colors.black,
           width: 3.0,
         ),
         boxShadow: [
           BoxShadow(
-            color: isDark ? AppColors().lightPeach : Colors.black,
+            color: isDark ? AppColors.lightPeach : Colors.black,
             spreadRadius: 2.0,
             offset: const Offset(3, 3),
           ),
@@ -73,10 +73,10 @@ class ProjectCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              color: isDark ? AppColors().black : AppColors().white,
+              color: isDark ? AppColors.black : AppColors.white,
               border: Border.symmetric(
                 horizontal: BorderSide(
-                  color: isDark ? AppColors().lightPeach : Colors.black,
+                  color: isDark ? AppColors.lightPeach : Colors.black,
                   width: 2,
                 ),
               ),
@@ -95,9 +95,7 @@ class ProjectCard extends StatelessWidget {
                 Text(
                   projectName,
                   style: AppStyles().outfitTextStyle.copyWith(
-                        color: isDark
-                            ? AppColors().lightPeach
-                            : Colors.black,
+                        color: isDark ? AppColors.lightPeach : Colors.black,
                         fontSize: MediaQuery.of(context).size.width <= 900
                             ? 20.w
                             : 5.w,
@@ -113,10 +111,10 @@ class ProjectCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              color: isDark ? AppColors().black : AppColors().white,
+              color: isDark ? AppColors.black : AppColors.white,
               border: Border(
                 bottom: BorderSide(
-                  color: isDark ? AppColors().lightPeach : Colors.black,
+                  color: isDark ? AppColors.lightPeach : Colors.black,
                   width: 2,
                 ),
               ),
@@ -127,11 +125,8 @@ class ProjectCard extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color:
-                    isDark ? AppColors().lightPeach : Colors.black,
-                fontSize: MediaQuery.of(context).size.width <= 900
-                    ? 12.w
-                    : 4.w,
+                color: isDark ? AppColors.lightPeach : Colors.black,
+                fontSize: MediaQuery.of(context).size.width <= 900 ? 12.w : 4.w,
                 fontFamily: GoogleFonts.outfit().fontFamily,
               ),
             ),
@@ -148,12 +143,9 @@ class ProjectCard extends StatelessWidget {
                 Text(
                   'made using:',
                   style: TextStyle(
-                    color: isDark
-                        ? AppColors().lightPeach
-                        : Colors.black,
-                    fontSize: MediaQuery.of(context).size.width <= 900
-                        ? 12.w
-                        : 4.w,
+                    color: isDark ? AppColors.lightPeach : Colors.black,
+                    fontSize:
+                        MediaQuery.of(context).size.width <= 900 ? 12.w : 4.w,
                     fontFamily: GoogleFonts.outfit().fontFamily,
                     fontWeight: FontWeight.bold,
                   ),
@@ -163,14 +155,12 @@ class ProjectCard extends StatelessWidget {
                   children: languages
                       .map(
                         (language) => Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 2.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
                           child: LanguageBox(
                             text: language,
-                            fontsize:
-                                MediaQuery.of(context).size.width <= 900
-                                    ? 12.w
-                                    : 4.w,
+                            fontsize: MediaQuery.of(context).size.width <= 900
+                                ? 12.w
+                                : 4.w,
                           ),
                         ),
                       )
@@ -195,30 +185,22 @@ class ProjectCard extends StatelessWidget {
                     decoration: AppStyles()
                         .neoContainerDecorationTwo()
                         .copyWith(
-                          color:
-                              isDark ? AppColors().black : null,
+                          color: isDark ? AppColors.black : null,
                           border: Border.all(
-                            color: isDark
-                                ? AppColors().lightPeach
-                                : Colors.black,
+                            color: isDark ? AppColors.lightPeach : Colors.black,
                             width: 2,
                           ),
-                          borderRadius:
-                              BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                     child: Center(
                       child: Text(
                         buttonText,
                         style: TextStyle(
-                          color: isDark
-                              ? AppColors().lightPeach
-                              : Colors.black,
-                          fontSize:
-                              MediaQuery.of(context).size.width <= 900
-                                  ? 12.w
-                                  : 4.w,
-                          fontFamily:
-                              GoogleFonts.outfit().fontFamily,
+                          color: isDark ? AppColors.lightPeach : Colors.black,
+                          fontSize: MediaQuery.of(context).size.width <= 900
+                              ? 12.w
+                              : 4.w,
+                          fontFamily: GoogleFonts.outfit().fontFamily,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -27,6 +27,9 @@ class SkillsBento extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final Color mainColor =
+        isDark ? AppColors.mangoYellow : const Color(0xFF000000);
+    final Color boxCircleColor = isDark ? mainColor : Colors.white;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,15 +39,15 @@ class SkillsBento extends StatelessWidget {
               maxWidth: pageWidth <= 900 ? 300.w : pageWidth / 2.6,
             ),
             decoration: BoxDecoration(
-              color: isDark ? AppColors().black : const Color(0xFFFFFF00),
-              border: Border.all(color: isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000), width: 2.0),
+              color: isDark ? AppColors.black : const Color(0xFFFFFF00),
+              border: Border.all(color: mainColor, width: 2.0),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(18.0),
                 topRight: Radius.circular(18.0),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000),
+                  color: mainColor,
                   spreadRadius: 0.0,
                   offset: const Offset(6, 6),
                 ),
@@ -53,34 +56,37 @@ class SkillsBento extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "skills",
-                    style: TextStyle(
-                      color: isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000),
-                      fontSize: pageWidth <= 900 ? 20 : 5.w,
-                      fontFamily: GoogleFonts.outfit().fontFamily,
-                      fontWeight: FontWeight.bold,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "skills",
+                      style: TextStyle(
+                        color: mainColor,
+                        fontSize: pageWidth <= 900 ? 20 : 5.w,
+                        fontFamily: GoogleFonts.outfit().fontFamily,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12.0),
-                  const BoxCircles(),
-                ]
-              ),
+                    const SizedBox(width: 12.0),
+                    BoxCircles(
+                      hoverEnabled: true,
+                      color: boxCircleColor,
+                    ),
+                  ]),
             )),
         Container(
           width: pageWidth <= 900 ? 300.w : pageWidth / 3,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: isDark ? const Color(0xFFFBFF2F) : const Color(0xFF000000),
+                color:
+                    isDark ? AppColors.mangoYellow : const Color(0xFF000000),
                 spreadRadius: 0.0,
                 offset: const Offset(6, 6),
               ),
             ],
-            color: isDark ? AppColors().black : const Color(0xFFFBFF2F),
+            color: isDark ? AppColors.black : AppColors.mangoYellow,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(18.0),
               bottomLeft: Radius.circular(18.0),
@@ -97,9 +103,11 @@ class SkillsBento extends StatelessWidget {
                 ),
                 isDark,
               ),
-              _buildSection("frameworks", frameworks, BorderRadius.zero, isDark),
+              _buildSection(
+                  "frameworks", frameworks, BorderRadius.zero, isDark),
               _buildSection("cloud", cloud, BorderRadius.zero, isDark),
-              _buildSection("design tools", designTools, BorderRadius.zero, isDark),
+              _buildSection(
+                  "design tools", designTools, BorderRadius.zero, isDark),
               _buildSection(
                 "other",
                 others,
@@ -116,15 +124,15 @@ class SkillsBento extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(
-      String title, List<String> items, BorderRadius borderradius, bool isDark) {
+  Widget _buildSection(String title, List<String> items,
+      BorderRadius borderradius, bool isDark) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: borderradius,
-        color: isDark ? AppColors().black : AppColors().white,
+        color: isDark ? AppColors.black : AppColors.white,
         border: Border.all(
-            color: isDark ? const Color(0xFFFBFF2F) : AppColors().black,
+            color: isDark ? AppColors.mangoYellow : AppColors.black,
             width: 2.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 9.0),
@@ -134,7 +142,7 @@ class SkillsBento extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: isDark ? const Color(0xFFFBFF2F) : AppColors().black,
+              color: isDark ? AppColors.mangoYellow : AppColors.black,
               fontSize: pageWidth <= 900 ? 12.w : 5.w.clamp(10, 24),
               fontFamily: GoogleFonts.outfit().fontFamily,
             ),
@@ -149,7 +157,7 @@ class SkillsBento extends StatelessWidget {
               children: items
                   .map((item) => LanguageBox(
                         text: item,
-                        fontsize: Get.width <= 900 ? 12.w : 5.w. clamp(10, 24),
+                        fontsize: Get.width <= 900 ? 12.w : 5.w.clamp(10, 24),
                       ))
                   .toList(),
             ),

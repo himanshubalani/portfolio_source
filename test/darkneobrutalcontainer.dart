@@ -31,13 +31,13 @@ class DarkNeoBrutalContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: AppColors().primaryPurple, // Full opacity black shadow
+                color: AppColors.primaryPurple, // Full opacity black shadow
                 spreadRadius: 2.0,
                 offset: Offset(3, 3), // Shadow position, top left
               ),
             ],
             border: Border.all(
-              color: AppColors().primaryPurple, // Border color
+              color: AppColors.primaryPurple, // Border color
               width: 3.0, // Border width
             ),
           ),

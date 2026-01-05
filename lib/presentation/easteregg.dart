@@ -18,10 +18,10 @@ class HoverTextWidget extends StatefulWidget {
   });
 
   @override
-  _HoverTextWidgetState createState() => _HoverTextWidgetState();
+  HoverTextWidgetState createState() => HoverTextWidgetState();
 }
 
-class _HoverTextWidgetState extends State<HoverTextWidget> {
+class HoverTextWidgetState extends State<HoverTextWidget> {
   bool _isHovering = false;
   
 
@@ -60,7 +60,7 @@ class _HoverTextWidgetState extends State<HoverTextWidget> {
               style: TextStyle(
                   fontFamily: GoogleFonts.outfit().fontFamily,
                   fontSize: 5.sp,
-                  color: AppColors().white,
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold),
             ),
         ],

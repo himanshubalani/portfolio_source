@@ -25,14 +25,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late FocusNode _focusNode;
+
+  bool get isDark {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      autofocus: true,
-      focusNode: FocusNode(),
-      onKey: (event) {
-        if (event is RawKeyDownEvent) {
+    return KeyboardListener(
+      autofocus:
+          true, // Keep autofocus true to ensure it listens to keyboard events
+      focusNode: _focusNode, // Use the instance variable
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent) {
           // Ensuring it fires only once per press
           if (event.logicalKey == LogicalKeyboardKey.keyD) {
             launchUrlString(
@@ -47,9 +59,7 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
-          backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? AppColors().primaryPurple
-              : AppColors().black,
+          backgroundColor: isDark ? AppColors.black : AppColors.primaryPurple,
           appBar: const Appbar(),
           body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -66,6 +76,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  @override
+  void dispose() {
+    _focusNode.dispose(); // Dispose the FocusNode when the widget is removed
+    super.dispose();
+  }
+
 //  @override
 // void initState() {
 //   super.initState();
@@ -78,15 +94,15 @@ class _HomePageState extends State<HomePage> {
 //       margin: Get.width <= 900 ? EdgeInsets.only(top: 60.h, left: 20.w, right: 20.w) : EdgeInsets.only(top: 60.h, left: 50.w, right: 50.w),
 //       maxWidth: Get.width <= 900 ? 400.w : 150.w,
 //       backgroundColor: Colors.white,
-//       colorText: AppColors().black,
-//       borderColor: AppColors().black,
+//       colorText: AppColors.black,
+//       borderColor: AppColors.black,
 //       borderWidth: 3,
 //       duration: const Duration(seconds: 10),
 //       borderRadius: 10.r,
 //       padding: Get.width <= 900 ? EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h) : EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
 //       boxShadows: [
 //         BoxShadow(
-//           color: AppColors().black,
+//           color: AppColors.black,
 //           offset: Offset(5, 5),
 //           blurRadius: 0,
 //         ),
@@ -101,12 +117,12 @@ class _HomePageState extends State<HomePage> {
 //   onPressed: () => launchUrlString('mailto:hire@himanshubalani.com'),
 //   style: TextButton.styleFrom(
 //     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-//     backgroundColor: AppColors().deepSaffron,
+//     backgroundColor: AppColors.deepSaffron,
 //     shape: RoundedRectangleBorder(
 //       borderRadius: BorderRadius.circular(10),
-//       side: BorderSide(color: AppColors().black, width: 3),
+//       side: BorderSide(color: AppColors.black, width: 3),
 //     ),
-//     shadowColor: AppColors().black,
+//     shadowColor: AppColors.black,
 //     elevation: 0,
 //   ).copyWith(
 //     overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
@@ -115,7 +131,7 @@ class _HomePageState extends State<HomePage> {
 //     'Hire Me',
 //     style: TextStyle(
 //       fontFamily: kfontfamilyontFamily,
-//       color: AppColors().black,
+//       color: AppColors.black,
 //       fontSize: Get.width <= 900 ? 12.sp : 5.sp,
 //       fontWeight: FontWeight.bold,
 //     ),
@@ -127,20 +143,21 @@ class _HomePageState extends State<HomePage> {
 // }
 
   Widget desktopHomepage() {
-    var kfontfamily = GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily;
+    var kfontfamily =
+        GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily;
     return Stack(
       children: [
         // const CustomSnackbarContainer(),
         Positioned(
-  bottom: 15.h,
-  left: -1,
-  child: const ShortcutsText(),
-),
-AnimatedPillsBackground(
+          bottom: 15.h,
+          left: -1,
+          child: const ShortcutsText(),
+        ),
+        const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
-          color: AppColors().discord,
-          duration: const Duration(seconds: 4),
+          color: AppColors.discord,
+          duration: Duration(seconds: 4),
         ),
         Flex(
           direction: Axis.horizontal,
@@ -157,10 +174,9 @@ AnimatedPillsBackground(
                         HoverTextWidget(
                           mainText: 'Hello there, ',
                           smallText: 'General Kenobi',
-                          textColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? AppColors().black
-                                  : AppColors().white,
+                          textColor: isDark
+                              ? AppColors.primaryPurple
+                              : AppColors.black,
                         ),
                         Text(
                           'I am ',
@@ -168,22 +184,46 @@ AnimatedPillsBackground(
                             fontFamily: kfontfamily,
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? AppColors.primaryPurple
+                                : AppColors.black,
                           ),
                         ),
-                        NeoBrutalContainer(
-                          text: '   Himanshu Balani ↵',
-                          path: '/about',
-                          width: 100.w,
+                        Tooltip(
+                          message: "Click me!",
+                          decoration:
+                              TooltipStyles.decoration(isDark: isDark).copyWith(
+                            border: Border.all(
+                              color: isDark
+                                  ? AppColors.primaryPurple
+                                  : AppColors.black,
+                              width: 3,
+                            ),
+                          ),
+                          textStyle:
+                              TooltipStyles.textStyle(isDark: isDark).copyWith(
+                            color: isDark
+                                ? AppColors.primaryPurple
+                                : AppColors.black,
+                          ),
+                          verticalOffset: -20.sp,
+                          child: NeoBrutalContainer(
+                            text: '   Himanshu Balani ↵',
+                            path: '/about',
+                            width: 100.w,
                             height: 25.w,
                             fontsize: 10.sp,
-                            color: AppColors().white,
+                            color: isDark
+                                ? AppColors.primaryPurple
+                                : AppColors.white,
                           ),
+                        )
                       ],
                     ),
                     SizedBox(
                       height: 10.w,
                     ),
-                    mottoWid(
+                    MottoWid(
                       widfontsize: 5.sp,
                     )
                   ],
@@ -192,7 +232,6 @@ AnimatedPillsBackground(
             ),
           ],
         ),
-
       ],
     );
   }
@@ -200,7 +239,12 @@ AnimatedPillsBackground(
   Widget mobileHomepage() {
     return Stack(
       children: [
-        // const CustomSnackbarContainer(),
+        const AnimatedPillsBackground(
+          rows: 10,
+          columns: 24,
+          color: AppColors.discord,
+          duration: Duration(seconds: 4),
+        ),
         Flex(
           direction: Axis.horizontal,
           children: [
@@ -213,7 +257,9 @@ AnimatedPillsBackground(
                     Text(
                       'Hello, I am ',
                       style: TextStyle(
-                        fontFamily: GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily,
+                        fontFamily:
+                            GoogleFonts.outfit(fontWeight: FontWeight.bold)
+                                .fontFamily,
                         fontSize: 20.sp,
                       ),
                     ),
@@ -221,17 +267,17 @@ AnimatedPillsBackground(
                       height: 10.sp,
                     ),
                     NeoBrutalContainer(
-                        text: '  Himanshu Balani ↵',
-                        path: '/about',
-                        width: 300.w,
-                        height: 75.w,
-                        fontsize: 30.w,
-                        color: AppColors().white,
-                      ),
+                      text: '  Himanshu Balani ↵',
+                      path: '/about',
+                      width: 300.w,
+                      height: 75.w,
+                      fontsize: 30.w,
+                      color: isDark ? AppColors.primaryPurple : AppColors.white,
+                    ),
                     SizedBox(
                       height: 25.h,
                     ),
-                    mottoWid(widfontsize: 15.sp),
+                    MottoWid(widfontsize: 15.sp),
                   ],
                 ),
               ),
@@ -249,7 +295,7 @@ AnimatedPillsBackground(
         'icon': FontAwesomeIcons.envelope,
         'url':
             'https://mail.google.com/mail/u/0/?to=hello@himanshubalani.com&fs=1&tf=cm',
-        'color': AppColors().email
+        'color': AppColors.email
       },
       {
         'tooltip': 'Github',
@@ -261,19 +307,19 @@ AnimatedPillsBackground(
         'tooltip': 'Peerlist',
         'icon': SimpleIcons.peerlist,
         'url': 'https://www.peerlist.io/himanshubalani/',
-        'color': AppColors().peerlist,
+        'color': AppColors.peerlist,
       },
       {
         'tooltip': 'LinkedIn',
         'icon': FontAwesomeIcons.linkedinIn,
         'url': 'https://www.linkedin.com/in/himanshubalani/',
-        'color': AppColors().linkedin
+        'color': AppColors.linkedin
       },
       {
         'tooltip': 'Twitter',
         'icon': FontAwesomeIcons.xTwitter,
         'url': 'https://twitter.com/himanshubalani5',
-        'color': AppColors().xtwitter
+        'color': AppColors.xtwitter
       },
     ];
 
@@ -307,11 +353,10 @@ AnimatedPillsBackground(
   }
 }
 
-
-class mottoWid extends StatelessWidget {
+class MottoWid extends StatelessWidget {
   final double widfontsize;
 
-  const mottoWid({
+  const MottoWid({
     required this.widfontsize,
     super.key,
   });
@@ -324,8 +369,8 @@ class mottoWid extends StatelessWidget {
       fontSize: fontsize,
       fontWeight: FontWeight.bold,
       color: Theme.of(context).brightness == Brightness.light
-          ? AppColors().black
-          : AppColors().white,
+          ? AppColors.black
+          : AppColors.white,
     );
 
     return Wrap(

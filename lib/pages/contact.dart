@@ -10,15 +10,15 @@ import '../utils/appbar.dart';
 import '../widgets/bottombar.dart';
 import '../widgets/socialbox.dart';
 
-class social extends StatelessWidget {
-  const social({Key? key}) : super(key: key);
+class Social extends StatelessWidget {
+  const Social({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? AppColors().lightPink
-              : AppColors().black,
+          ? AppColors.lightPink
+          : AppColors.black,
       appBar: const Appbar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -37,11 +37,9 @@ class social extends StatelessWidget {
 class DesktopSocialPage extends StatelessWidget {
   const DesktopSocialPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    final bool isDark =
-    Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Flex(
       direction: Axis.horizontal,
@@ -50,11 +48,11 @@ class DesktopSocialPage extends StatelessWidget {
           flex: 1,
           child: Stack(
             children: [
-              AnimatedPillsBackground(
+              const AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
-                color: AppColors().lavenderPink,
-                duration: const Duration(seconds: 4),
+                color: AppColors.lavenderPink,
+                duration: Duration(seconds: 4),
               ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -64,7 +62,7 @@ class DesktopSocialPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const socialBox(),
+                        const SocialBox(),
                       ]
                           .map((e) => Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -89,8 +87,7 @@ class DesktopSocialPage extends StatelessWidget {
                               .fontFamily,
                       fontSize: 25.w,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors().lightPink : Colors.black,
-
+                      color: isDark ? AppColors.lightPink : Colors.black,
                     ),
                   ),
                 ),
@@ -108,19 +105,16 @@ class MobileSocialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark =
-    Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Stack(
-      children: [
-        Positioned(
+    return Stack(children: [
+      const Positioned(
           child: AnimatedPillsBackground(
-            rows: 10,
-          columns: 14,
-          color: AppColors().lavenderPink,
-        )
-        ),
-SingleChildScrollView(
+        rows: 10,
+        columns: 14,
+        color: AppColors.lavenderPink,
+      )),
+      SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Column(
@@ -133,13 +127,13 @@ SingleChildScrollView(
                   fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                       .fontFamily,
                   fontWeight: FontWeight.bold,
-                  color: isDark ? AppColors().lightPink : Colors.black,
+                  color: isDark ? AppColors.lightPink : Colors.black,
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const socialBox(),
+                  const SocialBox(),
                 ]
                     .map((e) => Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -159,7 +153,6 @@ SingleChildScrollView(
           ),
         ),
       ),
-      ]
-    );
+    ]);
   }
 }

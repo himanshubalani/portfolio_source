@@ -12,23 +12,24 @@ import 'package:portfolio/widgets/neobrutalcontainer.dart';
 
 import '../widgets/projectcard.dart'; // Import the ProjectCard widget
 
-class projects extends StatefulWidget {
-  const projects({super.key});
+class Projects extends StatefulWidget {
+  const Projects({super.key});
 
   @override
-  State<projects> createState() => _projectsState();
+  State<Projects> createState() => _ProjectsState();
 }
 
-class _projectsState extends State<projects> {
+class _ProjectsState extends State<Projects> {
   bool get isDark {
-    final isLight = Theme.of(context).brightness == Brightness.light;
-    return isLight;
+    return Theme.of(context).brightness == Brightness.dark;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDark ? AppColors().lightPeach : AppColors().black, // Use the lightPeach color
+      backgroundColor: isDark
+          ? AppColors.black
+          : AppColors.lightPeach, // Use the lightPeach color
       appBar: const Appbar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -116,11 +117,11 @@ class _projectsState extends State<projects> {
           flex: 1,
           child: Stack(
             children: [
-              AnimatedPillsBackground(
+              const AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
-                color: AppColors().rustyOrange,
-                duration: const Duration(seconds: 4),
+                color: AppColors.rustyOrange,
+                duration: Duration(seconds: 4),
               ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -155,7 +156,8 @@ class _projectsState extends State<projects> {
                                     fontWeight: FontWeight.bold)
                                 .fontFamily,
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.black : Colors.white,
+                            color:
+                                isDark ? AppColors.lightPeach : AppColors.black,
                           ),
                         ),
                         SizedBox(height: 10.w),
@@ -177,7 +179,7 @@ class _projectsState extends State<projects> {
                               .fontFamily,
                       fontSize: 25.w,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.black : AppColors().lightPeach,
+                      color: isDark ? AppColors.lightPeach : AppColors.black,
                     ),
                   ),
                 ),
@@ -190,61 +192,75 @@ class _projectsState extends State<projects> {
   }
 
   Widget mobileProjectsPage() {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              'projects',
-              style: TextStyle(
-                fontSize: 50.spMin,
-                fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
-                    .fontFamily,
-                fontWeight: FontWeight.bold,
-                color: isDark ? Colors.black : AppColors().lightPeach),
-              ),
-            Column(
-              children: projectCards
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: e,
-                      ))
+    return Stack(
+      children: [
+        const AnimatedPillsBackground(
+          rows: 10,
+          columns: 24,
+          color: AppColors.lightPeach,
+          duration: Duration(seconds: 4),
+        ),
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'projects',
+                  style: TextStyle(
+                    fontSize: 50.spMin,
+                    fontFamily:
+                        GoogleFonts.quicksand(fontWeight: FontWeight.bold)
+                            .fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? AppColors.lightPeach : AppColors.black,
+                  ),
+                ),
+                Column(
+                  children: projectCards
+                      .map((e) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            child: e,
+                          ))
+                      .toList(),
+                ),
+                SizedBox(height: 10.w),
+                NeoBrutalContainer(
+                    text: "learn more about me",
+                    width: 250.w,
+                    height: 50.w,
+                    fontsize: 20.sp,
+                    path: '/about',
+                    color: AppColors.skyBlue),
+                NeoBrutalContainer(
+                    text: "find me on socials",
+                    width: 250.w,
+                    height: 50.w,
+                    fontsize: 20.sp,
+                    path: '/socials',
+                    color: AppColors.lightPink),
+                SizedBox(height: 10.w),
+                Text(
+                  'more on the way....',
+                  style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.width <= 900 ? 12.w : 5.w,
+                    fontFamily:
+                        GoogleFonts.quicksand(fontWeight: FontWeight.bold)
+                            .fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? AppColors.lightPeach : AppColors.black,
+                  ),
+                ),
+              ]
+                  .map((e) =>
+                      Padding(padding: const EdgeInsets.all(12.0), child: e))
                   .toList(),
             ),
-            SizedBox(height: 10.w),
-            NeoBrutalContainer(
-                text: "learn more about me",
-                width: 250.w,
-                height: 50.w,
-                fontsize: 20.sp,
-                path: '/about',
-                color: AppColors().skyBlue),
-            NeoBrutalContainer(
-                text: "find me on socials",
-                width: 250.w,
-                height: 50.w,
-                fontsize: 20.sp,
-                path: '/socials',
-                color: AppColors().lightPink),
-            SizedBox(height: 10.w),
-            Text(
-              'more on the way....',
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width <= 900 ? 12.w : 5.w,
-                fontFamily: GoogleFonts.quicksand(fontWeight: FontWeight.bold)
-                    .fontFamily,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ]
-              .map(
-                  (e) => Padding(padding: const EdgeInsets.all(12.0), child: e))
-              .toList(),
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }

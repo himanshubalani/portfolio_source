@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/widgets/neobrutalbox.dart';
-import '../consts/style.dart'; // adjust import as per your project
 
 class ShortcutsMenuButton extends StatefulWidget {
   const ShortcutsMenuButton({Key? key}) : super(key: key);
