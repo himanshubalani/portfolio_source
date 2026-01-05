@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// A centralized collection of reusable UI styles used across the app.
+///
+/// `AppStyles` groups together commonly used visual primitives such as:
+/// - Button styles (e.g. social icon buttons)
+/// - Text styles using the Outfit font
+/// - Neumorphic-inspired container decorations
+///
+/// This class is intended to reduce duplication and keep visual styling
+/// consistent across widgets.
 class AppStyles {
   late Color bgcolor;
 
@@ -67,6 +76,15 @@ class AppStyles {
   }
 }
 
+/// Shared styling utilities for tooltips across the application.
+///
+/// `TooltipStyles` provides:
+/// - Theme-aware tooltip decoration
+/// - Theme-aware tooltip text styling
+/// - Standardized padding, margin, and vertical offset
+///
+/// All members are static so the styles can be accessed without
+/// instantiating the class.
 class TooltipStyles {
   static BoxDecoration decoration({required bool isDark}) {
     return BoxDecoration(
@@ -95,6 +113,18 @@ class TooltipStyles {
 
   static const double verticalOffset = 12;
 }
+
+/// A centralized color palette for the application.
+///
+/// `AppColors` defines:
+/// - Brand and primary colors
+/// - Social media platform colors
+/// - Background and accent colors
+/// - Commonly used neutral colors
+///
+/// This class uses a private constructor to prevent instantiation and
+/// ensures colors are accessed in a static, consistent way.
+///
 
 class AppColors {
 
@@ -159,11 +189,22 @@ class AppColors {
   static const Color offwhite = Color(0xFFF0F4F7);
 }
 
+/// A collection of reusable text styles used throughout the app.
+///
+/// `TextStyles` currently provides typography based on the Outfit font
+/// and can be extended in the future to include headings, captions,
+/// and semantic text styles.
+
 class TextStyles {
   TextStyle outfitTextStyle = TextStyle(
     fontFamily: GoogleFonts.outfit().fontFamily,
   );
 }
+/// Shared input and form field styling utilities.
+///
+/// `FormStyles` defines common `InputDecoration` configurations to ensure
+/// consistent spacing, borders, and shapes across all form fields in
+/// the application.
 
 class FormStyles {
   InputDecoration contactFormDeco = InputDecoration(

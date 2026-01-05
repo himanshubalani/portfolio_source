@@ -167,7 +167,9 @@ class _AboutPageState extends State<AboutPage> {
                           ? 50.w
                           : 25.w,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.skyBlue
+                            : AppColors.black,
                     ),
                   ),
                 ),

@@ -13,10 +13,10 @@ class PulsingWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  PulsingWrapperState createState() => PulsingWrapperState();
+  _PulsingWrapperState createState() => _PulsingWrapperState();
 }
 
-class PulsingWrapperState extends State<PulsingWrapper> with SingleTickerProviderStateMixin {
+class _PulsingWrapperState extends State<PulsingWrapper> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 

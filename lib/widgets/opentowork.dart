@@ -9,11 +9,11 @@ class CustomSnackbarContainer extends StatefulWidget {
   const CustomSnackbarContainer({Key? key}) : super(key: key);
 
   @override
-  CustomSnackbarContainerState createState() =>
-      CustomSnackbarContainerState();
+  _CustomSnackbarContainerState createState() =>
+      _CustomSnackbarContainerState();
 }
 
-class CustomSnackbarContainerState extends State<CustomSnackbarContainer>
+class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<Offset> _offsetAnimation;
