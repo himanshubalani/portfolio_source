@@ -18,10 +18,10 @@ class HoverTextWidget extends StatefulWidget {
   });
 
   @override
-  _HoverTextWidgetState createState() => _HoverTextWidgetState();
+  HoverTextWidgetState createState() => HoverTextWidgetState();
 }
 
-class _HoverTextWidgetState extends State<HoverTextWidget> {
+class HoverTextWidgetState extends State<HoverTextWidget> {
   bool _isHovering = false;
   
 

@@ -10,8 +10,8 @@ import '../utils/appbar.dart';
 import '../widgets/bottombar.dart';
 import '../widgets/socialbox.dart';
 
-class social extends StatelessWidget {
-  const social({Key? key}) : super(key: key);
+class Social extends StatelessWidget {
+  const Social({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +48,11 @@ class DesktopSocialPage extends StatelessWidget {
           flex: 1,
           child: Stack(
             children: [
-              AnimatedPillsBackground(
+              const AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
                 color: AppColors.lavenderPink,
-                duration: const Duration(seconds: 4),
+                duration: Duration(seconds: 4),
               ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -108,7 +108,7 @@ class MobileSocialPage extends StatelessWidget {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Stack(children: [
-      Positioned(
+      const Positioned(
           child: AnimatedPillsBackground(
         rows: 10,
         columns: 14,

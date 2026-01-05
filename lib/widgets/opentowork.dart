@@ -9,11 +9,11 @@ class CustomSnackbarContainer extends StatefulWidget {
   const CustomSnackbarContainer({Key? key}) : super(key: key);
 
   @override
-  _CustomSnackbarContainerState createState() =>
-      _CustomSnackbarContainerState();
+  CustomSnackbarContainerState createState() =>
+      CustomSnackbarContainerState();
 }
 
-class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
+class CustomSnackbarContainerState extends State<CustomSnackbarContainer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<Offset> _offsetAnimation;
@@ -95,10 +95,10 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.r),
               border: Border.all(color: AppColors.black, width: 3),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: AppColors.black,
-                  offset: const Offset(5, 5),
+                  offset: Offset(5, 5),
                   blurRadius: 0,
                 ),
               ],
@@ -142,7 +142,7 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                     backgroundColor: AppColors.mustardYellow,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: AppColors.black, width: 3),
+                      side: const BorderSide(color: AppColors.black, width: 3),
                     ),
                     shadowColor: AppColors.black,
                     elevation: 0,

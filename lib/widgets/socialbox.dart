@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/presentation/onhover.dart';
 import 'package:portfolio/widgets/neobrutalbox.dart';
@@ -34,7 +33,7 @@ class SocialBox extends StatelessWidget {
             pfcolor: AppColors.email,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link:
                 'https://github.com/himanshubalani/?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.github,
@@ -42,7 +41,7 @@ class SocialBox extends StatelessWidget {
             pfcolor: AppColors.github,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link:
                 'http://peerlist.io/himanshubalani?ref=portfolio&utm_medium=website',
             icon: 'assets/images/peerlist_icon2.png',
@@ -50,14 +49,14 @@ class SocialBox extends StatelessWidget {
             pfcolor: AppColors.peerlist,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link: 'https://www.linkedin.com/in/himanshubalani/',
             icon: FontAwesomeIcons.linkedin,
             pfname: 'linkedin.com/in/himanshubalani',
             pfcolor: AppColors.linkedin,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link:
                 'https://twitter.com/himanshubalani5?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.xTwitter,
@@ -65,14 +64,14 @@ class SocialBox extends StatelessWidget {
             pfcolor: AppColors.xtwitter,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link: 'https://discord.com/users/759807486831099928',
             icon: SimpleIcons.discord,
             pfname: 'discord.com/users/himanshubalani',
             pfcolor: AppColors.discord,
             vmainaxissize: MainAxisSize.max,
           ),
-          SocialLinkButton(
+          const SocialLinkButton(
             link:
                 'http://instagram.com/himanshubalani?ref=portfolio&utm_medium=website',
             icon: FontAwesomeIcons.instagram,

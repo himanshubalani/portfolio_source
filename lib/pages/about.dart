@@ -182,11 +182,11 @@ class _AboutPageState extends State<AboutPage> {
   Widget mobileAboutpage() {
     return Stack(
       children: [
-        AnimatedPillsBackground(
+        const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.skyBlue,
-          duration: const Duration(seconds: 4),
+          duration: Duration(seconds: 4),
         ),
         SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -206,7 +206,7 @@ class _AboutPageState extends State<AboutPage> {
                             : AppColors.black,
                         ),
                   ),
-                  ProfileImage(),
+                  const ProfileImage(),
                   NeoBrutalContainer(
                       text: "let's chat",
                       width: 150.w,
@@ -336,7 +336,7 @@ class OtherLinks extends StatelessWidget {
       runAlignment: WrapAlignment.end,
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.end,
-      children: [
+      children: const [
         SocialLinkButton(
             link: "https://album.himanshubalani.com?utm_source=portfolio",
             icon: FontAwesomeIcons.recordVinyl,

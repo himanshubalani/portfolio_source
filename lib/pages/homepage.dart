@@ -153,11 +153,11 @@ class _HomePageState extends State<HomePage> {
           left: -1,
           child: const ShortcutsText(),
         ),
-        AnimatedPillsBackground(
+        const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.discord,
-          duration: const Duration(seconds: 4),
+          duration: Duration(seconds: 4),
         ),
         Flex(
           direction: Axis.horizontal,
@@ -223,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 10.w,
                     ),
-                    mottoWid(
+                    MottoWid(
                       widfontsize: 5.sp,
                     )
                   ],
@@ -239,11 +239,11 @@ class _HomePageState extends State<HomePage> {
   Widget mobileHomepage() {
     return Stack(
       children: [
-        AnimatedPillsBackground(
+        const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.discord,
-          duration: const Duration(seconds: 4),
+          duration: Duration(seconds: 4),
         ),
         Flex(
           direction: Axis.horizontal,
@@ -277,7 +277,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 25.h,
                     ),
-                    mottoWid(widfontsize: 15.sp),
+                    MottoWid(widfontsize: 15.sp),
                   ],
                 ),
               ),
@@ -353,10 +353,10 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class mottoWid extends StatelessWidget {
+class MottoWid extends StatelessWidget {
   final double widfontsize;
 
-  const mottoWid({
+  const MottoWid({
     required this.widfontsize,
     super.key,
   });

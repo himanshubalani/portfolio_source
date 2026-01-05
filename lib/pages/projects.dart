@@ -12,14 +12,14 @@ import 'package:portfolio/widgets/neobrutalcontainer.dart';
 
 import '../widgets/projectcard.dart'; // Import the ProjectCard widget
 
-class projects extends StatefulWidget {
-  const projects({super.key});
+class Projects extends StatefulWidget {
+  const Projects({super.key});
 
   @override
-  State<projects> createState() => _projectsState();
+  State<Projects> createState() => _ProjectsState();
 }
 
-class _projectsState extends State<projects> {
+class _ProjectsState extends State<Projects> {
   bool get isDark {
     return Theme.of(context).brightness == Brightness.dark;
   }
@@ -117,11 +117,11 @@ class _projectsState extends State<projects> {
           flex: 1,
           child: Stack(
             children: [
-              AnimatedPillsBackground(
+              const AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
                 color: AppColors.rustyOrange,
-                duration: const Duration(seconds: 4),
+                duration: Duration(seconds: 4),
               ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -194,11 +194,11 @@ class _projectsState extends State<projects> {
   Widget mobileProjectsPage() {
     return Stack(
       children: [
-        AnimatedPillsBackground(
+        const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.lightPeach,
-          duration: const Duration(seconds: 4),
+          duration: Duration(seconds: 4),
         ),
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

@@ -89,8 +89,8 @@ class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
 
           // Dark mode toggle
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
+          const Padding(
+            padding: EdgeInsets.only(right: 12),
             child: DarkModeToggle(),
           ),
         ],
