@@ -8,10 +8,10 @@ class SineWaveAnimation extends StatefulWidget {
   final Duration duration;
 
   const SineWaveAnimation({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(milliseconds: 200),
-  }) : super(key: key);
+  });
 
   @override
   State<SineWaveAnimation> createState() => _SineWaveAnimationState();
@@ -141,7 +141,7 @@ class SineWavePainter extends CustomPainter {
     if (!showWave) return;
 
     final paint = Paint()
-      ..color = Colors.black.withOpacity(waveOpacity)
+      ..color = Colors.black.withValues(alpha: waveOpacity)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 

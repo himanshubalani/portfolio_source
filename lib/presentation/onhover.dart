@@ -4,7 +4,7 @@ class OnHover extends StatefulWidget {
   final Widget Function(bool isHovered) builder;
 
 
-  const OnHover({Key? key, required this.builder}) : super(key: key);
+  const OnHover({super.key, required this.builder});
 
   @override
   OnHoverState createState() => OnHoverState();
@@ -17,7 +17,7 @@ class OnHoverState extends State<OnHover> {
   @override
   Widget build(BuildContext context) {
 
-    final hovered = Matrix4.identity()..translate(0,-10,0);
+    final hovered = Matrix4.identity()..translateByDouble(0,-10,0, 0);
     final transform = isHovered ? hovered : Matrix4.identity();
 
     return MouseRegion(

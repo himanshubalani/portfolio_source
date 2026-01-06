@@ -156,7 +156,7 @@ class BoxCircles extends StatelessWidget {
       margin: const EdgeInsets.only(left: 2.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: baseColor.withOpacity(opacity),
+        color: baseColor.withValues(alpha: opacity),
         border: Border.all(
           width: 2,
           color: borderColor,

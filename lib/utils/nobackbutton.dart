@@ -7,9 +7,9 @@ class NoBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return PopScope(
+      canPop: false,
       child: child,
-      onWillPop: () async => false,
     );
   }
 }

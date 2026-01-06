@@ -102,7 +102,7 @@ class _AnimatedPillsBackgroundState extends State<AnimatedPillsBackground>
 
         final rows = widget.rows ?? _calculateRows(size);
         final columns = widget.columns ?? _calculateColumns(size);
-        
+
         // Scale factor based on screen size
         final baseScale = min(size.width, size.height) / 600;
 
@@ -116,7 +116,8 @@ class _AnimatedPillsBackgroundState extends State<AnimatedPillsBackground>
                 time: t,
                 rows: rows,
                 columns: columns,
-                heightFn: (pill, time) => _animatedHeight(pill, time, baseScale),
+                heightFn: (pill, time) =>
+                    _animatedHeight(pill, time, baseScale),
                 opacityFn: _animatedOpacity,
                 color: widget.color,
                 pillAspectRatio: widget.pillAspectRatio,
@@ -162,7 +163,7 @@ class _PillsGridPainter extends CustomPainter {
     final paint = Paint()..style = PaintingStyle.fill;
     final cellWidth = size.width / (columns + 1);
     final cellHeight = size.height / (rows + 1);
-    
+
     // Make pill width responsive to cell size
     final pillWidth = cellWidth * pillAspectRatio;
     final cornerRadius = min(pillWidth / 2, 6.0);
@@ -171,7 +172,7 @@ class _PillsGridPainter extends CustomPainter {
       for (int col = 0; col < columns; col++) {
         final index = row * columns + col;
         if (index >= pills.length) continue;
-        
+
         final pill = pills[index];
 
         final baseCx = (col + 1) * cellWidth;
@@ -184,7 +185,7 @@ class _PillsGridPainter extends CustomPainter {
         // Vertically displace alternate columns
         final cy = baseCy + ((col % 2 == 1) ? (h * 0.5) : 0);
 
-        paint.color = color.withOpacity(opacity);
+        paint.color = color.withValues(alpha: opacity);
 
         final rect = RRect.fromRectAndRadius(
           Rect.fromCenter(

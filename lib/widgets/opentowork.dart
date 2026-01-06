@@ -6,7 +6,7 @@ import 'package:portfolio/consts/style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomSnackbarContainer extends StatefulWidget {
-  const CustomSnackbarContainer({Key? key}) : super(key: key);
+  const CustomSnackbarContainer({super.key});
 
   @override
   _CustomSnackbarContainerState createState() =>
@@ -148,7 +148,7 @@ class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
                     elevation: 0,
                   ).copyWith(
                     overlayColor:
-                        MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+                        WidgetStateProperty.all(Colors.black.withValues(alpha: 0.1)),
                   ),
                   child: Text(
                     'Email me at hire@himanshubalani.com',

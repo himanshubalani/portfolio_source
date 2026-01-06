@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/consts/style.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+import 'package:timeline_list/timeline_list.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+// WorkExpContainer remains exactly the same as your original code
 class WorkExpContainer extends StatelessWidget {
   const WorkExpContainer(
       {super.key,
@@ -21,8 +21,8 @@ class WorkExpContainer extends StatelessWidget {
   final String role;
   final String duration;
   final String techstack;
-  final double? width; // Fixed type to double?
-  final VoidCallback? onTap; // Fixed type to VoidCallback?
+  final double? width;
+  final VoidCallback? onTap;
   final Color color;
 
   @override
@@ -30,9 +30,6 @@ class WorkExpContainer extends StatelessWidget {
     // 1. Determine Theme State
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 2. Define Dynamic Colors
-    // Light Mode: Color BG, Black Border, Black Text
-    // Dark Mode: Black BG, Color Border, Color Text
     final Color bgColor = isDark ? AppColors.black : color;
     final Color borderColor = isDark ? color : AppColors.black;
     final Color textColor = isDark ? color : AppColors.black;
@@ -54,17 +51,16 @@ class WorkExpContainer extends StatelessWidget {
             maxWidth: 900,
           ),
           decoration: BoxDecoration(
-            color: bgColor, // Dynamic Background
+            color: bgColor,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: borderColor, // Dynamic Border
+              color: borderColor,
               width: 3.0,
             ),
-            // Optional: Add shadow matching the border for extra pop in dark mode
             boxShadow: isDark
                 ? [
                     BoxShadow(
-                        color: borderColor.withOpacity(0.3),
+                        color: borderColor.withValues(alpha: 0.3),
                         blurRadius: 0,
                         offset: const Offset(4, 4))
                   ]
@@ -82,7 +78,7 @@ class WorkExpContainer extends StatelessWidget {
                   style: TextStyle(
                       fontSize: rolefontsize,
                       fontFamily: fontFamily,
-                      color: textColor, // Dynamic Text Color
+                      color: textColor,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -90,7 +86,7 @@ class WorkExpContainer extends StatelessWidget {
                   style: TextStyle(
                       fontSize: companyfontsize,
                       fontFamily: fontFamily,
-                      color: textColor, // Dynamic Text Color
+                      color: textColor,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
@@ -98,14 +94,14 @@ class WorkExpContainer extends StatelessWidget {
                   style: TextStyle(
                       fontSize: durationfontsize,
                       fontFamily: fontFamily,
-                      color: textColor, // Dynamic Text Color
+                      color: textColor,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(techstack,
                     style: TextStyle(
                       fontSize: durationfontsize,
                       fontFamily: fontFamily,
-                      color: textColor, // Dynamic Text Color
+                      color: textColor,
                       fontWeight: FontWeight.w600,
                     )),
               ]
@@ -125,45 +121,58 @@ class WorkTimeline extends StatelessWidget {
     super.key,
   });
 
+  // Helper method to create the styled icon (replaces iconBackground)
+  Widget _buildTimelineIcon(Color bgColor, IconData iconData) {
+    return Container(
+      width: 40, 
+      height: 40,
+      decoration: BoxDecoration(
+        color: bgColor,
+        shape: BoxShape.circle,
+      ),
+      child: Icon(iconData, color: Colors.white, size: 20),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Note: timeline_list handles the central line.
-    // The "color" passed here is used for the dot background.
-    // In dark mode, having colorful dots on a dark timeline looks good,
-    // so we keep AppColors() as is.
-
-    List<TimelineModel> items = [
-      TimelineModel(workExpFour(),
-          position: TimelineItemPosition.random,
-          iconBackground: AppColors.toolJetBlue,
-          icon: const Icon(Icons.edit_note_rounded, color: Colors.white)),
-      TimelineModel(workExpThree(),
-          position: TimelineItemPosition.random,
-          iconBackground: AppColors.darkPurple,
-          icon: const Icon(Icons.flutter_dash, color: Colors.white)),
-      TimelineModel(workExpTwo(),
-          position: TimelineItemPosition.random,
-          iconBackground: AppColors.rustyOrange,
-          icon: const Icon(Icons.api, color: Colors.white)),
-      TimelineModel(workExpOne(),
-          position: TimelineItemPosition.random,
-          iconBackground: AppColors.darkRed,
-          icon: const Icon(Icons.flutter_dash, color: Colors.white)),
+    // UPDATED: Changed List<TimelineModel> to List<Marker>
+    List<Marker> items = [
+      Marker(
+        child: workExpFour(),
+        // Updated: Manually building the icon container
+        icon: _buildTimelineIcon(AppColors.toolJetBlue, Icons.edit_note_rounded),
+      ),
+      Marker(
+        child: workExpThree(),
+        icon: _buildTimelineIcon(AppColors.darkPurple, Icons.flutter_dash),
+      ),
+      Marker(
+        child: workExpTwo(),
+        icon: _buildTimelineIcon(AppColors.rustyOrange, Icons.api),
+      ),
+      Marker(
+        child: workExpOne(),
+        icon: _buildTimelineIcon(AppColors.darkRed, Icons.flutter_dash),
+      ),
     ];
+
     return Timeline(
       children: items,
-      position: TimelinePosition.Left,
-      // Optional: You might want to customize the lineColor if the library supports it
-      lineColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.white
-          : Colors.black,
-    );
+      properties: TimelineProperties(
+        // 'start' puts the line on the left.
+        // If you want a center line, change this to TimelinePosition.center
+        timelinePosition: TimelinePosition.start, 
+        iconSize: 40, // Ensures the icon fits the container size defined above
+        lineColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black,
+      ),
+    ); // Fixed: Missing closing parenthesis and semicolon here
   }
 }
 
-// Helper functions remain the same, they just pass the data
-// The coloring logic is now handled inside WorkExpContainer's build method
-
+// Helper functions (Unchanged)
 Widget workExpOne() {
   return WorkExpContainer(
       companyname: 'First Impression Technologies',

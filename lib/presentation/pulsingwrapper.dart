@@ -6,11 +6,11 @@ class PulsingWrapper extends StatefulWidget {
   final double maxScale;
 
   const PulsingWrapper({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(seconds: 2),
     this.maxScale = 1.1,
-  }) : super(key: key);
+  });
 
   @override
   _PulsingWrapperState createState() => _PulsingWrapperState();

@@ -54,7 +54,7 @@ class _AboutPageState extends State<AboutPage> {
               AnimatedPillsBackground(
                 rows: 10,
                 columns: 24,
-                color: AppColors.toolJetBlue.withOpacity(0.2),
+                color: AppColors.toolJetBlue.withValues(alpha: 0.2),
                 duration: const Duration(seconds: 4),
               ),
               SingleChildScrollView(
@@ -168,8 +168,8 @@ class _AboutPageState extends State<AboutPage> {
                           : 25.w,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.skyBlue
-                            : AppColors.black,
+                          ? AppColors.skyBlue
+                          : AppColors.black,
                     ),
                   ),
                 ),
@@ -199,14 +199,14 @@ class _AboutPageState extends State<AboutPage> {
                   Text(
                     'about',
                     style: TextStyle(
-                        fontFamily:
-                            GoogleFonts.quicksand(fontWeight: FontWeight.bold)
-                                .fontFamily,
-                        fontSize: 50.spMin,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.skyBlue
-                            : AppColors.black,
-                        ),
+                      fontFamily:
+                          GoogleFonts.quicksand(fontWeight: FontWeight.bold)
+                              .fontFamily,
+                      fontSize: 50.spMin,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.skyBlue
+                          : AppColors.black,
+                    ),
                   ),
                   const ProfileImage(),
                   NeoBrutalContainer(

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/widgets/neobrutalbox.dart';
 
 class ShortcutsMenuButton extends StatefulWidget {
-  const ShortcutsMenuButton({Key? key}) : super(key: key);
+  const ShortcutsMenuButton({super.key});
 
   @override
   State<ShortcutsMenuButton> createState() => _ShortcutsMenuButtonState();
@@ -67,10 +67,10 @@ class _ShortcutsMenuButtonState extends State<ShortcutsMenuButton> {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
+    return KeyboardListener(
       focusNode: _focusNode,
-      onKey: (event) {
-        if (event is RawKeyDownEvent &&
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent &&
             event.logicalKey == LogicalKeyboardKey.slash) {
           _showShortcutsMenu(context);
         }

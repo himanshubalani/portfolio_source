@@ -14,15 +14,15 @@ class AppStyles {
   late Color bgcolor;
 
   ButtonStyle socialIconStyle = ButtonStyle(
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.all(12.0),
     ),
-    side: MaterialStateProperty.all<BorderSide>(
+    side: WidgetStateProperty.all<BorderSide>(
       const BorderSide(
         color: Colors.black,
         width: 3.0,

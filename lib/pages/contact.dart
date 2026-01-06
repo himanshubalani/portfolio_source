@@ -11,7 +11,7 @@ import '../widgets/bottombar.dart';
 import '../widgets/socialbox.dart';
 
 class Social extends StatelessWidget {
-  const Social({Key? key}) : super(key: key);
+  const Social({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,11 +8,11 @@ class LanguageBox extends StatelessWidget {
   final Color? darkModecolor;
 
   const LanguageBox({
-    Key? key,
+    super.key,
     required this.text,
     required this.fontsize,
     this.darkModecolor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

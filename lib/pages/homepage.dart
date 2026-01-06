@@ -18,7 +18,7 @@ import '../widgets/bottombar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
 //     shadowColor: AppColors.black,
 //     elevation: 0,
 //   ).copyWith(
-//     overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+//     overlayColor: MaterialStateProperty.all(Colors.black.withValues(alpha: 0.1)),
 //   ),
 //   child: Text(
 //     'Hire Me',
@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.zero,
                       tooltip: social['tooltip'] as String?,
                       style: AppStyles().socialIconStyle.copyWith(
-                            backgroundColor: MaterialStateProperty.all<Color>(
+                            backgroundColor: WidgetStateProperty.all<Color>(
                                 social['color'] as Color),
                           ),
                       icon: Icon(
