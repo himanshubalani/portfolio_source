@@ -5,17 +5,17 @@ import 'package:portfolio/consts/style.dart';
 import 'package:timeline_list/timeline_list.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-// WorkExpContainer remains exactly the same as your original code
 class WorkExpContainer extends StatelessWidget {
-  const WorkExpContainer(
-      {super.key,
-      required this.companyname,
-      this.width,
-      this.onTap,
-      required this.color,
-      required this.role,
-      required this.duration,
-      required this.techstack});
+  const WorkExpContainer({
+    super.key,
+    required this.companyname,
+    this.width, // Nullable: Let the parent decide the width
+    this.onTap,
+    required this.color,
+    required this.role,
+    required this.duration,
+    required this.techstack,
+  });
 
   final String companyname;
   final String role;
@@ -34,81 +34,84 @@ class WorkExpContainer extends StatelessWidget {
     final Color borderColor = isDark ? color : AppColors.black;
     final Color textColor = isDark ? color : AppColors.black;
 
-    double rolefontsize = MediaQuery.of(context).size.width <= 900 ? 14.w : 6.w;
-    double companyfontsize =
-        MediaQuery.of(context).size.width <= 900 ? 12.w : 5.w;
-    double durationfontsize =
-        MediaQuery.of(context).size.width <= 900 ? 10.w : 4.w;
+    // Adjusted font sizes slightly for better wrapping on mobile
+    double rolefontsize = MediaQuery.of(context).size.width <= 900 ? 12.sp : 5.sp;
+    double companyfontsize = MediaQuery.of(context).size.width <= 900 ? 10.sp : 4.sp;
+    double durationfontsize = MediaQuery.of(context).size.width <= 900 ? 9.sp : 3.5.sp;
+    
     var fontFamily = GoogleFonts.outfit().fontFamily;
 
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          width: width,
-          constraints: const BoxConstraints(
-            maxWidth: 900,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: width ?? double.infinity, // If null, it fills available space
+        constraints: BoxConstraints(
+    maxWidth: MediaQuery.of(context).size.width <= 900
+        ? 200.w
+        : MediaQuery.of(context).size.width / 3.8, // mobile : desktop
           ),
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: borderColor,
-              width: 3.0,
-            ),
-            boxShadow: isDark
-                ? [
-                    BoxShadow(
-                        color: borderColor.withValues(alpha: 0.3),
-                        blurRadius: 0,
-                        offset: const Offset(4, 4))
-                  ]
-                : null,
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: borderColor,
+            width: 3.0,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  role,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: rolefontsize,
-                      fontFamily: fontFamily,
-                      color: textColor,
-                      fontWeight: FontWeight.bold),
+          boxShadow: isDark
+              ? [
+                  BoxShadow(
+                      color: borderColor.withValues(alpha: 0.3),
+                      blurRadius: 0,
+                      offset: const Offset(4, 4))
+                ]
+              : null,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0), // Increased padding slightly
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                role,
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: rolefontsize,
+                    fontFamily: fontFamily,
+                    color: textColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                companyname,
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: companyfontsize,
+                    fontFamily: fontFamily,
+                    color: textColor,
+                    fontWeight: FontWeight.w600),
+              ),
+              Text(
+                duration,
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: durationfontsize,
+                    fontFamily: fontFamily,
+                    color: textColor,
+                    fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                techstack,
+                softWrap: true,
+                style: TextStyle(
+                  fontSize: durationfontsize,
+                  fontFamily: fontFamily,
+                  color: textColor,
+                  fontWeight: FontWeight.w600,
                 ),
-                Text(
-                  companyname,
-                  style: TextStyle(
-                      fontSize: companyfontsize,
-                      fontFamily: fontFamily,
-                      color: textColor,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  duration,
-                  style: TextStyle(
-                      fontSize: durationfontsize,
-                      fontFamily: fontFamily,
-                      color: textColor,
-                      fontWeight: FontWeight.w400),
-                ),
-                Text(techstack,
-                    style: TextStyle(
-                      fontSize: durationfontsize,
-                      fontFamily: fontFamily,
-                      color: textColor,
-                      fontWeight: FontWeight.w600,
-                    )),
-              ]
-                  .map((e) =>
-                      Padding(padding: const EdgeInsets.all(2.0), child: e))
-                  .toList(),
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -121,26 +124,24 @@ class WorkTimeline extends StatelessWidget {
     super.key,
   });
 
-  // Helper method to create the styled icon (replaces iconBackground)
+  // Helper to build the dot icon
   Widget _buildTimelineIcon(Color bgColor, IconData iconData) {
     return Container(
-      width: 40, 
-      height: 40,
+      width: 30, // Reduced slightly to fit tighter layouts
+      height: 30,
       decoration: BoxDecoration(
         color: bgColor,
         shape: BoxShape.circle,
       ),
-      child: Icon(iconData, color: Colors.white, size: 20),
+      child: Icon(iconData, color: Colors.white, size: 16),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // UPDATED: Changed List<TimelineModel> to List<Marker>
     List<Marker> items = [
       Marker(
         child: workExpFour(),
-        // Updated: Manually building the icon container
         icon: _buildTimelineIcon(AppColors.toolJetBlue, Icons.edit_note_rounded),
       ),
       Marker(
@@ -160,29 +161,29 @@ class WorkTimeline extends StatelessWidget {
     return Timeline(
       children: items,
       properties: TimelineProperties(
-        // 'start' puts the line on the left.
-        // If you want a center line, change this to TimelinePosition.center
-        timelinePosition: TimelinePosition.start, 
-        iconSize: 40, // Ensures the icon fits the container size defined above
+        timelinePosition: TimelinePosition.start,
+        iconSize: 30, // Matches the container size above
+        iconGap: 12,  // Adds space between the dot and the card
         lineColor: Theme.of(context).brightness == Brightness.dark
             ? Colors.white
             : Colors.black,
       ),
-    ); // Fixed: Missing closing parenthesis and semicolon here
+    );
   }
 }
 
-// Helper functions (Unchanged)
+
 Widget workExpOne() {
   return WorkExpContainer(
-      companyname: 'First Impression Technologies',
-      role: 'Flutter Developer Intern',
-      duration: 'Nov 2021 - Feb 2022',
-      techstack: 'Tech Stack: Flutter, Dart',
-      width: 600.0,
-      color: AppColors.lightPeach,
-      onTap: () => launchUrlString(
-          'https://www.linkedin.com/company/first-impression-technologies/about/'));
+    companyname: 'First Impression Technologies',
+    role: 'Flutter Developer Intern  ↗',
+    duration: 'Nov 2021 - Feb 2022',
+    techstack: 'Tech Stack: Flutter, Dart, Java, Android Studio, Firebase',
+    // Removed width: 600.0
+    color: AppColors.lightPeach,
+    onTap: () => launchUrlString(
+        'https://www.linkedin.com/company/first-impression-technologies/about/'),
+  );
 }
 
 Widget workExpTwo() {

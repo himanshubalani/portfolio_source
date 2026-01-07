@@ -7,7 +7,12 @@
 		{
 			"name": "portfolio",
 			"request": "launch",
-			"type": "dart"
+			"type": "dart",
+			"args": [
+				"-d",
+				"Chrome",
+				"--verbose"
+			]
 		},
 		{
 			"name": "portfolio (profile mode)",

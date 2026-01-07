@@ -101,8 +101,8 @@ class TooltipStyles {
     return TextStyle(
       color: isDark ? AppColors.brightOrange : AppColors.black,
       fontSize: 12,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.8,
+      fontWeight: FontWeight.w700,
+      letterSpacing: 1,
     );
   }
 

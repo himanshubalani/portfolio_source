@@ -17,7 +17,7 @@ class OnHoverState extends State<OnHover> {
   @override
   Widget build(BuildContext context) {
 
-    final hovered = Matrix4.identity()..translateByDouble(0,-10,0, 0);
+    final hovered = Matrix4.identity()..translateByDouble(0,-10,0, 1);
     final transform = isHovered ? hovered : Matrix4.identity();
 
     return MouseRegion(

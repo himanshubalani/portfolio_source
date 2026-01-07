@@ -44,9 +44,11 @@ class NeoBrutalBox extends StatelessWidget {
         ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // Header Section
           Container(
+            width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(18),
@@ -57,22 +59,12 @@ class NeoBrutalBox extends StatelessWidget {
                   color: borderColor, // Match the main border
                   width: 2,
                 ),
-                top: BorderSide(
-                  color: borderColor,
-                  width: 0,
-                ),
-                left: BorderSide(
-                  color: borderColor,
-                  width: 0,
-                ),
-                right: BorderSide(
-                  color: borderColor,
-                  width: 0,
-                ),
+                top: BorderSide.none,
+      left: BorderSide.none,
+                right: BorderSide.none,
               ),
               color: isDark ? AppColors.black : headerColor,
             ),
-            width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
@@ -107,6 +99,7 @@ class NeoBrutalBox extends StatelessWidget {
           ),
           // Body Section
           Container(
+            color: AppColors.transparent,
             padding: const EdgeInsets.all(12.0),
             child: containerChild,
           ),

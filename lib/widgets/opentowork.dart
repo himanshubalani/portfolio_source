@@ -5,15 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/consts/style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class CustomSnackbarContainer extends StatefulWidget {
-  const CustomSnackbarContainer({super.key});
+class _CustomSnackbarContainer extends StatefulWidget {
+  // const _CustomSnackbarContainer({super.key});
 
   @override
   _CustomSnackbarContainerState createState() =>
       _CustomSnackbarContainerState();
 }
 
-class _CustomSnackbarContainerState extends State<CustomSnackbarContainer>
+class _CustomSnackbarContainerState extends State<_CustomSnackbarContainer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<Offset> _offsetAnimation;

@@ -148,16 +148,16 @@ class _HomePageState extends State<HomePage> {
     return Stack(
       children: [
         // const CustomSnackbarContainer(),
-        Positioned(
-          bottom: 15.h,
-          left: -1,
-          child: const ShortcutsText(),
-        ),
         const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.discord,
           duration: Duration(seconds: 4),
+        ),
+                Positioned(
+          bottom: 15.h,
+          left: -1,
+          child: const ShortcutsText(),
         ),
         Flex(
           direction: Axis.horizontal,

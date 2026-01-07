@@ -231,8 +231,11 @@ class _AboutPageState extends State<AboutPage> {
                         headerText: 'work experience',
                         headerColor: Colors.blueAccent,
                         containerChild: Container(
-                            color: Colors.white,
+                            color: Colors.transparent,
                             constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width <= 900
+                                  ? 300.w
+                                  : MediaQuery.of(context).size.width / 2.1,
                               maxHeight:
                                   MediaQuery.of(context).size.height / 1.6,
                             ),
