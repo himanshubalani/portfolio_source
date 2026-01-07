@@ -84,21 +84,7 @@
 
 
 </style>
-<script>
-  window.addEventListener('load', function () {
-    {{flutter_js}}
-      {{flutter_build_config}}
-    _flutter.loader.load({
-      serviceWorker: {
-        serviceWorkerVersion: "{{flutter_service_worker_version}}",
-     onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      }});
-    });
-</script>
+<script src="flutter_bootstrap.js" async></script>
 <div class= "main-content" id="loader-content">
    <img src="favicon.webp" alt="hb" style="max-width: 150px; max-height: 150px;">
 </body>
