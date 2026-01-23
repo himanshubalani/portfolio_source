@@ -127,7 +127,6 @@ class TooltipStyles {
 ///
 
 class AppColors {
-
   AppColors._(); // Private constructor to prevent instantiation
 
   //Primary
@@ -144,6 +143,7 @@ class AppColors {
   static const Color sessionize = Color(0xFF1AB394);
   static const Color youtube = Color(0xFFFF0000);
   static const Color orchid = Color(0xFFA1C837);
+  static const Color letterboxd = Color(0xFFFF8000);
 
   // Background color
   static const Color lightTeal = Color(0xFFDAF5F0);
@@ -200,6 +200,7 @@ class TextStyles {
     fontFamily: GoogleFonts.outfit().fontFamily,
   );
 }
+
 /// Shared input and form field styling utilities.
 ///
 /// `FormStyles` defines common `InputDecoration` configurations to ensure
