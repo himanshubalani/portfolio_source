@@ -2,16 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:portfolio/consts/style.dart';
 
 class SineWaveAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
 
   const SineWaveAnimation({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = const Duration(milliseconds: 200),
-  }) : super(key: key);
+  });
 
   @override
   State<SineWaveAnimation> createState() => _SineWaveAnimationState();
@@ -92,6 +93,9 @@ class _SineWaveAnimationState extends State<SineWaveAnimation>
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final Color waveColor = isDark ? AppColors.offwhite : AppColors.black;
+
     return MouseRegion(
       onEnter: (_) {
         // Start a 500ms delay before playing animation
@@ -112,6 +116,7 @@ class _SineWaveAnimationState extends State<SineWaveAnimation>
               showWave:
                   _waveOpacityAnimation.value > 0.01, // only show while visible
               waveOpacity: _waveOpacityAnimation.value,
+              color: waveColor,
             ),
             child: Opacity(
               opacity: _opacityAnimation.value,
@@ -129,11 +134,13 @@ class SineWavePainter extends CustomPainter {
   final double phase;
   final bool showWave;
   final double waveOpacity;
+  final Color color;
 
   SineWavePainter({
     required this.phase,
     required this.showWave,
     this.waveOpacity = 1.0,
+    required this.color,
   });
 
   @override
@@ -141,13 +148,13 @@ class SineWavePainter extends CustomPainter {
     if (!showWave) return;
 
     final paint = Paint()
-      ..color = Colors.black.withOpacity(waveOpacity)
+      ..color = color.withValues(alpha: waveOpacity)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
     // Draw the horizontal divider line
     final dividerPaint = Paint()
-      ..color = Colors.black
+      ..color = color
       ..strokeWidth = 1;
 
     canvas.drawLine(
@@ -176,6 +183,8 @@ class SineWavePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(SineWavePainter oldDelegate) {
-    return oldDelegate.phase != phase || oldDelegate.showWave != showWave;
+    return oldDelegate.phase != phase ||
+        oldDelegate.showWave != showWave ||
+        oldDelegate.color != color;
   }
 }

@@ -85,18 +85,18 @@
 
 </style>
 <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
+  window.addEventListener('load', function () {
+    {{flutter_js}}
+      {{flutter_build_config}}
+    _flutter.loader.load({
+      serviceWorker: {
+        serviceWorkerVersion: "{{flutter_service_worker_version}}",
+     onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
           });
         }
-      });
+      }});
     });
 </script>
 <div class= "main-content" id="loader-content">

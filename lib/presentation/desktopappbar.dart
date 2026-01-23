@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'hertz_animation.dart'; 
 
 class DesktopAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const DesktopAppbar({Key? key}) : super(key: key);
+  const DesktopAppbar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);

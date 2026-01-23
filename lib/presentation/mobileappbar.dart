@@ -5,7 +5,7 @@ import 'package:portfolio/widgets/dark_mode_toggle.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const MobileAppbar({Key? key}) : super(key: key);
+  const MobileAppbar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);

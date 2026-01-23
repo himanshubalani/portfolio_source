@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, _) {
-        return WillPopScope(
-          onWillPop: () async => false,
+        return PopScope(
+          canPop: false,
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Himanshu Balani Portfolio',

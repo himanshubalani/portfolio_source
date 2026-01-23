@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/consts/style.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage({Key? key}) : super(key: key);
+  const ProfileImage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,18 @@ class ProfileImage extends StatelessWidget {
             boxShadow: isDark
                 ? [
                     BoxShadow(
-                      color: AppColors.lightSeafoamGreen.withOpacity(0.9),
+                      color: AppColors.lightSeafoamGreen.withValues(alpha: 0.9),
                       blurRadius: 12,
                       spreadRadius: 1,
                     ),
                     BoxShadow(
-                      color: AppColors.lightSeafoamGreen.withOpacity(0.5),
+                      color: AppColors.lightSeafoamGreen.withValues(alpha: 0.5),
                       blurRadius: 30,
                       spreadRadius: 6,
                     ),
                     BoxShadow(
-                      color: AppColors.lightSeafoamGreen.withOpacity(0.25),
+                      color:
+                          AppColors.lightSeafoamGreen.withValues(alpha: 0.25),
                       blurRadius: 60,
                       spreadRadius: 12,
                     ),

@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-class PulsingWrapper extends StatefulWidget {
+class _PulsingWrapper extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final double maxScale;
 
-  const PulsingWrapper({
-    Key? key,
-    required this.child,
-    this.duration = const Duration(seconds: 2),
-    this.maxScale = 1.1,
-  }) : super(key: key);
+  const _PulsingWrapper({
+    required this.child, required this.duration, required this.maxScale,
+  });
 
   @override
   _PulsingWrapperState createState() => _PulsingWrapperState();
 }
 
-class _PulsingWrapperState extends State<PulsingWrapper> with SingleTickerProviderStateMixin {
+class _PulsingWrapperState extends State<_PulsingWrapper> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 

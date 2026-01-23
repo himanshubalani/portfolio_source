@@ -36,7 +36,7 @@ class DarkModeToggle extends StatelessWidget {
                     );
                   },
                   child: Icon(
-                    isDark ? Icons.light_mode : Icons.lightbulb_outline_rounded,
+                    isDark ? Icons.wb_incandescent_outlined : Icons.lightbulb_outline_rounded,
                     key: ValueKey(isDark),
                     size: 28,
                     color: isDark ? AppColors.brightOrange : Colors.black,
