@@ -82,7 +82,7 @@ class SocialBox extends StatelessWidget {
           const SocialLinkButton(
             link: 'https://letterboxd.com/himanshubalani/films/',
             icon: FontAwesomeIcons.letterboxd,
-            pfname: 'letterboxd.com/himanshubalani/films/',
+            pfname: 'letterboxd.com/himanshubalani/films',
             pfcolor: AppColors.letterboxd,
             vmainaxissize: MainAxisSize.max
             )
