@@ -9,6 +9,7 @@ import 'package:portfolio/utils/appbar.dart';
 import 'package:portfolio/widgets/animated_pill_bg.dart';
 import 'package:portfolio/widgets/neobrutalbox.dart';
 import 'package:portfolio/widgets/neobrutalcontainer.dart';
+import 'package:portfolio/widgets/linkcard.dart';
 import 'package:portfolio/widgets/profileimage.dart';
 import 'package:portfolio/widgets/skillsbento.dart';
 import 'package:simple_icons/simple_icons.dart';
@@ -74,7 +75,8 @@ class _AboutPageState extends State<AboutPage> {
                             _aboutDesc(),
                           ]
                               .map((e) => Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
                                   child: e))
                               .toList(),
                         ),
@@ -108,6 +110,13 @@ class _AboutPageState extends State<AboutPage> {
                               width: 120.w,
                               child: const OtherLinks(),
                             ),
+                            RepaintBoundary(child: LinkCard(
+                              vlink: 'https://album.himanshubalani.com?utm_source=portfolio',
+                              imageUrl: 'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
+                              vframecolor: Color(0xFFF1DBBF),
+                              vtext: 'Photo Album',
+                              wide: true
+                            )),
                           ]
                               .map((e) => Padding(
                                   padding: const EdgeInsets.all(12.0),
@@ -145,7 +154,10 @@ class _AboutPageState extends State<AboutPage> {
                         ),
                       ]
                           .map((e) => Padding(
-                              padding: const EdgeInsets.all(12.0), child: e))
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: e))
+                          //padding: const EdgeInsets.all(12.0), child: e))
                           .toList(),
                     ),
                     SizedBox(height: 10.w),
@@ -341,13 +353,14 @@ class OtherLinks extends StatelessWidget {
       runAlignment: WrapAlignment.end,
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.end,
-      children: const [
-        SocialLinkButton(
-            link: "https://album.himanshubalani.com?utm_source=portfolio",
-            icon: FontAwesomeIcons.recordVinyl,
-            pfname: "photo album",
-            pfcolor: AppColors.darkPurple,
-            vmainaxissize: MainAxisSize.min),
+      children: [
+        if (MediaQuery.of(context).size.width <= 900)
+          SocialLinkButton(
+              link: "https://album.himanshubalani.com?utm_source=portfolio",
+              icon: FontAwesomeIcons.recordVinyl,
+              pfname: "photo album",
+              pfcolor: AppColors.darkPurple,
+              vmainaxissize: MainAxisSize.min),
         SocialLinkButton(
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
