@@ -79,6 +79,13 @@ class SocialBox extends StatelessWidget {
             pfcolor: AppColors.instagram,
             vmainaxissize: MainAxisSize.max,
           ),
+          const SocialLinkButton(
+            link: 'https://letterboxd.com/himanshubalani/films/',
+            icon: SimpleIcons.letterboxd,
+            pfname: 'letterboxd.com/himanshubalani/films',
+            pfcolor: AppColors.letterboxd,
+            vmainaxissize: MainAxisSize.max
+            )
         ]
             .map((e) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

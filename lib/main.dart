@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Himanshu Balani Portfolio',
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.light,
 
             theme: ThemeData(
               brightness: Brightness.light,

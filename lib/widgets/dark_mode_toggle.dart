@@ -19,7 +19,7 @@ class DarkModeToggle extends StatelessWidget {
           height: 56,
           child: Center(
             child: Tooltip(
-              message: isDark ? 'En-lighten' : 'Darkseid',
+              message: isDark ? "Dawn":"Dusk",
               decoration: TooltipStyles.decoration(isDark: isDark),
               textStyle: TooltipStyles.textStyle(isDark: isDark),
               child: Transform.flip(

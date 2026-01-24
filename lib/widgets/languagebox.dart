@@ -74,6 +74,7 @@ class LanguageBox extends StatelessWidget {
       "Designing ᵈ": Color(0xFFEDD590),
       "Coding ᶜ": Color(0xFFA8ED90),
       'Engineering': Color(0xFFED90A8),
+      'Photo Album': Color(0xFFBFD5F1),
     };
 
     return colorMap[item] ?? Colors.grey;
