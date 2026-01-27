@@ -113,6 +113,7 @@ class _AboutPageState extends State<AboutPage> {
                             RepaintBoundary(child: LinkCard(
                               vlink: 'https://album.himanshubalani.com?utm_source=portfolio',
                               imageUrl: 'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
+                              vicon: FontAwesomeIcons.recordVinyl,
                               vframecolor: Color(0xFFF1DBBF),
                               vtext: 'Photo Album',
                               wide: true

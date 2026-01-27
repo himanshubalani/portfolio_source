@@ -162,6 +162,7 @@ class AppColors {
   static const Color coralRed = Color(0xFFFFA07A);
   static const Color softPink = Color(0xFFFFC0CB);
   static const Color palePurple = Color(0xFFC4A1FF);
+  static const Color paleAqua = Color(0xFF95B2D8);
 
   // Third row of colors
   static const Color skyBlue = Color(0xFF93D6F1);

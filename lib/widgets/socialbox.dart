@@ -80,12 +80,11 @@ class SocialBox extends StatelessWidget {
             vmainaxissize: MainAxisSize.max,
           ),
           const SocialLinkButton(
-            link: 'https://letterboxd.com/himanshubalani/films/',
-            icon: SimpleIcons.letterboxd,
-            pfname: 'letterboxd.com/himanshubalani/films',
-            pfcolor: AppColors.letterboxd,
-            vmainaxissize: MainAxisSize.max
-            )
+              link: 'https://letterboxd.com/himanshubalani/films/',
+              icon: SimpleIcons.letterboxd,
+              pfname: 'letterboxd.com/himanshubalani',
+              pfcolor: AppColors.letterboxd,
+              vmainaxissize: MainAxisSize.max)
         ]
             .map((e) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -131,11 +130,11 @@ class SocialLinkButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 9.0),
           decoration: BoxDecoration(
-            color: isDark ? AppColors.black : pfcolor,
+            color: isDark ? (isHovered ? pfcolor : AppColors.black) : pfcolor,
             borderRadius: BorderRadius.circular(
                 (pageWidth <= 900 ? 12.sp : 5.sp).clamp(12, 18)),
             border:
-                Border.all(color: isDark ? pfcolor : Colors.black, width: 3.0),
+                Border.all(color: isDark ? pfcolor : AppColors.black, width: 3.0),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +169,9 @@ class SocialLinkButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: BoxCircles(
                   hoverEnabled: false,
-                  color: isDark ? pfcolor : AppColors.white,
+                  color: isDark
+                      ? (isHovered ? AppColors.offwhite : pfcolor)
+                      : AppColors.white,
                 ),
               ),
             ],
