@@ -12,6 +12,7 @@ import 'package:portfolio/widgets/neobrutalcontainer.dart';
 import 'package:portfolio/widgets/linkcard.dart';
 import 'package:portfolio/widgets/profileimage.dart';
 import 'package:portfolio/widgets/skillsbento.dart';
+import 'package:portfolio/widgets/ytvideos.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:portfolio/widgets/socialbox.dart';
 import '../widgets/bottombar.dart';
@@ -110,14 +111,16 @@ class _AboutPageState extends State<AboutPage> {
                               width: 120.w,
                               child: const OtherLinks(),
                             ),
-                            RepaintBoundary(child: LinkCard(
-                              vlink: 'https://album.himanshubalani.com?utm_source=portfolio',
-                              imageUrl: 'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
-                              vicon: FontAwesomeIcons.recordVinyl,
-                              vframecolor: Color(0xFFF1DBBF),
-                              vtext: 'Photo Album',
-                              wide: true
-                            )),
+                            RepaintBoundary(
+                                child: LinkCard(
+                                    vlink:
+                                        'https://album.himanshubalani.com?utm_source=portfolio',
+                                    imageUrl:
+                                        'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
+                                    vicon: FontAwesomeIcons.recordVinyl,
+                                    vframecolor: Color(0xFFF1DBBF),
+                                    vtext: 'Photo Album',
+                                    wide: true)),
                           ]
                               .map((e) => Padding(
                                   padding: const EdgeInsets.all(12.0),
@@ -160,6 +163,13 @@ class _AboutPageState extends State<AboutPage> {
                               child: e))
                           //padding: const EdgeInsets.all(12.0), child: e))
                           .toList(),
+                    ),
+                    RepaintBoundary(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 12.0),
+                        child: YtClips(),
+                      )
                     ),
                     SizedBox(height: 10.w),
                   ],

@@ -172,6 +172,7 @@ class AppColors {
   static const Color tomatoRed = Color(0xFFFF7A5C);
   static const Color lavenderPink = Color(0xFFFFB2EF);
   static const Color darkPurple = Color(0xFFA388EE);
+  static const Color darklavendar = Color(0xFF261B46);
 
   // Fourth row of colors
   static const Color royalBlue = Color(0xFF8DA6F5);

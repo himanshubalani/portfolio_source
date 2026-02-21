@@ -53,10 +53,9 @@
 
     <title>Himanshu Balani</title>
     <link rel="manifest" href="manifest.json">
-<!-- Commented out for now, will delete later when serviceWorker is figured out
     <script>
         // The value below is injected by flutter build, do not touch.
-        const serviceWorkerVersion = null;
+        var serviceWorkerVersion = '{{flutter_service_worker_version}}';
     </script>
     -->
     <!-- This script adds the flutter initialization JS code -->
@@ -64,6 +63,9 @@
 </head>
 <body>
 <style>
+    html, body {
+            overscroll-behavior-x: none;
+    }
     body {
       background-color: #90A8ED;
       height: 100vh;
