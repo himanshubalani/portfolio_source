@@ -6,41 +6,121 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/consts/style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class YtClips extends StatelessWidget {
-  YtClips({super.key});
+class YtClips extends StatefulWidget {
+  const YtClips({super.key});
+
+  @override
+  State<YtClips> createState() => _YtClipsState();
+}
+
+class _YtClipsState extends State<YtClips> {
+  bool _canPop = true;
+
+  void _setCanPop(bool value) {
+    if (_canPop != value) {
+      setState(() {
+        _canPop = value;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 900) {
+          return _buildDesktopLayout(context);
+        } else {
+          return _buildMobileLayout(context);
+        }
+      },
+    );
+  }
+
+  Widget _buildDesktopLayout(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 56.0, vertical: 8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20.r),
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.coralRed,
-                borderRadius: BorderRadius.circular(18.r),
-                border: Border.all(width: 2, color: AppColors.black),
+          padding: const EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.7,
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.black : AppColors.coralRed,
+              borderRadius: BorderRadius.circular(18.r),
+              border: Border.all(
+                width: 2,
+                color: isDark ? AppColors.coralRed : AppColors.black,
               ),
-              padding: EdgeInsets.all(4.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.65,
-                height: 300.h,
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width,
+            ),
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 250.h,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                  color: isDark ? AppColors.youtube : AppColors.black,
                 ),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: AppColors.black),
-                  borderRadius: BorderRadius.circular(14.r),
-                  color: AppColors.youtube,
-                  ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: cliplist.length,
-                  itemBuilder: (context, index) => _ClipCard(
-                    clip: cliplist[index],
+                borderRadius: BorderRadius.circular(14.r),
+                color: isDark ? AppColors.black : AppColors.youtube,
+                boxShadow: isDark
+                    ? [
+                        BoxShadow(
+                          color: AppColors.youtube.withValues(alpha: 0.9),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                        BoxShadow(
+                          color: AppColors.youtube.withValues(alpha: 0.5),
+                          blurRadius: 30,
+                          spreadRadius: 6,
+                        ),
+                        BoxShadow(
+                          color: AppColors.coralRed.withValues(alpha: 0.25),
+                          blurRadius: 60,
+                          spreadRadius: 12,
+                        ),
+                      ]
+                    : [],
+              ),
+              child: Listener(
+                onPointerDown: (_) => _setCanPop(false),
+                onPointerUp: (_) => _setCanPop(true),
+                onPointerCancel: (_) => _setCanPop(true),
+                child: MouseRegion(
+                  onEnter: (_) => _setCanPop(false),
+                  onExit: (_) => _setCanPop(true),
+                  child: PopScope(
+                    canPop: _canPop,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cliplist.length + 1, // +1 for the description card
+                      itemBuilder: (context, index) {
+                        // Return the Description as the very first card
+                        if (index == 0) {
+                          bool isHovered = false;
+                          return StatefulBuilder(
+                            builder: (context, setState) {
+                              return MouseRegion(
+                                onEnter: (_) => setState(() => isHovered = true),
+                                onExit: (_) => setState(() => isHovered = false),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                                  child: SectionDescription(isHovered: isHovered, isDark: isDark),
+                                ),
+                              );
+                            }
+                          );
+                        }
+                        
+                        // Return the actual video clips for the remaining indices
+                        return _DesktopClipCard(
+                          clip: cliplist[index - 1],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -62,22 +142,185 @@ class YtClips extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildMobileLayout(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.black : AppColors.coralRed,
+              borderRadius: BorderRadius.circular(18.r),
+              border: Border.all(
+                width: 2, 
+                color: isDark ? AppColors.coralRed : AppColors.black
+              ),
+            ),
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // ✅ Section description (Mobile retains it at the top)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  decoration: BoxDecoration(
+                    color: isDark ? AppColors.black : AppColors.offwhite,
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      width: 2, 
+                      color: isDark ? AppColors.coralRed : AppColors.black
+                    ),
+                  ),
+                  child: Text(
+                    "I've been a small part of some streams. Here are the ones available on YouTube.",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.rubik().fontFamily,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? AppColors.coralRed : AppColors.black,
+                    ),
+                  ),
+                ),
+
+                // Video list container
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2, 
+                      color: isDark ? AppColors.youtube : AppColors.black
+                    ),
+                    borderRadius: BorderRadius.circular(14.r),
+                    color: isDark ? AppColors.black : AppColors.youtube,
+                    boxShadow: isDark
+                        ? [
+                            BoxShadow(
+                              color: AppColors.youtube.withValues(alpha: 0.9),
+                              blurRadius: 12,
+                              spreadRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: AppColors.youtube.withValues(alpha: 0.5),
+                              blurRadius: 30,
+                              spreadRadius: 6,
+                            ),
+                            BoxShadow(
+                              color: AppColors.coralRed.withValues(alpha: 0.25),
+                              blurRadius: 60,
+                              spreadRadius: 12,
+                            ),
+                          ]
+                        : [],
+                  ),
+                  child: Listener(
+                    onPointerDown: (_) => _setCanPop(false),
+                    onPointerUp: (_) => _setCanPop(true),
+                    onPointerCancel: (_) => _setCanPop(true),
+                    child: MouseRegion(
+                      onEnter: (_) => _setCanPop(false),
+                      onExit: (_) => _setCanPop(true),
+                      child: PopScope(
+                        canPop: _canPop,
+                        child: Column(
+                          children: cliplist
+                              .map((clip) => _MobileClipCard(clip: clip))
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0,
+          left: 8,
+          child: Transform.rotate(
+            angle: -0.1,
+            child: SvgPicture.asset(
+              'assets/images/inthewildbanner.svg',
+              fit: BoxFit.cover,
+              width: 150.w, 
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
-class _ClipCard extends StatefulWidget {
-  final Map<String, dynamic> clip;
+class SectionDescription extends StatelessWidget {
+  const SectionDescription({
+    super.key,
+    required this.isHovered,
+    required this.isDark,
+  });
 
-  const _ClipCard({required this.clip});
+  final bool isHovered;
+  final bool isDark;
 
   @override
-  State<_ClipCard> createState() => _ClipCardState();
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeInOut,
+      width: 65.w,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: isHovered 
+            ? AppColors.lightLimeGreen 
+            : (isDark ? AppColors.black : AppColors.offwhite),
+        borderRadius: BorderRadius.circular(10.r), // Match clip cards
+        border: Border.all(
+          width: 2,
+          color: isDark ? AppColors.coralRed : AppColors.black,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Text(
+          "I've been a small part of some streams. Here are the ones available on YouTube.",
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            fontFamily: GoogleFonts.rubik().fontFamily,
+            fontSize: 5.sp,
+            fontWeight: FontWeight.bold,
+            color: isHovered 
+                ? AppColors.darklavendar 
+                : (isDark ? AppColors.coralRed : AppColors.black),
+            height: 1.5,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _ClipCardState extends State<_ClipCard> {
+class _DesktopClipCard extends StatefulWidget {
+  final Map<String, dynamic> clip;
+
+  const _DesktopClipCard({required this.clip});
+
+  @override
+  State<_DesktopClipCard> createState() => _DesktopClipCardState();
+}
+
+class _DesktopClipCardState extends State<_DesktopClipCard> {
   bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       child: MouseRegion(
@@ -95,16 +338,20 @@ class _ClipCardState extends State<_ClipCard> {
             curve: Curves.easeInOut,
             width: 70.w,
             decoration: BoxDecoration(
-              color: _isHovered
-                  ? AppColors.lightLimeGreen
-                  : AppColors.offwhite,
+              color: isDark 
+                  ? (_isHovered ? AppColors.lightLimeGreen : AppColors.black)
+                  : (_isHovered ? AppColors.lightLimeGreen : AppColors.offwhite),
               borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(width: 2, color: AppColors.black),
+              border: Border.all(
+                width: 2, 
+                color: isDark ? AppColors.youtube : AppColors.black
+              ),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: _ThumbnailImage(
@@ -119,16 +366,19 @@ class _ClipCardState extends State<_ClipCard> {
                       children: [
                         Text(
                           widget.clip['title'] as String,
-                          maxLines: 2,
+                          maxLines: 3,
+                          softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: Get.width <= 900 ? 12.sp : 4.sp,
+                            fontSize: Get.width <= 900 ? 10.sp : 4.sp,
                             fontWeight: _isHovered
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            fontFamily:
-                                GoogleFonts.rubik().fontFamily,
-                            color: AppColors.darklavendar,
+                            fontFamily: GoogleFonts.rubik().fontFamily,
+                            // Ensure text contrasts properly on hover vs normal
+                            color: isDark 
+                                ? (_isHovered ? AppColors.darklavendar : AppColors.white) 
+                                : AppColors.black,
                             height: 1.5,
                           ),
                         ),
@@ -140,9 +390,9 @@ class _ClipCardState extends State<_ClipCard> {
                               .textTheme
                               .bodySmall
                               ?.copyWith(
-                                color: _isHovered
-                                    ? Colors.black87
-                                    : Colors.grey[600],
+                                color: isDark 
+                                    ? (_isHovered ? Colors.black87 : Colors.grey[400])
+                                    : (_isHovered ? Colors.black87 : Colors.grey[600]),
                               ),
                         ),
                       ],
@@ -171,23 +421,157 @@ class _ClipCardState extends State<_ClipCard> {
   }
 }
 
-class _ThumbnailImage extends StatelessWidget {
-  final String imageUrl;
+class _MobileClipCard extends StatefulWidget {
+  final Map<String, dynamic> clip;
 
-  const _ThumbnailImage({required this.imageUrl});
+  const _MobileClipCard({required this.clip});
+
+  @override
+  State<_MobileClipCard> createState() => _MobileClipCardState();
+}
+
+class _MobileClipCardState extends State<_MobileClipCard> {
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: InkWell(
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: _launchClip,
+          borderRadius: BorderRadius.circular(10.r),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeInOut,
+            height: 95.w,
+            decoration: BoxDecoration(
+              color: isDark 
+                  ? (_isHovered ? AppColors.lightLimeGreen : AppColors.black)
+                  : (_isHovered ? AppColors.lightLimeGreen : AppColors.offwhite),
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(
+                width: 2, 
+                color: isDark ? AppColors.youtube : AppColors.black
+              )
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Row(
+                children: [
+                  // Left Side: Thumbnail
+                  SizedBox(
+                    width: 120.w,
+                    height: double.infinity,
+                    child: _ThumbnailImage(
+                      imageUrl: widget.clip['thumbnail'] as String,
+                      isMobile: true,
+                    ),
+                  ),
+                  
+                  // Right Side: Title & Uploader column
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.clip['title'] as String,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: _isHovered
+                                  ? FontWeight.bold
+                                  : FontWeight.w600,
+                              fontFamily: GoogleFonts.rubik().fontFamily,
+                              // Match hover behavior for text
+                              color: isDark 
+                                  ? (_isHovered ? AppColors.darklavendar : AppColors.white)
+                                  : AppColors.darklavendar,
+                              height: 1.2,
+                            ),
+                          ),
+                          SizedBox(height: 6.h),
+                          Text(
+                            widget.clip['uploader'] as String,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                  color: isDark 
+                                      ? (_isHovered ? Colors.black87 : Colors.grey[400])
+                                      : (_isHovered ? Colors.black87 : Colors.grey[700]),
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchClip() async {
+    final url = widget.clip['link'] as String;
+    try {
+      if (await canLaunchUrlString(url)) {
+        await launchUrlString(url);
+      } else {
+        debugPrint('Could not launch $url');
+      }
+    } catch (e) {
+      debugPrint('Error launching URL: $e');
+    }
+  }
+}
+
+class _ThumbnailImage extends StatelessWidget {
+  final String imageUrl;
+  final bool isMobile;
+
+  const _ThumbnailImage({required this.imageUrl, this.isMobile = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     double kwidth = 70.w;
-    double kheight = 50.w * 0.3;
+    
     return Container(
-      width: kwidth,
-      height: kheight,
+      width: isMobile ? double.infinity : kwidth,
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: isDark ? Colors.grey[850] : Colors.grey[300],
         border: Border(
-          bottom: BorderSide(width: 2, color: AppColors.black),
-        ),),
+          bottom: BorderSide(
+            width: isMobile ? 0 : 2, 
+            color: isMobile ? Colors.transparent : (isDark ? AppColors.lightLimeGreen : AppColors.black)
+          ),
+          right: BorderSide(
+            width: isMobile ? 2 : 0, 
+            color: isMobile ? (isDark ? AppColors.lightLimeGreen : AppColors.black) : Colors.transparent
+          ),
+        ),
+      ),
       child: Image.network(
         imageUrl,
         fit: BoxFit.cover,
@@ -207,7 +591,7 @@ class _ThumbnailImage extends StatelessWidget {
           return Center(
             child: Icon(
               Icons.image_not_supported,
-              color: Colors.grey[600],
+              color: isDark ? Colors.grey[500] : Colors.grey[600],
             ),
           );
         },
@@ -219,8 +603,7 @@ class _ThumbnailImage extends StatelessWidget {
 const List<Map<String, dynamic>> cliplist = [
   {
     'title': 'Akash and Yogini from Peerlist review my portfolio.',
-    'link':
-        'https://www.youtube.com/live/0x5m0K-82Rw?si=doAfF1ifEDYheA18&t=4090',
+    'link': 'https://www.youtube.com/live/0x5m0K-82Rw?si=doAfF1ifEDYheA18&t=4090',
     'uploader': 'TechThrusters',
     'thumbnail': 'https://i.ytimg.com/vi/0x5m0K-82Rw/maxresdefault.jpg',
   },

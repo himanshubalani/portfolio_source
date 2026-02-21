@@ -164,13 +164,18 @@ class _AboutPageState extends State<AboutPage> {
                           //padding: const EdgeInsets.all(12.0), child: e))
                           .toList(),
                     ),
-                    RepaintBoundary(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.08,
+                      ),
+                      RepaintBoundary(
                         child: YtClips(),
-                      )
-                    ),
+                      ),
+                    ],
+                  ),
                     SizedBox(height: 10.w),
                   ],
                 ),
@@ -210,7 +215,7 @@ class _AboutPageState extends State<AboutPage> {
         const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
-          color: AppColors.skyBlue,
+          color: AppColors.royalBlue,
           duration: Duration(seconds: 4),
         ),
         SingleChildScrollView(
@@ -264,6 +269,10 @@ class _AboutPageState extends State<AboutPage> {
                             ),
                             child:
                                 const RepaintBoundary(child: WorkTimeline()))),
+                  ),
+                  SizedBox(height: 10.w),
+                  RepaintBoundary(
+                    child: YtClips(),
                   ),
                   SizedBox(height: 10.w),
                   NeoBrutalContainer(
