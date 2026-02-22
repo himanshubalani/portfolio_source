@@ -118,7 +118,7 @@ class _AboutPageState extends State<AboutPage> {
                                     imageUrl:
                                         'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
                                     vicon: FontAwesomeIcons.recordVinyl,
-                                    vframecolor: Color(0xFFF1DBBF),
+                                    vframecolor: AppColors.creamPeach,
                                     vtext: 'Photo Album',
                                     wide: true)),
                           ]
@@ -169,10 +169,10 @@ class _AboutPageState extends State<AboutPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: Get.width * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.08,
                       ),
                       RepaintBoundary(
-                        child: YtClips(),
+                        child: const YtClips(),
                       ),
                     ],
                   ),

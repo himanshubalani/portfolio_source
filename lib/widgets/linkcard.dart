@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio/consts/style.dart';
 import 'package:portfolio/presentation/onhover.dart';
-import 'package:portfolio/widgets/languagebox.dart';
 import 'package:portfolio/widgets/socialbox.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -137,12 +135,7 @@ class LinkCard extends StatelessWidget {
                 Positioned(
                     left: -10,
                     top: -10,
-                    child: 
-                    // LanguageBox(text:
-                    // vtext,
-                    // //'Photo Album',
-                    // fontsize: 5.sp)
-                    SocialLinkButton(
+                    child: SocialLinkButton(
                       link: vlink,
                       icon: vicon, //FontAwesomeIcons.recordVinyl,
                       pfname: vtext,

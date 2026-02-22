@@ -96,25 +96,26 @@ class _YtClipsState extends State<YtClips> {
                     canPop: _canPop,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: cliplist.length + 1, // +1 for the description card
+                      itemCount:
+                          cliplist.length + 1, // +1 for the description card
                       itemBuilder: (context, index) {
                         // Return the Description as the very first card
                         if (index == 0) {
                           bool isHovered = false;
-                          return StatefulBuilder(
-                            builder: (context, setState) {
-                              return MouseRegion(
-                                onEnter: (_) => setState(() => isHovered = true),
-                                onExit: (_) => setState(() => isHovered = false),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-                                  child: SectionDescription(isHovered: isHovered, isDark: isDark),
-                                ),
-                              );
-                            }
-                          );
+                          return StatefulBuilder(builder: (context, setState) {
+                            return MouseRegion(
+                              onEnter: (_) => setState(() => isHovered = true),
+                              onExit: (_) => setState(() => isHovered = false),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 6.0),
+                                child: SectionDescription(
+                                    isHovered: isHovered, isDark: isDark),
+                              ),
+                            );
+                          });
                         }
-                        
+
                         // Return the actual video clips for the remaining indices
                         return _DesktopClipCard(
                           clip: cliplist[index - 1],
@@ -156,35 +157,37 @@ class _YtClipsState extends State<YtClips> {
               color: isDark ? AppColors.black : AppColors.coralRed,
               borderRadius: BorderRadius.circular(18.r),
               border: Border.all(
-                width: 2, 
-                color: isDark ? AppColors.coralRed : AppColors.black
-              ),
+                  width: 2,
+                  color: isDark ? AppColors.coralRed : AppColors.black),
             ),
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // ✅ Section description (Mobile retains it at the top)
+                // ✅ Section description (Mobile)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   margin: const EdgeInsets.only(bottom: 8.0),
+                  clipBehavior: Clip.hardEdge, // Ensures halftone stays inside border
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.black : AppColors.offwhite,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
-                      width: 2, 
-                      color: isDark ? AppColors.coralRed : AppColors.black
-                    ),
+                        width: 2,
+                        color: isDark ? AppColors.coralRed : AppColors.black),
                   ),
-                  child: Text(
-                    "I've been a small part of some streams. Here are the ones available on YouTube.",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.rubik().fontFamily,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: isDark ? AppColors.coralRed : AppColors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Text(
+                      "I've been a small part of some streams. Here are the ones available on YouTube.",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.rubik().fontFamily,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        // Ensure text is dark enough to read over dots
+                        color: isDark ? AppColors.coralRed : AppColors.black, 
+                      ),
                     ),
                   ),
                 ),
@@ -194,9 +197,8 @@ class _YtClipsState extends State<YtClips> {
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      width: 2, 
-                      color: isDark ? AppColors.youtube : AppColors.black
-                    ),
+                        width: 2,
+                        color: isDark ? AppColors.youtube : AppColors.black),
                     borderRadius: BorderRadius.circular(14.r),
                     color: isDark ? AppColors.black : AppColors.youtube,
                     boxShadow: isDark
@@ -249,7 +251,7 @@ class _YtClipsState extends State<YtClips> {
             child: SvgPicture.asset(
               'assets/images/inthewildbanner.svg',
               fit: BoxFit.cover,
-              width: 150.w, 
+              width: 150.w,
             ),
           ),
         ),
@@ -276,8 +278,8 @@ class SectionDescription extends StatelessWidget {
       width: 65.w,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: isHovered 
-            ? AppColors.lightLimeGreen 
+        color: isHovered
+            ? AppColors.lightLimeGreen
             : (isDark ? AppColors.black : AppColors.offwhite),
         borderRadius: BorderRadius.circular(10.r), // Match clip cards
         border: Border.all(
@@ -294,8 +296,8 @@ class SectionDescription extends StatelessWidget {
             fontFamily: GoogleFonts.rubik().fontFamily,
             fontSize: 5.sp,
             fontWeight: FontWeight.bold,
-            color: isHovered 
-                ? AppColors.darklavendar 
+            color: isHovered
+                ? AppColors.darkLavendar
                 : (isDark ? AppColors.coralRed : AppColors.black),
             height: 1.5,
           ),
@@ -306,7 +308,7 @@ class SectionDescription extends StatelessWidget {
 }
 
 class _DesktopClipCard extends StatefulWidget {
-  final Map<String, dynamic> clip;
+  final ClipData clip;
 
   const _DesktopClipCard({required this.clip});
 
@@ -338,14 +340,15 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
             curve: Curves.easeInOut,
             width: 70.w,
             decoration: BoxDecoration(
-              color: isDark 
+              color: isDark
                   ? (_isHovered ? AppColors.lightLimeGreen : AppColors.black)
-                  : (_isHovered ? AppColors.lightLimeGreen : AppColors.offwhite),
+                  : (_isHovered
+                      ? AppColors.lightLimeGreen
+                      : AppColors.offwhite),
               borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
-                width: 2, 
-                color: isDark ? AppColors.youtube : AppColors.black
-              ),
+                  width: 2,
+                  color: isDark ? AppColors.youtube : AppColors.black),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
@@ -355,7 +358,7 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
                 children: [
                   Expanded(
                     child: _ThumbnailImage(
-                      imageUrl: widget.clip['thumbnail'] as String,
+                      imageUrl: widget.clip.thumbnail,
                     ),
                   ),
                   Padding(
@@ -365,7 +368,7 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.clip['title'] as String,
+                          widget.clip.title,
                           maxLines: 3,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
@@ -376,24 +379,28 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
                                 : FontWeight.normal,
                             fontFamily: GoogleFonts.rubik().fontFamily,
                             // Ensure text contrasts properly on hover vs normal
-                            color: isDark 
-                                ? (_isHovered ? AppColors.darklavendar : AppColors.white) 
+                            color: isDark
+                                ? (_isHovered
+                                    ? AppColors.darkLavendar
+                                    : AppColors.white)
                                 : AppColors.black,
                             height: 1.5,
                           ),
                         ),
                         Text(
-                          widget.clip['uploader'] as String,
+                          widget.clip.uploader,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                color: isDark 
-                                    ? (_isHovered ? Colors.black87 : Colors.grey[400])
-                                    : (_isHovered ? Colors.black87 : Colors.grey[600]),
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: isDark
+                                        ? (_isHovered
+                                            ? Colors.black87
+                                            : Colors.grey[400])
+                                        : (_isHovered
+                                            ? Colors.black87
+                                            : Colors.grey[600]),
+                                  ),
                         ),
                       ],
                     ),
@@ -408,7 +415,7 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
   }
 
   Future<void> _launchClip() async {
-    final url = widget.clip['link'] as String;
+    final url = widget.clip.link;
     try {
       if (await canLaunchUrlString(url)) {
         await launchUrlString(url);
@@ -422,7 +429,7 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
 }
 
 class _MobileClipCard extends StatefulWidget {
-  final Map<String, dynamic> clip;
+  final ClipData clip;
 
   const _MobileClipCard({required this.clip});
 
@@ -454,15 +461,15 @@ class _MobileClipCardState extends State<_MobileClipCard> {
             curve: Curves.easeInOut,
             height: 95.w,
             decoration: BoxDecoration(
-              color: isDark 
-                  ? (_isHovered ? AppColors.lightLimeGreen : AppColors.black)
-                  : (_isHovered ? AppColors.lightLimeGreen : AppColors.offwhite),
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                width: 2, 
-                color: isDark ? AppColors.youtube : AppColors.black
-              )
-            ),
+                color: isDark
+                    ? (_isHovered ? AppColors.lightLimeGreen : AppColors.black)
+                    : (_isHovered
+                        ? AppColors.lightLimeGreen
+                        : AppColors.offwhite),
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(
+                    width: 2,
+                    color: isDark ? AppColors.youtube : AppColors.black)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
               child: Row(
@@ -472,11 +479,11 @@ class _MobileClipCardState extends State<_MobileClipCard> {
                     width: 120.w,
                     height: double.infinity,
                     child: _ThumbnailImage(
-                      imageUrl: widget.clip['thumbnail'] as String,
+                      imageUrl: widget.clip.thumbnail,
                       isMobile: true,
                     ),
                   ),
-                  
+
                   // Right Side: Title & Uploader column
                   Expanded(
                     child: Padding(
@@ -487,7 +494,7 @@ class _MobileClipCardState extends State<_MobileClipCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.clip['title'] as String,
+                            widget.clip.title,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -497,27 +504,31 @@ class _MobileClipCardState extends State<_MobileClipCard> {
                                   : FontWeight.w600,
                               fontFamily: GoogleFonts.rubik().fontFamily,
                               // Match hover behavior for text
-                              color: isDark 
-                                  ? (_isHovered ? AppColors.darklavendar : AppColors.white)
-                                  : AppColors.darklavendar,
+                              color: isDark
+                                  ? (_isHovered
+                                      ? AppColors.darkLavendar
+                                      : AppColors.white)
+                                  : AppColors.darkLavendar,
                               height: 1.2,
                             ),
                           ),
                           SizedBox(height: 6.h),
                           Text(
-                            widget.clip['uploader'] as String,
+                            widget.clip.uploader,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  color: isDark 
-                                      ? (_isHovered ? Colors.black87 : Colors.grey[400])
-                                      : (_isHovered ? Colors.black87 : Colors.grey[700]),
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: isDark
+                                          ? (_isHovered
+                                              ? Colors.black87
+                                              : Colors.grey[400])
+                                          : (_isHovered
+                                              ? Colors.black87
+                                              : Colors.grey[700]),
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                           ),
                         ],
                       ),
@@ -533,7 +544,7 @@ class _MobileClipCardState extends State<_MobileClipCard> {
   }
 
   Future<void> _launchClip() async {
-    final url = widget.clip['link'] as String;
+    final url = widget.clip.link;
     try {
       if (await canLaunchUrlString(url)) {
         await launchUrlString(url);
@@ -556,20 +567,22 @@ class _ThumbnailImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     double kwidth = 70.w;
-    
+
     return Container(
       width: isMobile ? double.infinity : kwidth,
       decoration: BoxDecoration(
         color: isDark ? Colors.grey[850] : Colors.grey[300],
         border: Border(
           bottom: BorderSide(
-            width: isMobile ? 0 : 2, 
-            color: isMobile ? Colors.transparent : (isDark ? AppColors.lightLimeGreen : AppColors.black)
-          ),
+              width: isMobile ? 0 : 2,
+              color: isMobile
+                  ? Colors.transparent
+                  : (isDark ? AppColors.lightLimeGreen : AppColors.black)),
           right: BorderSide(
-            width: isMobile ? 2 : 0, 
-            color: isMobile ? (isDark ? AppColors.lightLimeGreen : AppColors.black) : Colors.transparent
-          ),
+              width: isMobile ? 2 : 0,
+              color: isMobile
+                  ? (isDark ? AppColors.lightLimeGreen : AppColors.black)
+                  : Colors.transparent),
         ),
       ),
       child: Image.network(
@@ -600,38 +613,50 @@ class _ThumbnailImage extends StatelessWidget {
   }
 }
 
-const List<Map<String, dynamic>> cliplist = [
-  {
-    'title': 'Akash and Yogini from Peerlist review my portfolio.',
-    'link': 'https://www.youtube.com/live/0x5m0K-82Rw?si=doAfF1ifEDYheA18&t=4090',
-    'uploader': 'TechThrusters',
-    'thumbnail': 'https://i.ytimg.com/vi/0x5m0K-82Rw/maxresdefault.jpg',
-  },
-  {
-    'title': 'The Studio Andrew replies to my comment in a video',
-    'link': 'https://www.youtube.com/clip/UgkxUgVSUq5sBVPYRmOgJc7quel95cUj5GpQ',
-    'uploader': 'The Studio',
-    'thumbnail': 'https://i.ytimg.com/vi/0oL_IT4hJp8/maxresdefault.jpg',
-  },
-  {
-    'title': 'I win GHW Security Opening Ceremony Surprise Surprise!',
-    'link': 'https://www.youtube.com/clip/UgkxKnwdjeHbtt59plTPjX99kD8dfX5V7bFZ',
-    'uploader': 'MLH',
-    'thumbnail':
-        'https://i.ytimg.com/vi/0ex5OyQvVQM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgVShVMA8=&rs=AOn4CLCJ_xQlnbUzAwLrxBi1yHtCj1350A',
-  },
-  {
-    'title': 'Ryan and Mary showcase my Design, PS: I won a swag drop.',
-    'link': 'https://www.youtube.com/clip/UgkxYNicg4-eSQaR8Xz_TGaVPM4gWW7cO_qC',
-    'uploader': 'MLH',
-    'thumbnail':
-        'https://i.ytimg.com/vi/Ywe5JgzmmAU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gWigoMA8=&rs=AOn4CLAn9E0DcLeyhehbW8DHaop-QypvMg',
-  },
-  {
-    'title': 'Mary and Jacklyn like my redesign',
-    'link': 'https://www.youtube.com/clip/UgkxzAhYPjFTCdaDzwjp-4SvA2-cuYOaWpUk',
-    'uploader': 'MLH',
-    'thumbnail':
-        'https://i.ytimg.com/vi/Y9WqSeFJYyU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gFyhKMA8=&rs=AOn4CLCWJn92zGcnjKQjdc2BGibfhjWEYA'
-  }
+class ClipData {
+  final String title;
+  final String link;
+  final String uploader;
+  final String thumbnail;
+
+  const ClipData({
+    required this.title,
+    required this.link,
+    required this.uploader,
+    required this.thumbnail,
+  });
+}
+
+
+const List<ClipData> cliplist = [
+  ClipData(
+    title: 'Akash and Yogini from Peerlist review my portfolio.',
+    link: 'https://www.youtube.com/live/0x5m0K-82Rw?si=doAfF1ifEDYheA18&t=4090',
+    uploader: 'TechThrusters',
+    thumbnail: 'https://i.ytimg.com/vi/0x5m0K-82Rw/maxresdefault.jpg',
+  ),
+  ClipData(
+   title: 'The Studio Andrew replies to my comment in a video',
+    link: 'https://www.youtube.com/clip/UgkxUgVSUq5sBVPYRmOgJc7quel95cUj5GpQ',
+    uploader: 'The Studio',
+   thumbnail: 'https://i.ytimg.com/vi/0oL_IT4hJp8/maxresdefault.jpg',
+  ),
+  ClipData(
+    title: 'I win GHW Security Opening Ceremony Surprise Surprise!',
+    link:  'https://www.youtube.com/clip/UgkxKnwdjeHbtt59plTPjX99kD8dfX5V7bFZ',
+    uploader:  'MLH',
+    thumbnail: 'https://i.ytimg.com/vi/0ex5OyQvVQM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgVShVMA8=&rs=AOn4CLCJ_xQlnbUzAwLrxBi1yHtCj1350A',
+ ),
+  ClipData(
+    title: 'Ryan and Mary showcase my Design, PS: I won a swag drop.',
+    link: 'https://www.youtube.com/clip/UgkxYNicg4-eSQaR8Xz_TGaVPM4gWW7cO_qC',
+    uploader: 'MLH',
+    thumbnail: 'https://i.ytimg.com/vi/Ywe5JgzmmAU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gWigoMA8=&rs=AOn4CLAn9E0DcLeyhehbW8DHaop-QypvMg',
+  ),
+  ClipData( 
+    title: 'Mary and Jacklyn like my redesign',
+    link:  'https://www.youtube.com/clip/UgkxzAhYPjFTCdaDzwjp-4SvA2-cuYOaWpUk',
+    uploader: 'MLH',
+    thumbnail: 'https://i.ytimg.com/vi/Y9WqSeFJYyU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gFyhKMA8=&rs=AOn4CLCWJn92zGcnjKQjdc2BGibfhjWEYA'
+  ),
 ];
