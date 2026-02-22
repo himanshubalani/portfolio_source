@@ -137,7 +137,7 @@ class LinkCard extends StatelessWidget {
                     top: -10,
                     child: SocialLinkButton(
                       link: vlink,
-                      icon: vicon, //FontAwesomeIcons.recordVinyl,
+                      icon: vicon,
                       pfname: vtext,
                       pfcolor: AppColors.paleAqua,
                       vmainaxissize: MainAxisSize.min,

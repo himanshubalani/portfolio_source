@@ -272,7 +272,7 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                   SizedBox(height: 10.w),
                   RepaintBoundary(
-                    child: YtClips(),
+                    child: const YtClips(),
                   ),
                   SizedBox(height: 10.w),
                   NeoBrutalContainer(

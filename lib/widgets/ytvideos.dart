@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/consts/style.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class YtClips extends StatefulWidget {
   const YtClips({super.key});
@@ -40,94 +40,70 @@ class _YtClipsState extends State<YtClips> {
   Widget _buildDesktopLayout(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Stack(
+    return 
+        PopScope(
+          canPop: _canPop,
+          child: Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.7,
-            decoration: BoxDecoration(
-              color: isDark ? AppColors.black : AppColors.coralRed,
-              borderRadius: BorderRadius.circular(18.r),
-              border: Border.all(
-                width: 2,
-                color: isDark ? AppColors.coralRed : AppColors.black,
-              ),
-            ),
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
             child: Container(
-              height: 250.h,
-              clipBehavior: Clip.hardEdge,
+              width: MediaQuery.of(context).size.width * 0.7,
               decoration: BoxDecoration(
+                color: isDark ? AppColors.black : AppColors.coralRed,
+                borderRadius: BorderRadius.circular(18.r),
                 border: Border.all(
                   width: 2,
-                  color: isDark ? AppColors.youtube : AppColors.black,
+                  color: isDark ? AppColors.coralRed : AppColors.black,
                 ),
-                borderRadius: BorderRadius.circular(14.r),
-                color: isDark ? AppColors.black : AppColors.youtube,
-                boxShadow: isDark
-                    ? [
-                        BoxShadow(
-                          color: AppColors.youtube.withValues(alpha: 0.9),
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                        BoxShadow(
-                          color: AppColors.youtube.withValues(alpha: 0.5),
-                          blurRadius: 30,
-                          spreadRadius: 6,
-                        ),
-                        BoxShadow(
-                          color: AppColors.coralRed.withValues(alpha: 0.25),
-                          blurRadius: 60,
-                          spreadRadius: 12,
-                        ),
-                      ]
-                    : [],
               ),
-              child: Listener(
-                onPointerDown: (_) => _setCanPop(false),
-                onPointerUp: (_) => _setCanPop(true),
-                onPointerCancel: (_) => _setCanPop(true),
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 250.h,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: isDark ? AppColors.youtube : AppColors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(14.r),
+                  color: isDark ? AppColors.black : AppColors.youtube,
+                ),
                 child: MouseRegion(
                   onEnter: (_) => _setCanPop(false),
                   onExit: (_) => _setCanPop(true),
-                  child: PopScope(
-                    canPop: _canPop,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          cliplist.length + 1, // +1 for the description card
-                      itemBuilder: (context, index) {
-                        // Return the Description as the very first card
-                        if (index == 0) {
-                          bool isHovered = false;
-                          return StatefulBuilder(builder: (context, setState) {
-                            return MouseRegion(
-                              onEnter: (_) => setState(() => isHovered = true),
-                              onExit: (_) => setState(() => isHovered = false),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6.0, vertical: 6.0),
-                                child: SectionDescription(
-                                    isHovered: isHovered, isDark: isDark),
-                              ),
-                            );
-                          });
-                        }
-
-                        // Return the actual video clips for the remaining indices
-                        return _DesktopClipCard(
-                          clip: cliplist[index - 1],
-                        );
-                      },
-                    ),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount:
+                        cliplist.length + 1, // +1 for the description card
+                    itemBuilder: (context, index) {
+                      // Return the Description as the very first card
+                      if (index == 0) {
+                        bool isHovered = false;
+                        return StatefulBuilder(builder: (context, setState) {
+                          return MouseRegion(
+                            onEnter: (_) => setState(() => isHovered = true),
+                            onExit: (_) => setState(() => isHovered = false),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 6.0),
+                              child: SectionDescription(
+                                  isHovered: isHovered, isDark: isDark),
+                            ),
+                          );
+                        });
+                      }
+              
+                      // Return the actual video clips for the remaining indices
+                      return _DesktopClipCard(
+                        clip: cliplist[index - 1],
+                      );
+                    },
                   ),
                 ),
               ),
             ),
           ),
-        ),
         Positioned(
           top: 0,
           left: 0,
@@ -140,9 +116,11 @@ class _YtClipsState extends State<YtClips> {
             ),
           ),
         ),
-      ],
-    );
+      ]
+          ),
+        );
   }
+
 
   Widget _buildMobileLayout(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -170,7 +148,7 @@ class _YtClipsState extends State<YtClips> {
                   margin: const EdgeInsets.only(bottom: 8.0),
                   clipBehavior: Clip.hardEdge, // Ensures halftone stays inside border
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDark ? AppColors.black : AppColors.white,
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
                         width: 2,
@@ -201,25 +179,6 @@ class _YtClipsState extends State<YtClips> {
                         color: isDark ? AppColors.youtube : AppColors.black),
                     borderRadius: BorderRadius.circular(14.r),
                     color: isDark ? AppColors.black : AppColors.youtube,
-                    boxShadow: isDark
-                        ? [
-                            BoxShadow(
-                              color: AppColors.youtube.withValues(alpha: 0.9),
-                              blurRadius: 12,
-                              spreadRadius: 1,
-                            ),
-                            BoxShadow(
-                              color: AppColors.youtube.withValues(alpha: 0.5),
-                              blurRadius: 30,
-                              spreadRadius: 6,
-                            ),
-                            BoxShadow(
-                              color: AppColors.coralRed.withValues(alpha: 0.25),
-                              blurRadius: 60,
-                              spreadRadius: 12,
-                            ),
-                          ]
-                        : [],
                   ),
                   child: Listener(
                     onPointerDown: (_) => _setCanPop(false),
@@ -333,7 +292,7 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
           focusColor: Colors.transparent,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: _launchClip,
+          onTap: () => _launchClipUrl(widget.clip.link),
           borderRadius: BorderRadius.circular(10.r),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
@@ -414,18 +373,6 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
     );
   }
 
-  Future<void> _launchClip() async {
-    final url = widget.clip.link;
-    try {
-      if (await canLaunchUrlString(url)) {
-        await launchUrlString(url);
-      } else {
-        debugPrint('Could not launch $url');
-      }
-    } catch (e) {
-      debugPrint('Error launching URL: $e');
-    }
-  }
 }
 
 class _MobileClipCard extends StatefulWidget {
@@ -454,7 +401,7 @@ class _MobileClipCardState extends State<_MobileClipCard> {
           focusColor: Colors.transparent,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: _launchClip,
+          onTap: () => _launchClipUrl(widget.clip.link),
           borderRadius: BorderRadius.circular(10.r),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
@@ -542,19 +489,6 @@ class _MobileClipCardState extends State<_MobileClipCard> {
       ),
     );
   }
-
-  Future<void> _launchClip() async {
-    final url = widget.clip.link;
-    try {
-      if (await canLaunchUrlString(url)) {
-        await launchUrlString(url);
-      } else {
-        debugPrint('Could not launch $url');
-      }
-    } catch (e) {
-      debugPrint('Error launching URL: $e');
-    }
-  }
 }
 
 class _ThumbnailImage extends StatelessWidget {
@@ -566,12 +500,12 @@ class _ThumbnailImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    double kwidth = 70.w;
+    final double kwidth = 70.w;
 
     return Container(
       width: isMobile ? double.infinity : kwidth,
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[850] : Colors.grey[300],
+        color: isDark ? Colors.grey[800] : Colors.grey[300],
         border: Border(
           bottom: BorderSide(
               width: isMobile ? 0 : 2,
@@ -625,6 +559,19 @@ class ClipData {
     required this.uploader,
     required this.thumbnail,
   });
+}
+
+Future<void> _launchClipUrl(String urlString) async {
+  final Uri url = Uri.parse(urlString);
+  try {
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      debugPrint('Could not launch $url');
+    }
+  } catch (e) {
+    debugPrint('Error launching URL: $e');
+  }
 }
 
 
