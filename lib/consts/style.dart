@@ -178,6 +178,7 @@ class AppColors {
   // Fourth row of colors
   static const Color royalBlue = Color(0xFF8DA6F5);
   static const Color lightSeafoamGreen = Color(0xFF8ADEEF);
+  static const Color irishGreen = Color(0xFF09AC06);
   static const Color oliveGreen = Color(0xFF7FBC8C);
   static const Color rustyOrange = Color(0xFFE3A018);
   static const Color darkRed = Color(0xFFFF6B6B);

@@ -55,7 +55,7 @@ class _AboutPageState extends State<AboutPage> {
             children: [
               AnimatedPillsBackground(
                 rows: 10,
-                columns: 24,
+                columns: 20,
                 color: AppColors.toolJetBlue.withValues(alpha: 0.2),
                 duration: const Duration(seconds: 4),
               ),
@@ -212,9 +212,9 @@ class _AboutPageState extends State<AboutPage> {
   Widget mobileAboutpage() {
     return Stack(
       children: [
-        const AnimatedPillsBackground(
+        AnimatedPillsBackground(
           rows: 10,
-          columns: 24,
+          columns: 8,
           color: AppColors.royalBlue,
           duration: Duration(seconds: 4),
         ),

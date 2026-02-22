@@ -196,7 +196,7 @@ class _ProjectsState extends State<Projects> {
       children: [
         const AnimatedPillsBackground(
           rows: 10,
-          columns: 24,
+          columns: 8,
           color: AppColors.rustyOrange,
           duration: Duration(seconds: 4),
         ),

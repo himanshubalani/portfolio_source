@@ -108,11 +108,11 @@ class _YtClipsState extends State<YtClips> {
           top: 0,
           left: 0,
           child: Transform.rotate(
-            angle: -0.16,
+            angle: -0.12,
             child: SvgPicture.asset(
               'assets/images/inthewildbanner.svg',
               fit: BoxFit.cover,
-              width: 50.w,
+              width: 55.w,
             ),
           ),
         ),
@@ -157,7 +157,7 @@ class _YtClipsState extends State<YtClips> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Text(
-                      "I've been a small part of some streams. Here are the ones available on YouTube.",
+                     "I’ve appeared in a few live streams over the years. Here are some available on YouTube.",
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontFamily: GoogleFonts.rubik().fontFamily,
@@ -249,7 +249,7 @@ class SectionDescription extends StatelessWidget {
       child: Align(
         alignment: Alignment.bottomRight,
         child: Text(
-          "I've been a small part of some streams. Here are the ones available on YouTube.",
+          "I’ve appeared in a few live streams over the years. Here are some available on YouTube.",
           textAlign: TextAlign.right,
           style: TextStyle(
             fontFamily: GoogleFonts.rubik().fontFamily,
