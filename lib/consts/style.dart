@@ -152,6 +152,7 @@ class AppColors {
   static const Color lightPeach = Color(0xFFF8D6B3);
   static const Color lightPink = Color(0xFFFCDFFF);
   static const Color lightLavender = Color(0xFFE3DFF2);
+  static const Color creamPeach = Color(0xFFF1DBBF);
 
   // Second row of colors
   static const Color lightBlue = Color(0xFFB4D6F8);
@@ -162,6 +163,7 @@ class AppColors {
   static const Color coralRed = Color(0xFFFFA07A);
   static const Color softPink = Color(0xFFFFC0CB);
   static const Color palePurple = Color(0xFFC4A1FF);
+  static const Color paleAqua = Color(0xFF95B2D8);
 
   // Third row of colors
   static const Color skyBlue = Color(0xFF93D6F1);
@@ -171,10 +173,12 @@ class AppColors {
   static const Color tomatoRed = Color(0xFFFF7A5C);
   static const Color lavenderPink = Color(0xFFFFB2EF);
   static const Color darkPurple = Color(0xFFA388EE);
+  static const Color darkLavendar = Color(0xFF261B46);
 
   // Fourth row of colors
   static const Color royalBlue = Color(0xFF8DA6F5);
   static const Color lightSeafoamGreen = Color(0xFF8ADEEF);
+  static const Color irishGreen = Color(0xFF09AC06);
   static const Color oliveGreen = Color(0xFF7FBC8C);
   static const Color rustyOrange = Color(0xFFE3A018);
   static const Color darkRed = Color(0xFFFF6B6B);

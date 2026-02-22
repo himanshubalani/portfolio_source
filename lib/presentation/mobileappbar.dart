@@ -26,12 +26,15 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget {
         scrolledUnderElevation: 10,
         backgroundColor: bgColor, // Dynamic Background
         elevation: 0,
-        title: AutoSizeText(
-          'himanshubalani',
-          style: TextStyle(
-            color: fgColor, // Dynamic Text
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        title: InkWell(
+          onTap: () => Get.offAllNamed('/home'),
+          child: AutoSizeText(
+            'himanshubalani',
+            style: TextStyle(
+              color: fgColor, // Dynamic Text
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         shape: RoundedRectangleBorder(

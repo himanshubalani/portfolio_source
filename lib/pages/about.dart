@@ -12,6 +12,7 @@ import 'package:portfolio/widgets/neobrutalcontainer.dart';
 import 'package:portfolio/widgets/linkcard.dart';
 import 'package:portfolio/widgets/profileimage.dart';
 import 'package:portfolio/widgets/skillsbento.dart';
+import 'package:portfolio/widgets/ytvideos.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:portfolio/widgets/socialbox.dart';
 import '../widgets/bottombar.dart';
@@ -54,7 +55,7 @@ class _AboutPageState extends State<AboutPage> {
             children: [
               AnimatedPillsBackground(
                 rows: 10,
-                columns: 24,
+                columns: 20,
                 color: AppColors.toolJetBlue.withValues(alpha: 0.2),
                 duration: const Duration(seconds: 4),
               ),
@@ -110,13 +111,16 @@ class _AboutPageState extends State<AboutPage> {
                               width: 120.w,
                               child: const OtherLinks(),
                             ),
-                            RepaintBoundary(child: LinkCard(
-                              vlink: 'https://album.himanshubalani.com?utm_source=portfolio',
-                              imageUrl: 'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
-                              vframecolor: Color(0xFFF1DBBF),
-                              vtext: 'Photo Album',
-                              wide: true
-                            )),
+                            RepaintBoundary(
+                                child: LinkCard(
+                                    vlink:
+                                        'https://album.himanshubalani.com?utm_source=portfolio',
+                                    imageUrl:
+                                        'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
+                                    vicon: FontAwesomeIcons.recordVinyl,
+                                    vframecolor: AppColors.creamPeach,
+                                    vtext: 'Photo Album',
+                                    wide: true)),
                           ]
                               .map((e) => Padding(
                                   padding: const EdgeInsets.all(12.0),
@@ -160,6 +164,18 @@ class _AboutPageState extends State<AboutPage> {
                           //padding: const EdgeInsets.all(12.0), child: e))
                           .toList(),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                      RepaintBoundary(
+                        child: const YtClips(),
+                      ),
+                    ],
+                  ),
                     SizedBox(height: 10.w),
                   ],
                 ),
@@ -196,10 +212,10 @@ class _AboutPageState extends State<AboutPage> {
   Widget mobileAboutpage() {
     return Stack(
       children: [
-        const AnimatedPillsBackground(
+        AnimatedPillsBackground(
           rows: 10,
-          columns: 24,
-          color: AppColors.skyBlue,
+          columns: 8,
+          color: AppColors.royalBlue,
           duration: Duration(seconds: 4),
         ),
         SingleChildScrollView(
@@ -253,6 +269,10 @@ class _AboutPageState extends State<AboutPage> {
                             ),
                             child:
                                 const RepaintBoundary(child: WorkTimeline()))),
+                  ),
+                  SizedBox(height: 10.w),
+                  RepaintBoundary(
+                    child: const YtClips(),
                   ),
                   SizedBox(height: 10.w),
                   NeoBrutalContainer(

@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         const AnimatedPillsBackground(
           rows: 10,
-          columns: 24,
+          columns: 8,
           color: AppColors.discord,
           duration: Duration(seconds: 4),
         ),

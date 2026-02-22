@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/consts/style.dart';
 import 'package:portfolio/presentation/onhover.dart';
-import 'package:portfolio/widgets/languagebox.dart';
+import 'package:portfolio/widgets/socialbox.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class LinkCard extends StatelessWidget {
@@ -10,6 +10,7 @@ class LinkCard extends StatelessWidget {
   required this.vlink,
   required this.imageUrl,
   required this.vtext,
+  required this.vicon,
   required this.vframecolor,
   required this.wide,
   });
@@ -17,6 +18,7 @@ class LinkCard extends StatelessWidget {
   final String vlink;
   final String imageUrl;
   final String vtext;
+  final dynamic vicon;
   final Color vframecolor;
   final bool wide;
 
@@ -51,7 +53,7 @@ class LinkCard extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                     color: frameColor, // Dynamic Background
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(10.r),
                     boxShadow: isDark
                         ? [
                             BoxShadow(
@@ -86,10 +88,10 @@ class LinkCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: borderColor, width: borderWidth),
-                            borderRadius: BorderRadius.circular(12.r),
+                            borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.r),
+                            borderRadius: BorderRadius.circular(6.r),
                             child: Image.network(
                               //'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
                               imageUrl,
@@ -131,12 +133,16 @@ class LinkCard extends StatelessWidget {
                 ),
 
                 Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: LanguageBox(text:
-                    vtext,
-                    //'Photo Album',
-                    fontsize: 5.sp))
+                    left: -10,
+                    top: -10,
+                    child: SocialLinkButton(
+                      link: vlink,
+                      icon: vicon,
+                      pfname: vtext,
+                      pfcolor: AppColors.paleAqua,
+                      vmainaxissize: MainAxisSize.min,
+                    )
+                    )
               ],
             ),
           ),
