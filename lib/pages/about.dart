@@ -304,6 +304,25 @@ class _AboutPageState extends State<AboutPage> {
                                 const RepaintBoundary(child: WorkTimeline()))),
                   ),
                   SizedBox(height: 10.w),
+                  RepaintBoundary(child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 4.h),
+                    child: Align(alignment: Alignment.centerLeft,
+                    child: LinkCard(vlink: 'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website', imageUrl: 'https://raw.githubusercontent.com/himanshubalani/himanshubalani.github.io/refs/heads/main/assets/assets/images/talksimage.webp', vtext: 'talks', vicon: SimpleIcons.sessionize, vframecolor: AppColors.offwhite, vbuttoncolor: AppColors.sessionize, wide: false)),
+                  )),
+                  RepaintBoundary(child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 4.h),
+                    child: Align(alignment: Alignment.centerLeft,
+                    child: LinkCard(
+                                    vlink:
+                                        'https://album.himanshubalani.com?utm_source=portfolio',
+                                    imageUrl:
+                                        'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
+                                    vicon: FontAwesomeIcons.recordVinyl,
+                                    vframecolor: AppColors.creamPeach,
+                                    vbuttoncolor: AppColors.paleAqua,
+                                    vtext: 'photo album',
+                                    wide: true)),
+                  )),
                   RepaintBoundary(
                     child: const YtClips(),
                   ),
@@ -407,13 +426,6 @@ class OtherLinks extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.end,
       children: [
-        if (MediaQuery.of(context).size.width <= 900)
-          SocialLinkButton(
-              link: "https://album.himanshubalani.com?utm_source=portfolio",
-              icon: FontAwesomeIcons.recordVinyl,
-              pfname: "photo album",
-              pfcolor: AppColors.darkPurple,
-              vmainaxissize: MainAxisSize.min),
         SocialLinkButton(
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
@@ -422,14 +434,6 @@ class OtherLinks extends StatelessWidget {
           pfcolor: AppColors.black,
           vmainaxissize: MainAxisSize.min,
         ),
-        // SocialLinkButton(
-        //   link:
-        //       'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website',
-        //   icon: SimpleIcons.sessionize,
-        //   pfname: 'talks ',
-        //   pfcolor: AppColors.sessionize,
-        //   vmainaxissize: MainAxisSize.min,
-        // ),
         SocialLinkButton(
           link:
               "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
