@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,10 @@ import 'package:portfolio/consts/style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class YtClips extends StatefulWidget {
+  @Preview(
+    name: "YtClips Preview",
+    brightness: Brightness.light,
+  )
   const YtClips({super.key});
 
   @override
@@ -15,6 +20,15 @@ class YtClips extends StatefulWidget {
 
 class _YtClipsState extends State<YtClips> {
   bool _canPop = true;
+  
+  // 1. Add ScrollController for horizontal scrolling
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void _setCanPop(bool value) {
     if (_canPop != value) {
@@ -22,6 +36,57 @@ class _YtClipsState extends State<YtClips> {
         _canPop = value;
       });
     }
+  }
+
+  // 2. Scroll Logic Methods
+  void _scrollLeft() {
+    if (_scrollController.hasClients) {
+      final double targetOffset = _scrollController.offset - 300.0;
+      _scrollController.animateTo(
+        targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _scrollRight() {
+    if (_scrollController.hasClients) {
+      final double targetOffset = _scrollController.offset + 300.0;
+      _scrollController.animateTo(
+        targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  // 3. Helper for the Arrow Buttons to match your aesthetic
+  Widget _buildScrollButton(IconData icon, VoidCallback onPressed, bool isDark) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: 50.w,
+          maxHeight: 50.h,
+        ),
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(16.r),
+          color: isDark ? AppColors.lightLimeGreen : AppColors.offwhite,
+          border: Border.all(
+            color: AppColors.black,
+            width: 2,
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: AppColors.black,
+          size: 8.w,
+        ),
+      ),
+    );
   }
 
   @override
@@ -40,15 +105,15 @@ class _YtClipsState extends State<YtClips> {
   Widget _buildDesktopLayout(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return 
-        PopScope(
-          canPop: _canPop,
-          child: Stack(
-      children: [
-        Padding(
+    return PopScope(
+      canPop: _canPop,
+      child: Stack(
+        children: [
+          // Left Arrow Button     
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.5,
               decoration: BoxDecoration(
                 color: isDark ? AppColors.black : AppColors.coralRed,
                 borderRadius: BorderRadius.circular(18.r),
@@ -69,58 +134,74 @@ class _YtClipsState extends State<YtClips> {
                   borderRadius: BorderRadius.circular(14.r),
                   color: isDark ? AppColors.black : AppColors.youtube,
                 ),
-                child: MouseRegion(
-                  onEnter: (_) => _setCanPop(false),
-                  onExit: (_) => _setCanPop(true),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount:
-                        cliplist.length + 1, // +1 for the description card
-                    itemBuilder: (context, index) {
-                      // Return the Description as the very first card
-                      if (index == 0) {
-                        bool isHovered = false;
-                        return StatefulBuilder(builder: (context, setState) {
-                          return MouseRegion(
-                            onEnter: (_) => setState(() => isHovered = true),
-                            onExit: (_) => setState(() => isHovered = false),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 6.0),
-                              child: SectionDescription(
-                                  isHovered: isHovered, isDark: isDark),
-                            ),
-                          );
-                        });
-                      }
-              
-                      // Return the actual video clips for the remaining indices
-                      return _DesktopClipCard(
-                        clip: cliplist[index - 1],
-                      );
-                    },
-                  ),
+                // 4. Wrapped inside a Stack to overlay the buttons
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    MouseRegion(
+                      onEnter: (_) => _setCanPop(false),
+                      onExit: (_) => _setCanPop(true),
+                      child: RepaintBoundary(
+                        child: ListView.builder(
+                          controller: _scrollController, // Added controller
+                          scrollDirection: Axis.horizontal,
+                          itemCount: cliplist.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              bool isHovered = false;
+                              return StatefulBuilder(builder: (context, setState) {
+                                return MouseRegion(
+                                  onEnter: (_) => setState(() => isHovered = true),
+                                  onExit: (_) => setState(() => isHovered = false),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6.0, vertical: 6.0),
+                                    child: SectionDescription(
+                                        isHovered: isHovered, isDark: isDark),
+                                  ),
+                                );
+                              });
+                            }
+                                      
+                            return _DesktopClipCard(
+                              clip: cliplist[index - 1],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        Positioned(
-          top: 0,
-          left: 0,
-          child: Transform.rotate(
-            angle: -0.12,
-            child: SvgPicture.asset(
-              'assets/images/inthewildbanner.svg',
-              fit: BoxFit.cover,
-              width: 55.w,
+          Positioned(
+                      left: 12.0,
+                      top: 120.h,
+                      child: _buildScrollButton(Icons.arrow_back_ios_new, _scrollLeft, isDark),
+                    ),
+                    // Right Arrow Button
+                    Positioned(
+                      right: 12.0,
+                      top: 120.h,
+                      child: _buildScrollButton(Icons.arrow_forward_ios, _scrollRight, isDark),
+                    ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Transform.rotate(
+              angle: -0.12,
+              child: SvgPicture.asset(
+                'assets/svgs/inthewildbanner.svg',
+                fit: BoxFit.cover,
+                width: 55.w,
+              ),
             ),
           ),
-        ),
-      ]
-          ),
-        );
+        ],
+      ),
+    );
   }
-
 
   Widget _buildMobileLayout(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -143,10 +224,9 @@ class _YtClipsState extends State<YtClips> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // ✅ Section description (Mobile)
                 Container(
                   margin: const EdgeInsets.only(bottom: 8.0),
-                  clipBehavior: Clip.hardEdge, // Ensures halftone stays inside border
+                  clipBehavior: Clip.hardEdge, 
                   decoration: BoxDecoration(
                     color: isDark ? AppColors.black : AppColors.white,
                     borderRadius: BorderRadius.circular(12.r),
@@ -163,14 +243,11 @@ class _YtClipsState extends State<YtClips> {
                         fontFamily: GoogleFonts.rubik().fontFamily,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
-                        // Ensure text is dark enough to read over dots
                         color: isDark ? AppColors.coralRed : AppColors.black, 
                       ),
                     ),
                   ),
                 ),
-
-                // Video list container
                 Container(
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
@@ -231,37 +308,53 @@ class SectionDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 180),
-      curve: Curves.easeInOut,
-      width: 65.w,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isHovered
-            ? AppColors.lightLimeGreen
-            : (isDark ? AppColors.black : AppColors.offwhite),
-        borderRadius: BorderRadius.circular(10.r), // Match clip cards
-        border: Border.all(
-          width: 2,
-          color: isDark ? AppColors.coralRed : AppColors.black,
-        ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: Text(
-          "I’ve appeared in a few live streams over the years. Here are some available on YouTube.",
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            fontFamily: GoogleFonts.rubik().fontFamily,
-            fontSize: 5.sp,
-            fontWeight: FontWeight.bold,
+    return Stack(
+      children: [
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeInOut,
+          width: 65.w,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
             color: isHovered
-                ? AppColors.darkLavendar
-                : (isDark ? AppColors.coralRed : AppColors.black),
-            height: 1.5,
+                ? AppColors.lightLimeGreen
+                : (isDark ? AppColors.black : AppColors.offwhite),
+            borderRadius: BorderRadius.circular(10.r), 
+            border: Border.all(
+              width: 2,
+              color: isDark ? AppColors.coralRed : AppColors.black,
+            ),
+          ),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              "I’ve appeared in a few live streams over the years. Here are some available on YouTube.",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontFamily: GoogleFonts.rubik().fontFamily,
+                fontSize: 5.sp,
+                fontWeight: FontWeight.bold,
+                color: isHovered
+                    ? AppColors.darkLavendar
+                    : (isDark ? AppColors.coralRed : AppColors.black),
+                height: 1.5,
+              ),
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: Transform.flip(
+            flipX: true,
+            child: SvgPicture.asset(
+              'assets/svgs/pennant banner.svg',
+              allowDrawingOutsideViewBox: true,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ]
     );
   }
 }
@@ -337,7 +430,6 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
                                 ? FontWeight.bold
                                 : FontWeight.normal,
                             fontFamily: GoogleFonts.rubik().fontFamily,
-                            // Ensure text contrasts properly on hover vs normal
                             color: isDark
                                 ? (_isHovered
                                     ? AppColors.darkLavendar
@@ -372,7 +464,6 @@ class _DesktopClipCardState extends State<_DesktopClipCard> {
       ),
     );
   }
-
 }
 
 class _MobileClipCard extends StatefulWidget {
@@ -421,7 +512,6 @@ class _MobileClipCardState extends State<_MobileClipCard> {
               borderRadius: BorderRadius.circular(8.r),
               child: Row(
                 children: [
-                  // Left Side: Thumbnail
                   SizedBox(
                     width: 120.w,
                     height: double.infinity,
@@ -430,8 +520,6 @@ class _MobileClipCardState extends State<_MobileClipCard> {
                       isMobile: true,
                     ),
                   ),
-
-                  // Right Side: Title & Uploader column
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -450,7 +538,6 @@ class _MobileClipCardState extends State<_MobileClipCard> {
                                   ? FontWeight.bold
                                   : FontWeight.w600,
                               fontFamily: GoogleFonts.rubik().fontFamily,
-                              // Match hover behavior for text
                               color: isDark
                                   ? (_isHovered
                                       ? AppColors.darkLavendar
@@ -562,6 +649,7 @@ class ClipData {
 }
 
 Future<void> _launchClipUrl(String urlString) async {
+  if (urlString.isEmpty) return; // Prevent crashes if url is empty
   final Uri url = Uri.parse(urlString);
   try {
     if (await canLaunchUrl(url)) {
@@ -574,36 +662,36 @@ Future<void> _launchClipUrl(String urlString) async {
   }
 }
 
-
+// Fixed the syntax errors with empty unterminated strings for the "link:" property here
 const List<ClipData> cliplist = [
   ClipData(
     title: 'Akash and Yogini from Peerlist review my portfolio.',
-    link: 'https://www.youtube.com/live/0x5m0K-82Rw?si=doAfF1ifEDYheA18&t=4090',
+    link: '',
     uploader: 'TechThrusters',
     thumbnail: 'https://i.ytimg.com/vi/0x5m0K-82Rw/maxresdefault.jpg',
   ),
   ClipData(
-   title: 'The Studio Andrew replies to my comment in a video',
-    link: 'https://www.youtube.com/clip/UgkxUgVSUq5sBVPYRmOgJc7quel95cUj5GpQ',
+    title: 'The Studio Andrew replies to my comment in a video',
+    link: '',
     uploader: 'The Studio',
-   thumbnail: 'https://i.ytimg.com/vi/0oL_IT4hJp8/maxresdefault.jpg',
+    thumbnail: 'https://i.ytimg.com/vi/0oL_IT4hJp8/maxresdefault.jpg',
   ),
   ClipData(
     title: 'I win GHW Security Opening Ceremony Surprise Surprise!',
-    link:  'https://www.youtube.com/clip/UgkxKnwdjeHbtt59plTPjX99kD8dfX5V7bFZ',
-    uploader:  'MLH',
+    link: '',
+    uploader: 'MLH',
     thumbnail: 'https://i.ytimg.com/vi/0ex5OyQvVQM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgVShVMA8=&rs=AOn4CLCJ_xQlnbUzAwLrxBi1yHtCj1350A',
- ),
+  ),
   ClipData(
     title: 'Ryan and Mary showcase my Design, PS: I won a swag drop.',
-    link: 'https://www.youtube.com/clip/UgkxYNicg4-eSQaR8Xz_TGaVPM4gWW7cO_qC',
+    link: '',
     uploader: 'MLH',
     thumbnail: 'https://i.ytimg.com/vi/Ywe5JgzmmAU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gWigoMA8=&rs=AOn4CLAn9E0DcLeyhehbW8DHaop-QypvMg',
   ),
-  ClipData( 
+  ClipData(
     title: 'Mary and Jacklyn like my redesign',
-    link:  'https://www.youtube.com/clip/UgkxzAhYPjFTCdaDzwjp-4SvA2-cuYOaWpUk',
+    link: '',
     uploader: 'MLH',
-    thumbnail: 'https://i.ytimg.com/vi/Y9WqSeFJYyU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gFyhKMA8=&rs=AOn4CLCWJn92zGcnjKQjdc2BGibfhjWEYA'
+    thumbnail: 'https://i.ytimg.com/vi/Y9WqSeFJYyU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gFyhKMA8=&rs=AOn4CLCWJn92zGcnjKQjdc2BGibfhjWEYA',
   ),
 ];

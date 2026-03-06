@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 class LinkCard extends StatelessWidget {
   const LinkCard({super.key,
   required this.vlink,
+  required this.vbuttoncolor,
   required this.imageUrl,
   required this.vtext,
   required this.vicon,
@@ -16,6 +17,7 @@ class LinkCard extends StatelessWidget {
   });
 
   final String vlink;
+  final Color vbuttoncolor;
   final String imageUrl;
   final String vtext;
   final dynamic vicon;
@@ -42,8 +44,8 @@ class LinkCard extends StatelessWidget {
                 );
           },
           child: SizedBox(
-            width: wide? 120.w : 50.w,
-            height: wide? 50.w: 120.w,
+            width: wide? 120.w : 60.w,
+            height: wide? 50.w: 80.w,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -139,8 +141,8 @@ class LinkCard extends StatelessWidget {
                       link: vlink,
                       icon: vicon,
                       pfname: vtext,
-                      pfcolor: AppColors.paleAqua,
-                      vmainaxissize: MainAxisSize.min,
+                      pfcolor: vbuttoncolor,
+                      vmainaxissize: wide? MainAxisSize.min : MainAxisSize.max,
                     )
                     )
               ],
