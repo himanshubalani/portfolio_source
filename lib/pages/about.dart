@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,11 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
+
+  bool get isDark {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +125,8 @@ class _AboutPageState extends State<AboutPage> {
                                         'https://qjvybcivwgqrmexvyzuq.supabase.co/storage/v1/object/public/gallery/test/user_sole_owner/2025-11-27T13-21-21.665005Z_326576.jpg',
                                     vicon: FontAwesomeIcons.recordVinyl,
                                     vframecolor: AppColors.creamPeach,
-                                    vtext: 'Photo Album',
+                                    vbuttoncolor: AppColors.paleAqua,
+                                    vtext: 'photo album',
                                     wide: true)),
                           ]
                               .map((e) => Padding(
@@ -172,7 +179,22 @@ class _AboutPageState extends State<AboutPage> {
                         width: MediaQuery.of(context).size.width * 0.08,
                       ),
                       RepaintBoundary(
-                        child: const YtClips(),
+                        child: Container(
+                          constraints: 
+                            BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width,
+                            ),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            children: [
+                             LinkCard(vlink: 'sessionize', imageUrl: 'https://raw.githubusercontent.com/himanshubalani/himanshubalani.github.io/refs/heads/main/assets/assets/images/talksimage.webp', vtext: 'talks', vicon: SimpleIcons.sessionize, vframecolor: AppColors.offwhite, vbuttoncolor: AppColors.sessionize, wide: false),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              const YtClips(),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -184,7 +206,7 @@ class _AboutPageState extends State<AboutPage> {
                 left: 0,
                 top: MediaQuery.of(context).size.height / 2.5,
                 child: Transform.rotate(
-                  angle: -pi / 2, // Rotate 90 degrees clockwise
+                  angle: -math.pi / 2, // Rotate 90 degrees clockwise
                   child: Text(
                     "about",
                     style: TextStyle(
@@ -202,6 +224,17 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ),
               ),
+          //testing svg, to not delete until i find a solution to Positioned problem for Responsive design
+          //     Positioned(
+          //   top: 5.dg,
+          //   right: MediaQuery.of(context).size.width / 7,
+          //   child: SvgPicture.asset(
+          //   'assets/svgs/Emphasis1.svg',
+          //   colorFilter: isDark ? ColorFilter.mode(AppColors.skyBlue, BlendMode.colorBurn) : null,
+          //   allowDrawingOutsideViewBox: true,
+          //   fit: BoxFit.cover,
+          //             ),
+          // ),
             ],
           ),
         ),
@@ -385,23 +418,23 @@ class OtherLinks extends StatelessWidget {
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
           icon: SimpleIcons.notion,
-          pfname: 'list of events   ',
+          pfname: 'list of events',
           pfcolor: AppColors.black,
           vmainaxissize: MainAxisSize.min,
         ),
-        SocialLinkButton(
-          link:
-              'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website',
-          icon: SimpleIcons.sessionize,
-          pfname: 'talks ',
-          pfcolor: AppColors.sessionize,
-          vmainaxissize: MainAxisSize.min,
-        ),
+        // SocialLinkButton(
+        //   link:
+        //       'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website',
+        //   icon: SimpleIcons.sessionize,
+        //   pfname: 'talks ',
+        //   pfcolor: AppColors.sessionize,
+        //   vmainaxissize: MainAxisSize.min,
+        // ),
         SocialLinkButton(
           link:
               "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
           icon: SimpleIcons.orcid,
-          pfname: 'published thesis on LLMs',
+          pfname: 'paper on LLMs',
           pfcolor: AppColors.orchid,
           vmainaxissize: MainAxisSize.min,
         ),

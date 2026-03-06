@@ -1,5 +1,7 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -147,14 +149,13 @@ class _HomePageState extends State<HomePage> {
         GoogleFonts.outfit(fontWeight: FontWeight.bold).fontFamily;
     return Stack(
       children: [
-        // const CustomSnackbarContainer(),
         const AnimatedPillsBackground(
           rows: 10,
           columns: 24,
           color: AppColors.discord,
           duration: Duration(seconds: 4),
         ),
-                Positioned(
+        Positioned(
           bottom: 15.h,
           left: -1,
           child: const ShortcutsText(),
@@ -232,6 +233,35 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+        //testing svg, to not delete until i find a solution to Positioned problem for Responsive design
+        // Positioned(
+        //     top: 130.h,
+        //     right: 70.w,
+        //     child: Transform.rotate(
+        //         angle: 0.3,
+        //         child: SvgPicture.asset(
+        //           'assets/svgs/crown.svg',
+        //           colorFilter:isDark ? ColorFilter.mode(AppColors.brightOrange, BlendMode.colorBurn) : null,
+        //         )
+        //         )
+        //         ),
+        //         Positioned(
+        //     top: 150.h,
+        //     right: 150.w,
+        //     child: Transform.rotate(
+        //         angle: math.pi / 2.3,
+        //         child: ColoredBox(
+        //           color: isDark ? AppColors.darkPurple : Colors.transparent,
+        //           child: Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: SvgPicture.asset(
+        //               'assets/svgs/Arrow1.svg',
+        //               colorFilter:isDark ? ColorFilter.mode(AppColors.darkPurple, BlendMode.colorBurn) : null,
+        //             ),
+        //           ),
+        //         )
+        //         )
+        //         ),
       ],
     );
   }
