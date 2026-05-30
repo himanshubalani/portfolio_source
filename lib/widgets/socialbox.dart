@@ -155,7 +155,7 @@ class SocialLinkButton extends StatelessWidget {
                           GoogleFonts.quicksand(fontWeight: FontWeight.bold)
                               .fontFamily,
                       color: AppColors.white,
-                      overflow: TextOverflow.ellipsis,
+
                     ),
                   )
                 ]

@@ -65,29 +65,29 @@ class LinkCard extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                     color: frameColor, // Dynamic Background
-                    borderRadius: BorderRadius.circular(10.r),
-                    boxShadow: isDark
-                        ? [
-                            BoxShadow(
-                              color: borderColor.withValues(alpha: 0.9),
-                              blurRadius: 12,
-                              spreadRadius: 1,
-                            ),
-                            BoxShadow(
-                              color: borderColor.withValues(alpha: 0.5),
-                              blurRadius: 30,
-                              spreadRadius: 6,
-                            ),
-                            BoxShadow(
-                              color: borderColor.withValues(alpha: 0.25),
-                              blurRadius: 60,
-                              spreadRadius: 12,
-                            ),
-                          ]
-                        : [],
+                    borderRadius: BorderRadius.circular(20.r),
+                    // boxShadow: isDark
+                    //     ? [
+                    //         BoxShadow(
+                    //           color: borderColor.withValues(alpha: 0.9),
+                    //           blurRadius: 12,
+                    //           spreadRadius: 1,
+                    //         ),
+                    //         BoxShadow(
+                    //           color: borderColor.withValues(alpha: 0.5),
+                    //           blurRadius: 30,
+                    //           spreadRadius: 3,
+                    //         ),
+                    //         BoxShadow(
+                    //           color: borderColor.withValues(alpha: 0.25),
+                    //           blurRadius: 60,
+                    //           spreadRadius: 6,
+                    //         ),
+                    //       ]
+                    //     : [],
                     border: Border.all(
                       color: borderColor, // Dynamic Border
-                      width: 3.0,
+                      width: 2,
                     ),
                   ),
                   padding: const EdgeInsets.all(5),
@@ -100,10 +100,10 @@ class LinkCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: borderColor, width: borderWidth),
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(16.r),
                             child: Image.network(
                               imageUrl,
                               fit: BoxFit.cover,

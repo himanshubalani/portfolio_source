@@ -1,7 +1,5 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -270,8 +268,8 @@ class _HomePageState extends State<HomePage> {
     return Stack(
       children: [
         const AnimatedPillsBackground(
-          rows: 10,
-          columns: 8,
+          rows: 16,
+          columns: 4,
           color: AppColors.discord,
           duration: Duration(seconds: 4),
         ),

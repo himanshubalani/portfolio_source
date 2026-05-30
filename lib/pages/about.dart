@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -117,8 +116,12 @@ class _AboutPageState extends State<AboutPage> {
                               width: 120.w,
                               child: const OtherLinks(),
                             ),
-                            RepaintBoundary(
-                                child: LinkCard(
+
+                           const  RepaintBoundary(
+                                child:
+                                Wrap(
+                                  children: [
+                                LinkCard(
                                     vlink:
                                         'https://album.himanshubalani.com?utm_source=portfolio',
                                     imageUrl:
@@ -127,7 +130,11 @@ class _AboutPageState extends State<AboutPage> {
                                     vframecolor: AppColors.creamPeach,
                                     vbuttoncolor: AppColors.paleAqua,
                                     vtext: 'photo album',
-                                    wide: true)),
+                                    wide: true
+                                )
+                                  ],
+                                ),
+                           ),
                           ]
                               .map((e) => Padding(
                                   padding: const EdgeInsets.all(12.0),
@@ -173,10 +180,10 @@ class _AboutPageState extends State<AboutPage> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.06,
                       ),
                       RepaintBoundary(
                         child: Container(
@@ -187,11 +194,20 @@ class _AboutPageState extends State<AboutPage> {
                           child: Wrap(
                             alignment: WrapAlignment.spaceBetween,
                             children: [
-                             LinkCard(vlink: 'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website', imageUrl: 'https://raw.githubusercontent.com/himanshubalani/himanshubalani.github.io/refs/heads/main/assets/assets/images/talksimage.webp', vtext: 'talks', vicon: SimpleIcons.sessionize, vframecolor: AppColors.offwhite, vbuttoncolor: AppColors.sessionize, wide: false),
+                             const LinkCard(vlink: 'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website', imageUrl: 'https://raw.githubusercontent.com/himanshubalani/himanshubalani.github.io/refs/heads/main/assets/assets/images/talksimage.webp', vtext: 'talks', vicon: SimpleIcons.sessionize, vframecolor: AppColors.offwhite, vbuttoncolor: AppColors.sessionize, wide: false),
                               SizedBox(
-                                width: 10.w,
+                                width: 2.w,
                               ),
-                              const YtClips(),
+                              // LiveMusicWidget(),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 3.w,
+                                  ),
+                                  const YtClips(),
+                                  // LiveMusicWidget(),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -245,9 +261,9 @@ class _AboutPageState extends State<AboutPage> {
   Widget mobileAboutpage() {
     return Stack(
       children: [
-        AnimatedPillsBackground(
-          rows: 10,
-          columns: 8,
+        const AnimatedPillsBackground(
+          rows: 16,
+          columns: 4,
           color: AppColors.royalBlue,
           duration: Duration(seconds: 4),
         ),
@@ -280,7 +296,10 @@ class _AboutPageState extends State<AboutPage> {
                   _aboutDesc(),
                   RepaintBoundary(child: SkillsBento()),
                   SizedBox(height: 10.w),
-                  const OtherLinks(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const OtherLinks(),
+                  ),
                   SizedBox(height: 10.w),
                   Container(
                     constraints: BoxConstraints(
@@ -306,12 +325,12 @@ class _AboutPageState extends State<AboutPage> {
                   SizedBox(height: 10.w),
                   RepaintBoundary(child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 4.h),
-                    child: Align(alignment: Alignment.centerLeft,
+                    child: const Align(alignment: Alignment.centerLeft,
                     child: LinkCard(vlink: 'https://sessionize.com/himanshubalani/?ref=portfolio&utm_medium=website', imageUrl: 'https://raw.githubusercontent.com/himanshubalani/himanshubalani.github.io/refs/heads/main/assets/assets/images/talksimage.webp', vtext: 'talks', vicon: SimpleIcons.sessionize, vframecolor: AppColors.offwhite, vbuttoncolor: AppColors.sessionize, wide: false)),
                   )),
                   RepaintBoundary(child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 4.h),
-                    child: Align(alignment: Alignment.centerLeft,
+                    child: const Align(alignment: Alignment.centerLeft,
                     child: LinkCard(
                                     vlink:
                                         'https://album.himanshubalani.com?utm_source=portfolio',
@@ -323,9 +342,14 @@ class _AboutPageState extends State<AboutPage> {
                                     vtext: 'photo album',
                                     wide: true)),
                   )),
-                  RepaintBoundary(
-                    child: const YtClips(),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  //   child: LiveMusicWidgetPill(),
+                  // ),
+                  const RepaintBoundary(
+                    child: YtClips(),
+                    ),
+
                   SizedBox(height: 10.w),
                   NeoBrutalContainer(
                       text: "see projects next",
@@ -362,22 +386,27 @@ class _AboutPageState extends State<AboutPage> {
           NeoBrutalBox(
             headerText: "about me",
             headerColor: Colors.redAccent,
-            containerChild: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Text(
-                  '''I'm Himanshu Balani, a Computer Science graduate from India. I love building random tools that help my work. My most recent job was to write SEO ranking content for ToolJet, where I did a dive deep into working with their platform and wrote over 10 blogs for them. I "try" to maintain a personal blog where I share what I learn along the way too. Feel free to check it out! I also love interacting with folks and have been a speaker 4 times. Things I enjoy: astronomy, physics, computers and finding out how things work under the hood. If you're into building cool things or just want to chat about tech, please reach out!''',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: Get.width <= 900 ? 12.sp : 4.sp,
-                    fontWeight: FontWeight.normal,
-                    fontFamily: GoogleFonts.rubik().fontFamily,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                    height: 1.8,
-                  ),
-                );
-              },
+            containerChild: Column(
+              children: [
+                LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Text(
+                      '''I'm Himanshu Balani, a Computer Science graduate from India. I love building random tools that help my work. My most recent job was to write SEO ranking content for ToolJet, where I did a dive deep into working with their platform and wrote over 10 blogs for them. I "try" to maintain a personal blog where I share what I learn along the way too. Feel free to check it out! I also love interacting with folks and have been a speaker 4 times. Things I enjoy: astronomy, physics, computers and finding out how things work under the hood. If you're into building cool things or just want to chat about tech, please reach out!''',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: Get.width <= 900 ? 12.sp : 4.sp,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: GoogleFonts.rubik().fontFamily,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                        height: 1.8,
+                      ),
+                    );
+                  },
+                ),
+                // LiveMusicWidget(),
+              ],
             ),
           ),
         ],
@@ -422,11 +451,11 @@ class OtherLinks extends StatelessWidget {
     return Wrap(
       spacing: Get.width <= 900 ? 4 : 12,
       runSpacing: Get.width <= 900 ? 4 : 15,
-      runAlignment: WrapAlignment.end,
+      runAlignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.end,
       children: [
-        SocialLinkButton(
+        const SocialLinkButton(
           link:
               'https://himanshubalani.notion.site/187decd95c4c4197ad2cd8053cb85b80?v=ee7f6c0db0044487964238ffc2589b29&ref=portfolio&utm_medium=website',
           icon: SimpleIcons.notion,
@@ -434,7 +463,7 @@ class OtherLinks extends StatelessWidget {
           pfcolor: AppColors.black,
           vmainaxissize: MainAxisSize.min,
         ),
-        SocialLinkButton(
+        const SocialLinkButton(
           link:
               "https://doi.org/10.1063/5.0234110?ref=portfolio&utm_medium=website",
           icon: SimpleIcons.orcid,

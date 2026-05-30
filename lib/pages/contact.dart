@@ -110,8 +110,8 @@ class MobileSocialPage extends StatelessWidget {
     return Stack(children: [
       const Positioned(
             child: AnimatedPillsBackground(
-          rows: 10,
-          columns: 8,
+          rows: 16,
+          columns: 4,
           duration: Duration(seconds: 4),
         color: AppColors.lavenderPink,
       )),

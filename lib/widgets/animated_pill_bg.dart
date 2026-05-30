@@ -8,7 +8,7 @@ class AnimatedPillsBackground extends StatefulWidget {
     this.columns,
     this.color = Colors.blueGrey,
     this.duration = const Duration(seconds: 5),
-    this.pillAspectRatio = 0.15,
+    this.pillAspectRatio = 0.4,
   });
 
   /// Number of rows of pills (auto-calculated if null)
@@ -88,7 +88,7 @@ class _AnimatedPillsBackgroundState extends State<AnimatedPillsBackground>
   double _animatedOpacity(_Pill pill, double t) {
     final anim = sin((t * 2 * pi) + pill.delay);
     final normalized = (anim + 1) / 2;
-    return 0.1 + normalized * 0.4;
+    return 0.1 + normalized * 0.3;
   }
 
   @override

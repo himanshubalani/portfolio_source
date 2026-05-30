@@ -141,7 +141,7 @@ class AppColors {
   static const Color discord = Color(0xFF7289DA);
   static const Color peerlist = Color(0xFF00ab46);
   static const Color sessionize = Color(0xFF1AB394);
-  static const Color youtube = Color(0xFFFF0000);
+  static const Color youtube = Color(0xFFEE0f0F);
   static const Color orchid = Color(0xFFA1C837);
   static const Color letterboxd = Color(0xFFFF8000);
 
